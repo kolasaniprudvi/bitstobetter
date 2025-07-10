@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Metadata for responsive design and character encoding -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BitsToBetter - Learn and Grow</title>
+
+  <!-- Google Fonts for better typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a1a;
+      --accent: #3b82f6;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1a1a1a;
+        --text: #f1f1f1;
+        --accent: #60a5fa;
+      }
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: var(--accent);
+      color: #fff;
+    }
+
+    nav h1 {
+      font-size: 1.5rem;
+      margin-right: 2rem;
+    }
+
+    .menu {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 2rem;
+      left: 0;
+      background: #fff;
+      color: var(--text);
+      min-width: 150px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      z-index: 10;
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 0.5rem 1rem;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    header.hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2rem;
+      text-align: center;
+      background: linear-gradient(to right, #e0f2fe, #fef3c7);
+    }
+
+    header.hero h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    header.hero img {
+      max-width: 100%;
+      height: auto;
+      margin-top: 2rem;
+      border-radius: 1rem;
+    }
+
+    .container {
+      padding: 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      background: #f3f4f6;
+    }
+
+    .footer-links {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-links a {
+      margin: 0 1rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation bar with individual dropdowns -->
+  <nav>
+    <h1>BitsToBetter</h1>
+    <div class="menu">
+      <div class="dropdown">
+        <span>SQL</span>
+        <div class="dropdown-content">
+          <a href="#">Basics</a>
+          <a href="#">Joins</a>
+          <a href="#">Performance</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <span>PLSQL</span>
+        <div class="dropdown-content">
+          <a href="#">Procedures</a>
+          <a href="#">Functions</a>
+          <a href="#">Triggers</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <span>UNIX</span>
+        <div class="dropdown-content">
+          <a href="#">Shell</a>
+          <a href="#">Scripting</a>
+          <a href="#">Tools</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <span>Informatica</span>
+        <div class="dropdown-content">
+          <a href="#">Mappings</a>
+          <a href="#">Sessions</a>
+          <a href="#">Tuning</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <span>ODI</span>
+        <div class="dropdown-content">
+          <a href="#">Interfaces</a>
+          <a href="#">Packages</a>
+          <a href="#">Scenarios</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero section with updated image -->
+  <header class="hero">
+    <h2>Start from Bit and Make it Better</h2>
+    <p>From basics to intelligence — Nurture your skills, one byte at a time.</p>
+    <img src="https://media.istockphoto.com/id/2155769551/photo/digital-data-tunnel-information-flow.jpg?s=1024x1024&w=is&k=20&c=vw71yfcfRDXiFmGqzsepvczm-9AqEJdRZOTy7kRwtnA=" alt="Learning and Growth" />
+  </header>
+
+  <!-- Footer with navigation links -->
+  <footer>
+    <div class="footer-links">
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <p>&copy; 2025 BitsToBetter. All rights reserved.</p>
+  </footer>
+</body>
+</html>
