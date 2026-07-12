@@ -1,76 +1,856 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="Content-Security-Policy" content="img-src 'self' data: https://bitstobetter.com;" />
-    <meta name="robots" content="index, follow" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BitsToBetter - AI-Powered Fintech Solutions | Transform Your Wealth</title>
-    <meta name="description" content="Transform your wealth with BitsToBetter's AI-powered fintech solutions. Smart portfolio management, digital wealth strategies, and automated financial optimization for better investment outcomes." />
-    <meta name="keywords" content="fintech, AI finance, wealth management, investment technology, portfolio optimization, financial planning, cryptocurrency, digital assets, automated investing" />
-    <meta name="author" content="BitsToBetter" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BitsToBetter | Universal Enterprise Financial Calculators Hub</title>
+    <meta name="description" content="All-in-one institutional-grade financial intelligence engine for Indian tax laws, sovereign schemes, personal loans, and retirement strategies.">
     
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://bitstobetter.com/" />
-    <meta property="og:title" content="BitsToBetter - AI-Powered Fintech Solutions" />
-    <meta property="og:description" content="Transform your wealth with AI-powered fintech solutions. Smart portfolio management and automated financial optimization." />
-    <meta property="og:image" content="https://bitstobetter.com/og-image.jpg" />
-    <meta property="og:site_name" content="BitsToBetter" />
-    
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://bitstobetter.com/" />
-    <meta property="twitter:title" content="BitsToBetter - AI-Powered Fintech Solutions" />
-    <meta property="twitter:description" content="Transform your wealth with AI-powered fintech solutions. Smart portfolio management and automated financial optimization." />
-    <meta property="twitter:image" content="https://bitstobetter.com/og-image.jpg" />
-    
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://bitstobetter.com/" />
-    
-    <!-- Preconnect to external domains -->
-    <link rel="preconnect" href="https://images.pexels.com" />
-    <link rel="dns-prefetch" href="https://images.pexels.com" />
-    
-    <!-- Structured Data -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "FinancialService",
-      "name": "BitsToBetter",
-      "description": "AI-powered fintech solutions for wealth management and investment optimization",
-      "url": "https://bitstobetter.com",
-      "logo": "https://bitstobetter.com/logo.png",
-      "sameAs": [
-        "https://www.linkedin.com/company/bitstobetter",
-        "https://twitter.com/bitstobetter"
-      ],
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "456 Innovation Drive",
-        "addressLocality": "San Francisco",
-        "addressRegion": "CA",
-        "postalCode": "94105",
-        "addressCountry": "US"
-      },
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+1-555-BITS-2-BETTER",
-        "contactType": "customer service",
-        "email": "info@bitstobetter.com"
-      },
-      "serviceType": [
-        "Investment Management",
-        "Wealth Planning",
-        "Financial Technology",
-        "Portfolio Optimization"
-      ]
+      "@type": "SoftwareApplication",
+      "name": "BitsToBetter Universal Financial Suites",
+      "operatingSystem": "All",
+      "applicationCategory": "FinanceApplication",
+      "browserRequirements": "Requires JavaScript. Requires HTML5 Canvas.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "INR"
+      }
     }
     </script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .calc-panel { display: none; }
+        .calc-panel.active { display: block; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col">
+
+    <header class="bg-slate-900 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    <span class="font-bold text-2xl tracking-tight">BitsTo<span class="text-blue-400">Better</span></span>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#" class="text-slate-300 hover:text-white px-3 py-2 text-sm font-medium">Home</a>
+                    <a href="#" class="text-white border-b-2 border-blue-400 px-3 py-2 text-sm font-medium">Finance</a>
+                    <a href="#" class="text-slate-300 hover:text-white px-3 py-2 text-sm font-medium">Tech</a>
+                    <a href="#" class="text-slate-300 hover:text-white px-3 py-2 text-sm font-medium">Lifestyle</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+        
+        <div class="mb-6">
+            <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Universal Financial Engineering Suite</h1>
+            <p class="text-slate-600 mt-1">Enterprise-grade planning matrices, analytical reporting, and visualizations for Indian personal finance architectures.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            
+            <div class="lg:col-span-1 space-y-4">
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden sticky top-20">
+                    
+                    <div class="bg-slate-800 text-slate-200 text-xs font-bold px-4 py-2 uppercase tracking-wider">General Interest</div>
+                    <ul class="divide-y divide-slate-100 font-medium text-sm">
+                        <li><button onclick="switchCalc('si')" id="btn-si" class="w-full text-left px-4 py-3 text-slate-600 hover:bg-slate-50 hover:text-blue-600 transition-colors border-l-4 border-transparent">Simple Interest Engine</button></li>
+                        <li><button onclick="switchCalc('ci')" id="btn-ci" class="w-full text-left px-4 py-3 text-slate-600 hover:bg-slate-50 hover:text-blue-600 transition-colors border-l-4 border-transparent">Compound Interest Engine</button></li>
+                    </ul>
+
+                    <div class="bg-slate-800 text-slate-200 text-xs font-bold px-4 py-2 uppercase tracking-wider">Debt & Loans</div>
+                    <ul class="divide-y divide-slate-100 font-medium text-sm">
+                        <li><button onclick="switchCalc('emi')" id="btn-emi" class="w-full text-left px-4 py-3 text-slate-600 hover:bg-slate-50 hover:text-blue-600 transition-colors border-l-4 border-transparent">Advanced Loan EMI Engine</button></li>
+                    </ul>
+
+                    <div class="bg-slate-800 text-slate-200 text-xs font-bold px-4 py-2 uppercase tracking-wider">Retirement & Accumulation</div>
+                    <ul class="divide-y divide-slate-100 font-medium text-sm">
+                        <li><button onclick="switchCalc('fire')" id="btn-fire" class="w-full text-left px-4 py-3 bg-blue-50 text-blue-700 font-semibold border-l-4 border-blue-500 transition-all">FIRE Asset Blueprint</button></li>
+                        <li><button onclick="switchCalc('mutual')" id="btn-mutual" class="w-full text-left px-4 py-3 text-slate-600 hover:bg-slate-50 hover:text-blue-600 transition-colors border-l-4 border-transparent">Mutual Funds (SIP / SWP / Lumpsum)</button></li>
+                    </ul>
+
+                    <div class="bg-slate-800 text-slate-200 text-xs font-bold px-4 py-2 uppercase tracking-wider">Banking Fixed Income</div>
+                    <ul class="divide-y divide-slate-100 font-medium text-sm">
+                        <li><button onclick="switchCalc('fd')" id="btn-fd" class="w-full text-left px-4 py-3 text-slate-600 hover:bg-slate-50 hover:text-blue-600 transition-colors border-l-4 border-transparent">Fixed Deposit (TDR / STDR)</button></li>
+                        <li><button onclick="switchCalc('rd')" id="btn-rd" class="w-full text-left px-4 py-3 text-slate-600 hover:bg-slate-50 hover:text-blue-600 transition-colors border-l-4 border-transparent">Recurring Deposit (RD)</button></li>
+                    </ul>
+
+                    <div class="bg-slate-800 text-slate-200 text-xs font-bold px-4 py-2 uppercase tracking-wider">Sovereign Savings (Govt)</div>
+                    <ul class="divide-y divide-slate-100 font-medium text-sm">
+                        <li><button onclick="switchCalc('ppf')" id="btn-ppf" class="w-full text-left px-4 py-3 text-slate-600 hover:bg-slate-50 hover:text-blue-600 transition-colors border-l-4 border-transparent">Public Provident Fund (PPF)</button></li>
+                        <li><button onclick="switchCalc('ssa')" id="btn-ssa" class="w-full text-left px-4 py-3 text-slate-600 hover:bg-slate-50 hover:text-blue-600 transition-colors border-l-4 border-transparent">Sukanya Samriddhi (SSA)</button></li>
+                        <li><button onclick="switchCalc('scss')" id="btn-scss" class="w-full text-left px-4 py-3 text-slate-600 hover:bg-slate-50 hover:text-blue-600 transition-colors border-l-4 border-transparent">Senior Citizen Scheme (SCSS)</button></li>
+                        <li><button onclick="switchCalc('pomis')" id="btn-pomis" class="w-full text-left px-4 py-3 text-slate-600 hover:bg-slate-50 hover:text-blue-600 transition-colors border-l-4 border-transparent">Post Office MIS (POMIS)</button></li>
+                        <li><button onclick="switchCalc('kvp')" id="btn-kvp" class="w-full text-left px-4 py-3 text-slate-600 hover:bg-slate-50 hover:text-blue-600 transition-colors border-l-4 border-transparent">Kisan Vikas Patra (KVP)</button></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="lg:col-span-3 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                
+                <!-- ENGINE: SIMPLE INTEREST -->
+                <div id="panel-si" class="calc-panel">
+                    <div class="bg-gradient-to-r from-cyan-600 to-blue-800 text-white p-6">
+                        <h2 class="text-2xl font-bold">Simple Interest Engine</h2>
+                        <p class="text-cyan-100 text-sm mt-1">Calculates flat interest growth with term-based constraints and dynamic payout models.</p>
+                    </div>
+                    <div class="p-6 space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Principal Amount (₹)</label><input type="number" id="siPrincipal" value="100000" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold outline-none focus:ring-2 focus:ring-cyan-500"></div>
+                            <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Interest Rate (% p.a.)</label><input type="number" id="siRate" value="8" step="0.1" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold outline-none focus:ring-2 focus:ring-cyan-500"></div>
+                            
+                            <div class="grid grid-cols-2 gap-2">
+                                <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Tenure</label><input type="number" id="siTenureVal" value="5" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold outline-none focus:ring-2 focus:ring-cyan-500"></div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Unit</label>
+                                    <select id="siTenureUnit" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold outline-none">
+                                        <option value="Y" selected>Years</option>
+                                        <option value="M">Months</option>
+                                        <option value="D">Days</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Payout Option</label>
+                                <select id="siPayout" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold outline-none">
+                                    <option value="CUMULATIVE" selected>Cumulative (Paid at Maturity)</option>
+                                    <option value="MONTHLY">Monthly Interest Payout</option>
+                                    <option value="YEARLY">Yearly Interest Payout</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button onclick="runSiEngine()" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 rounded-lg shadow-sm transition-all">Calculate Simple Interest</button>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                            <div class="space-y-3">
+                                <div class="bg-cyan-50 p-4 rounded-lg border border-cyan-200"><span class="text-xs font-bold text-cyan-800 uppercase block">Total Earned Interest</span><span id="outSiInterest" class="text-3xl font-black text-cyan-900 mt-1 block">-</span></div>
+                                <div class="bg-slate-50 p-3 rounded-lg border"><span class="text-xs font-semibold text-slate-500 block">Total Principal</span><span id="outSiPrincipal" class="text-lg font-bold text-slate-800">-</span></div>
+                                <div class="bg-slate-50 p-3 rounded-lg border"><span class="text-xs font-semibold text-slate-500 block">Gross Maturity Value</span><span id="outSiMaturity" class="text-lg font-bold text-slate-800">-</span></div>
+                                <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200"><span id="lblSiPayout" class="text-xs font-bold text-indigo-800 uppercase block">Periodic Payout (If Selected)</span><span id="outSiPayout" class="text-xl font-bold text-indigo-900 mt-1 block">-</span></div>
+                            </div>
+                            <div class="h-56 relative flex justify-center"><canvas id="chartSi"></canvas></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ENGINE: COMPOUND INTEREST -->
+                <div id="panel-ci" class="calc-panel">
+                    <div class="bg-gradient-to-r from-indigo-600 to-purple-800 text-white p-6">
+                        <h2 class="text-2xl font-bold">Compound Interest Engine</h2>
+                        <p class="text-indigo-100 text-sm mt-1">Calculates exponential interest growth with dynamic compounding frequencies.</p>
+                    </div>
+                    <div class="p-6 space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Principal Amount (₹)</label><input type="number" id="ciPrincipal" value="100000" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold outline-none focus:ring-2 focus:ring-indigo-500"></div>
+                            <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Interest Rate (% p.a.)</label><input type="number" id="ciRate" value="8" step="0.1" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold outline-none focus:ring-2 focus:ring-indigo-500"></div>
+                            
+                            <div class="grid grid-cols-2 gap-2">
+                                <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Tenure</label><input type="number" id="ciTenureVal" value="5" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold outline-none focus:ring-2 focus:ring-indigo-500"></div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Unit</label>
+                                    <select id="ciTenureUnit" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold outline-none">
+                                        <option value="Y" selected>Years</option>
+                                        <option value="M">Months</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Compounding Frequency</label>
+                                <select id="ciFrequency" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold outline-none">
+                                    <option value="1">Annually</option>
+                                    <option value="2">Half-Yearly</option>
+                                    <option value="4">Quarterly</option>
+                                    <option value="12" selected>Monthly</option>
+                                    <option value="365">Daily</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button onclick="runCiEngine()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg shadow-sm transition-all">Calculate Compound Interest</button>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                            <div class="space-y-3">
+                                <div class="bg-indigo-50 p-4 rounded-lg border border-indigo-200"><span class="text-xs font-bold text-indigo-800 uppercase block">Total Earned Interest</span><span id="outCiInterest" class="text-3xl font-black text-indigo-900 mt-1 block">-</span></div>
+                                <div class="bg-slate-50 p-3 rounded-lg border"><span class="text-xs font-semibold text-slate-500 block">Total Principal</span><span id="outCiPrincipal" class="text-lg font-bold text-slate-800">-</span></div>
+                                <div class="bg-purple-50 p-3 rounded-lg border border-purple-200"><span class="text-xs font-bold text-purple-800 uppercase block">Gross Maturity Value</span><span id="outCiMaturity" class="text-xl font-bold text-purple-900 mt-1 block">-</span></div>
+                            </div>
+                            <div class="h-56 relative flex justify-center"><canvas id="chartCi"></canvas></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ENGINE: FIRE MODEL -->
+                <div id="panel-fire" class="calc-panel active">
+                    <div class="bg-gradient-to-r from-blue-700 to-blue-900 text-white p-6">
+                        <h2 class="text-2xl font-bold">FIRE Strategic Asset Architecture</h2>
+                        <p class="text-blue-100 text-sm mt-1">Advanced computational metrics to map inflation milestones, insurance parameters, safety buffers, and distribute precise asset blueprints.</p>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Current Age</label><input type="number" id="fireAge" value="35" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold outline-none focus:ring-2 focus:ring-blue-500"></div>
+                            <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Retirement Target</label><input type="number" id="fireRetire" value="45" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold outline-none focus:ring-2 focus:ring-blue-500"></div>
+                            <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Monthly Expenses (Today's ₹)</label><input type="number" id="fireExpenses" value="80000" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold outline-none focus:ring-2 focus:ring-blue-500"></div>
+                            <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Inflation Rate (% p.a.)</label><input type="number" id="fireInflation" value="6" step="0.1" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold outline-none focus:ring-2 focus:ring-blue-500"></div>
+                            <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Safe Withdrawal Rate (%) [SWR]</label><input type="number" id="fireSwr" value="4" step="0.1" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold outline-none focus:ring-2 focus:ring-blue-500"></div>
+                            <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Expected Asset Return (%)</label><input type="number" id="fireReturn" value="12" step="0.1" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold outline-none focus:ring-2 focus:ring-blue-500"></div>
+                        </div>
+                        <button onclick="runFireEngine()" class="w-full bg-blue-700 hover:bg-blue-800 text-white font-bold py-3 rounded-lg shadow-sm transition-all">Execute FIRE Vector</button>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                            <div class="space-y-3">
+                                <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200 shadow-sm"><span class="text-xs font-bold text-yellow-800 uppercase block">Target Inflation-Adjusted Corpus</span><span id="outFireCorpus" class="text-2xl font-black text-slate-900">-</span></div>
+                                <div class="bg-blue-50 p-4 rounded-lg border border-blue-200 shadow-sm"><span class="text-xs font-bold text-blue-800 uppercase block">Required Monthly SIP Amount</span><span id="outFireSIP" class="text-2xl font-black text-blue-900">-</span></div>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 shadow-sm">
+                                <h3 class="font-bold text-xs uppercase text-slate-700 mb-2 border-b pb-1 tracking-wider">Strategic Split Blueprint</h3>
+                                <div id="fireBlueprintGrid" class="space-y-2 text-xs font-semibold">
+                                    <!-- Dynamic layout injection maps here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANEL: LOAN EMI -->
+                <div id="panel-emi" class="calc-panel">
+                    <div class="bg-gradient-to-r from-emerald-600 to-teal-800 text-white p-6">
+                        <h2 class="text-2xl font-bold">Advanced Loan EMI Analytics Engine</h2>
+                        <p class="text-emerald-100 text-sm mt-1">Generates deep amortization schedules, graphical breakdowns, and calculation matrices for debt structures.</p>
+                    </div>
+                    <div class="p-6 space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Loan Principal Amount (₹)</label><input type="number" id="emiPrincipal" value="5000000" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold outline-none focus:ring-2 focus:ring-emerald-500"></div>
+                            <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Interest Rate (% p.a.)</label><input type="number" id="emiRate" value="8.5" step="0.05" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold outline-none focus:ring-2 focus:ring-emerald-500"></div>
+                            <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Tenure (Years)</label><input type="number" id="emiTenure" value="15" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold outline-none focus:ring-2 focus:ring-emerald-500"></div>
+                        </div>
+                        <button onclick="runEmiEngine()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-lg shadow-sm">Calculate Amortization Metrics</button>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-3">
+                                <div class="bg-emerald-50 p-4 rounded-lg border border-emerald-200"><span class="text-xs font-bold text-emerald-800 uppercase block">Monthly Equated Instalment (EMI)</span><span id="outEmiValue" class="text-3xl font-black text-emerald-900 mt-1 block">-</span></div>
+                                <div class="bg-slate-50 p-3 rounded-lg border"><span class="text-xs font-semibold text-slate-500 block">Total Principal Repayment</span><span id="outEmiPrincipal" class="text-lg font-bold text-slate-800">-</span></div>
+                                <div class="bg-slate-50 p-3 rounded-lg border"><span class="text-xs font-semibold text-slate-500 block">Total Interest Payout</span><span id="outEmiInterest" class="text-lg font-bold text-amber-700">-</span></div>
+                                <div class="bg-slate-50 p-3 rounded-lg border"><span class="text-xs font-semibold text-slate-500 block">Gross Overall Repayment</span><span id="outEmiGross" class="text-lg font-bold text-slate-800">-</span></div>
+                            </div>
+                            <div class="h-56 relative flex justify-center"><canvas id="chartEmi"></canvas></div>
+                        </div>
+
+                        <div class="mt-6">
+                            <h3 class="font-bold text-slate-800 border-b pb-2 text-sm uppercase tracking-wider mb-3">Yearly Amortization Breakdowns</h3>
+                            <div class="overflow-x-auto border rounded-lg max-h-60 overflow-y-auto">
+                                <table class="w-full text-left text-xs text-slate-600 divide-y">
+                                    <thead class="bg-slate-100 font-bold text-slate-700 uppercase">
+                                        <tr>
+                                            <th class="p-3">Year</th>
+                                            <th class="p-3">Opening Bal</th>
+                                            <th class="p-3">Interest Paid</th>
+                                            <th class="p-3">Principal Paid</th>
+                                            <th class="p-3">Closing Bal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tableEmiAmortization" class="divide-y"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANEL: MUTUAL FUND SUITES -->
+                <div id="panel-mutual" class="calc-panel">
+                    <div class="bg-gradient-to-r from-cyan-600 to-indigo-800 text-white p-6">
+                        <h2 class="text-2xl font-bold">Mutual Funds Investment Suites</h2>
+                        <p class="text-cyan-100 text-sm mt-1">Evaluate Systematic Investment Plans (SIP), Systematic Withdrawal Plans (SWP), or Lumpsum compound growth paths.</p>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Strategy Type</label>
+                                <select id="mfStrategy" onchange="toggleMfInputs()" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold text-xs outline-none">
+                                    <option value="SIP">Systematic Plan (SIP)</option>
+                                    <option value="SWP">Withdrawal Plan (SWP)</option>
+                                    <option value="LUMPSUM">Lumpsum Growth</option>
+                                </select>
+                            </div>
+                            <div><label id="lblMfAmount" class="block text-xs font-bold text-slate-500 uppercase mb-1">Monthly Deposit (₹)</label><input type="number" id="mfAmount" value="25000" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold outline-none"></div>
+                            <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Expected CAGR (%)</label><input type="number" id="mfRate" value="12" step="0.1" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold outline-none"></div>
+                            <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Duration (Years)</label><input type="number" id="mfYears" value="10" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold outline-none"></div>
+                        </div>
+                        <div id="rowMfSwpInitial" class="hidden border-t pt-3 mt-2">
+                            <div class="max-w-xs"><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Initial Capital Corpus Pool (₹)</label><input type="number" id="mfSwpCorpus" value="5000000" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold outline-none"></div>
+                        </div>
+                        <button onclick="runMutualFundsEngine()" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 rounded-lg shadow-sm">Compute Wealth Vectors</button>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                            <div class="space-y-3">
+                                <div class="bg-white p-4 rounded-lg border shadow-sm"><span id="lblMfRes1" class="text-xs text-slate-500 block font-bold">TOTAL VESTED CAPITAL</span><span id="outMfVested" class="text-2xl font-extrabold text-slate-900">-</span></div>
+                                <div class="bg-white p-4 rounded-lg border shadow-sm"><span id="lblMfRes2" class="text-xs text-slate-500 block font-bold">ESTIMATED YIELD RETURNS</span><span id="outMfYield" class="text-2xl font-extrabold text-teal-700">-</span></div>
+                                <div class="bg-cyan-50 p-4 rounded-lg border border-cyan-200 shadow-sm"><span id="lblMfRes3" class="text-xs text-cyan-800 block font-bold">GROSS FUTURES PORTFOLIO VALUE</span><span id="outMfGross" class="text-2xl font-black text-cyan-950">-</span></div>
+                            </div>
+                            <div class="h-56 relative flex justify-center"><canvas id="chartMf"></canvas></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANEL: FIXED DEPOSIT -->
+                <div id="panel-fd" class="calc-panel">
+                    <div class="bg-gradient-to-r from-amber-600 to-orange-700 text-white p-6">
+                        <h2 class="text-2xl font-bold">Fixed Deposit (FD) Optimization Engine</h2>
+                        <p class="text-amber-100 text-sm mt-1">Calculates commercial bank terminal yields mapping to compounding options.</p>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Principal Deposit (₹)</label><input type="number" id="fdAmount" value="500000" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold outline-none"></div>
+                            <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Annual Interest Rate (%)</label><input type="number" id="fdRate" value="7.25" step="0.05" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold outline-none"></div>
+                            <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Tenure (Years)</label><input type="number" id="fdYears" value="5" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold outline-none"></div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Compounding Regime</label>
+                                <select id="fdCompounding" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold text-xs outline-none">
+                                    <option value="STDR">STDR (Cumulative Quarterly)</option>
+                                    <option value="TDR">TDR (Quarterly Payouts)</option>
+                                    <option value="MONTHLY">Monthly Payout Mode</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button onclick="runFdEngine()" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 rounded-lg shadow-sm">Compute FD Balance Sheet</button>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                            <div class="bg-slate-50 p-4 rounded-lg border text-center"><span class="text-xs text-slate-500 font-bold block uppercase">Maturity Capital Balance</span><span id="outFdMaturity" class="text-3xl font-black text-slate-900 mt-1 block">-</span></div>
+                            <div class="bg-amber-50 p-4 rounded-lg border border-amber-200 text-center"><span class="text-xs text-amber-800 font-bold block uppercase">Aggregated Interest Yield</span><span id="outFdInterest" class="text-3xl font-black text-amber-800 mt-1 block">-</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANEL: RECURRING DEPOSIT -->
+                <div id="panel-rd" class="calc-panel">
+                    <div class="bg-gradient-to-r from-orange-600 to-red-700 text-white p-6">
+                        <h2 class="text-2xl font-bold">Recurring Deposit (RD) Master Engine</h2>
+                        <p class="text-orange-100 text-sm mt-1">Computes recurring fixed deposits matching Indian quarterly bank compounding regulations.</p>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Monthly Installment Amount (₹)</label><input type="number" id="rdAmount" value="10000" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold outline-none"></div>
+                            <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Rate of Interest (% p.a.)</label><input type="number" id="rdRate" value="6.8" step="0.05" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold outline-none"></div>
+                            <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Tenure Duration (Years)</label><input type="number" id="rdYears" value="5" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold outline-none"></div>
+                        </div>
+                        <button onclick="runRdEngine()" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 rounded-lg shadow-sm">Process RD Computations</button>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                            <div class="bg-slate-50 p-3 rounded-lg border text-center"><span class="text-xs text-slate-500 font-bold block uppercase">Principal Vested</span><span id="outRdPrincipal" class="text-xl font-bold text-slate-800">-</span></div>
+                            <div class="bg-slate-50 p-3 rounded-lg border text-center"><span class="text-xs text-slate-500 font-bold block uppercase">Interest Yield</span><span id="outRdInterest" class="text-xl font-bold text-orange-700">-</span></div>
+                            <div class="bg-orange-50 p-3 rounded-lg border border-orange-200 text-center"><span class="text-xs text-orange-800 font-bold block uppercase">Total Maturity</span><span id="outRdMaturity" class="text-xl font-black text-orange-900">-</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANEL: PPF LEDGER -->
+                <div id="panel-ppf" class="calc-panel">
+                    <div class="bg-gradient-to-r from-purple-700 to-indigo-900 text-white p-6">
+                        <h2 class="text-2xl font-bold">Public Provident Fund (PPF) Sovereign Ledger</h2>
+                        <p class="text-purple-100 text-sm mt-1">Calculates compounding trajectories under sovereign section 80C rules with annual fiscal cycles.</p>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Annual Fiscal Deposit (₹)</label><input type="number" id="ppfDeposit" value="150000" max="150000" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold outline-none"></div>
+                            <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Statutory Rate (% p.a.)</label><input type="number" value="7.1" disabled class="w-full p-2.5 border rounded-lg bg-slate-200 font-semibold text-slate-400 outline-none"></div>
+                            <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Statutory Lock-in Horizon</label><input type="text" value="15 Years" disabled class="w-full p-2.5 border rounded-lg bg-slate-200 font-semibold text-slate-400 outline-none"></div>
+                        </div>
+                        <button onclick="runPpfEngine()" class="w-full bg-purple-700 hover:bg-purple-800 text-white font-bold py-3 rounded-lg shadow-sm">Run Sovereign Ledger</button>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                            <div class="bg-slate-50 p-3 rounded-lg border text-center"><span class="text-xs text-slate-500 font-bold block uppercase">Total Vested</span><span id="outPpfPrincipal" class="text-xl font-bold text-slate-800">-</span></div>
+                            <div class="bg-slate-50 p-3 rounded-lg border text-center"><span class="text-xs text-slate-500 font-bold block uppercase">Accrued Interest</span><span id="outPpfInterest" class="text-xl font-bold text-purple-700">-</span></div>
+                            <div class="bg-purple-50 p-3 rounded-lg border border-purple-200 text-center"><span class="text-xs text-purple-800 font-bold block uppercase">Gross Maturity Pool</span><span id="outPpfMaturity" class="text-xl font-black text-purple-900">-</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANEL: SUKANYA SAMRIDDHI ACCOUNT -->
+                <div id="panel-ssa" class="calc-panel">
+                    <div class="bg-gradient-to-r from-fuchsia-600 to-pink-800 text-white p-6">
+                        <h2 class="text-2xl font-bold">Sukanya Samriddhi Account (SSA) Calculator</h2>
+                        <p class="text-fuchsia-100 text-sm mt-1">Sovereign planning matrix for the girl child. Maps out 15 years of funding and 21 years of complete maturity.</p>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Annual Core Deposit (Max ₹1.5L)</label><input type="number" id="ssaDeposit" value="150000" max="150000" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold outline-none"></div>
+                            <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Statutory Interest Rate (%)</label><input type="number" value="8.2" disabled class="w-full p-2.5 border rounded-lg bg-slate-200 font-semibold text-slate-400 outline-none"></div>
+                            <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Full Maturity Cycle</label><input type="text" value="21 Years Horizon" disabled class="w-full p-2.5 border rounded-lg bg-slate-200 font-semibold text-slate-400 outline-none"></div>
+                        </div>
+                        <button onclick="runSsaEngine()" class="w-full bg-fuchsia-600 hover:bg-fuchsia-700 text-white font-bold py-3 rounded-lg shadow-sm">Process Sovereign SSA Model</button>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                            <div class="bg-slate-50 p-3 rounded-lg border text-center"><span class="text-xs text-slate-500 font-bold block uppercase">Total Vested (15 Yrs)</span><span id="outSsaPrincipal" class="text-xl font-bold text-slate-800">-</span></div>
+                            <div class="bg-slate-50 p-3 rounded-lg border text-center"><span class="text-xs text-slate-500 font-bold block uppercase">Compounded Interest</span><span id="outSsaInterest" class="text-xl font-bold text-fuchsia-700">-</span></div>
+                            <div class="bg-fuchsia-50 p-3 rounded-lg border border-fuchsia-200 text-center"><span class="text-xs text-fuchsia-800 font-bold block uppercase">Terminal Maturity Wealth</span><span id="outSsaMaturity" class="text-xl font-black text-fuchsia-900">-</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANEL: SCSS -->
+                <div id="panel-scss" class="calc-panel">
+                    <div class="bg-gradient-to-r from-teal-700 to-cyan-900 text-white p-6">
+                        <h2 class="text-2xl font-bold">Senior Citizen Savings Scheme (SCSS) Engine</h2>
+                        <p class="text-teal-100 text-sm mt-1">Calculates institutional retirement yield parameters mapping to standard sovereign limits.</p>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Principal Investment (Max ₹30L)</label><input type="number" id="scssPrincipal" value="1500000" max="3000000" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold outline-none"></div>
+                            <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Statutory Yield Rate (% p.a.)</label><input type="number" value="8.2" disabled class="w-full p-2.5 border rounded-lg bg-slate-200 font-semibold text-slate-400 outline-none"></div>
+                            <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Standard Locked Horizon</label><input type="text" value="5 Years Dynamic" disabled class="w-full p-2.5 border rounded-lg bg-slate-200 font-semibold text-slate-400 outline-none"></div>
+                        </div>
+                        <button onclick="runScssEngine()" class="w-full bg-teal-700 hover:bg-teal-800 text-white font-bold py-3 rounded-lg shadow-sm">Compute SCSS Ledger</button>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                            <div class="bg-slate-50 p-3 rounded-lg border text-center"><span class="text-xs text-slate-500 font-bold block uppercase">Quarterly Dividend Payout</span><span id="outScssQuarterly" class="text-xl font-black text-teal-800">-</span></div>
+                            <div class="bg-slate-50 p-3 rounded-lg border text-center"><span class="text-xs text-slate-500 font-bold block uppercase">Gross Yield over 5 Yrs</span><span id="outScssTotalInt" class="text-xl font-bold text-slate-800">-</span></div>
+                            <div class="bg-teal-50 p-3 rounded-lg border border-teal-200 text-center"><span class="text-xs text-teal-800 font-bold block uppercase">Gross Value Reclaimed</span><span id="outScssGross" class="text-xl font-bold text-slate-900">-</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANEL: POMIS -->
+                <div id="panel-pomis" class="calc-panel">
+                    <div class="bg-gradient-to-r from-red-700 to-rose-900 text-white p-6">
+                        <h2 class="text-2xl font-bold">Post Office Monthly Income Scheme (POMIS)</h2>
+                        <p class="text-red-100 text-sm mt-1">Computes guaranteed monthly payouts based on ownership structures.</p>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Principal Invested amount (₹)</label><input type="number" id="pomisAmount" value="900000" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold outline-none"></div>
+                            <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Current Interest Rate (% p.a.)</label><input type="number" value="7.4" disabled class="w-full p-2.5 border rounded-lg bg-slate-200 font-semibold text-slate-400 outline-none"></div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Account Ownership Structure</label>
+                                <select id="pomisMode" onchange="adjustPomisCap()" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold text-xs outline-none">
+                                    <option value="900000">Single Account Holder (Max ₹9 Lakhs)</option>
+                                    <option value="1500000">Joint Account Structure (Max ₹15 Lakhs)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button onclick="runPomisEngine()" class="w-full bg-red-700 hover:bg-red-800 text-white font-bold py-3 rounded-lg shadow-sm">Generate Guaranteed Income Summary</button>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                            <div class="bg-red-50 p-4 rounded-lg border border-red-200 text-center"><span class="text-xs text-red-800 font-bold block uppercase">Guaranteed Monthly Income Payout</span><span id="outPomisMonthly" class="text-3xl font-black text-red-900 mt-1 block">-</span></div>
+                            <div class="bg-slate-50 p-4 rounded-lg border text-center"><span class="text-xs text-slate-500 font-bold block uppercase">Gross Accumulated Yield (5 Years)</span><span id="outPomisTotal" class="text-3xl font-black text-slate-800 mt-1 block">-</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANEL: KVP -->
+                <div id="panel-kvp" class="calc-panel">
+                    <div class="bg-gradient-to-r from-lime-600 to-green-800 text-white p-6">
+                        <h2 class="text-2xl font-bold">Kisan Vikas Patra (KVP) Wealth Multiplier</h2>
+                        <p class="text-lime-100 text-sm mt-1">Calculates the precise months required to mathematically double a principal sum.</p>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Vested Capital Principal (₹)</label><input type="number" id="kvpAmount" value="200000" class="w-full p-2.5 border rounded-lg bg-slate-50 font-semibold outline-none"></div>
+                            <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Statutory Rate Managed (%)</label><input type="number" value="7.5" disabled class="w-full p-2.5 border rounded-lg bg-slate-200 font-semibold text-slate-400 outline-none"></div>
+                            <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">Compounding Regime Rules</label><input type="text" value="Annual Compounding Lock" disabled class="w-full p-2.5 border rounded-lg bg-slate-200 font-semibold text-slate-400 outline-none"></div>
+                        </div>
+                        <button onclick="runKvpEngine()" class="w-full bg-lime-600 hover:bg-lime-700 text-white font-bold py-3 rounded-lg shadow-sm">Compute Double Maturity Horizon</button>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                            <div class="bg-slate-50 p-3 rounded-lg border text-center"><span class="text-xs text-slate-500 font-bold block uppercase">Maturity Capital Balance</span><span id="outKvpMaturity" class="text-xl font-black text-slate-800">-</span></div>
+                            <div class="bg-lime-50 p-3 rounded-lg border border-lime-200 text-center"><span class="text-xs text-lime-800 font-bold block uppercase">Time Period to Double</span><span id="outKvpTime" class="text-xl font-bold text-lime-900">-</span></div>
+                            <div class="bg-slate-50 p-3 rounded-lg border text-center"><span class="text-xs text-slate-500 font-bold block uppercase">Effective CAGR Yield</span><span class="text-xl font-bold text-slate-800">7.50%</span></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-6 text-center text-sm border-t border-slate-800 mt-auto">
+        <p>&copy; 2026 BitsToBetter.com. Engineered under strict statutory compliance algorithms. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let activeChartInstance = null;
+        function formatINR(n) { return '₹' + Math.round(n).toLocaleString('en-IN'); }
+
+        function switchCalc(id) {
+            document.querySelectorAll('.calc-panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('#calcNavigation button').forEach(b => {
+                b.classList.remove('bg-blue-50', 'text-blue-700', 'font-semibold', 'border-l-4', 'border-blue-500');
+                b.classList.add('text-slate-600', 'border-transparent');
+            });
+
+            document.getElementById('panel-' + id).classList.add('active');
+            const targetBtn = document.getElementById('btn-' + id);
+            targetBtn.classList.add('bg-blue-50', 'text-blue-700', 'font-semibold', 'border-l-4', 'border-blue-500');
+            targetBtn.classList.remove('text-slate-600', 'border-transparent');
+
+            if(id === 'si') runSiEngine();
+            if(id === 'ci') runCiEngine();
+            if(id === 'emi') runEmiEngine();
+            if(id === 'fire') runFireEngine();
+            if(id === 'mutual') runMutualFundsEngine();
+            if(id === 'fd') runFdEngine();
+            if(id === 'rd') runRdEngine();
+            if(id === 'ppf') runPpfEngine();
+            if(id === 'ssa') runSsaEngine();
+            if(id === 'scss') runScssEngine();
+            if(id === 'pomis') runPomisEngine();
+            if(id === 'kvp') runKvpEngine();
+        }
+
+        // --- NEW: SIMPLE INTEREST ENGINE ---
+        function runSiEngine() {
+            const P = parseFloat(document.getElementById('siPrincipal').value);
+            const R = parseFloat(document.getElementById('siRate').value);
+            const tenureVal = parseFloat(document.getElementById('siTenureVal').value);
+            const unit = document.getElementById('siTenureUnit').value;
+            const payout = document.getElementById('siPayout').value;
+
+            // Convert tenure to years for standard SI formula (I = P * R * T / 100)
+            let T = tenureVal;
+            if (unit === 'M') T = tenureVal / 12;
+            if (unit === 'D') T = tenureVal / 365;
+
+            const interest = (P * R * T) / 100;
+            const maturity = P + interest;
+
+            document.getElementById('outSiInterest').innerText = formatINR(interest);
+            document.getElementById('outSiPrincipal').innerText = formatINR(P);
+            document.getElementById('outSiMaturity').innerText = formatINR(maturity);
+
+            // Payout Logic
+            const lblPayout = document.getElementById('lblSiPayout');
+            const outPayout = document.getElementById('outSiPayout');
+            
+            if (payout === 'CUMULATIVE') {
+                lblPayout.innerText = "Cumulative Yield";
+                outPayout.innerText = "No Periodic Payouts";
+            } else if (payout === 'MONTHLY') {
+                lblPayout.innerText = "Monthly Interest Payout";
+                let mPayout = (P * (R/100)) / 12;
+                outPayout.innerText = formatINR(mPayout) + " / mo";
+            } else if (payout === 'YEARLY') {
+                lblPayout.innerText = "Yearly Interest Payout";
+                let yPayout = P * (R/100);
+                outPayout.innerText = formatINR(yPayout) + " / yr";
+            }
+
+            // Chart Rendering
+            const ctx = document.getElementById('chartSi').getContext('2d');
+            if(activeChartInstance) activeChartInstance.destroy();
+            activeChartInstance = new Chart(ctx, {
+                type: 'pie',
+                data: { labels: ['Principal Base', 'Simple Interest Earned'], datasets: [{ data: [P, interest], backgroundColor: ['#06b6d4', '#4338ca'], borderWidth: 0 }] },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+        }
+
+        // --- NEW: COMPOUND INTEREST ENGINE ---
+        function runCiEngine() {
+            const P = parseFloat(document.getElementById('ciPrincipal').value);
+            const R = parseFloat(document.getElementById('ciRate').value) / 100;
+            const tenureVal = parseFloat(document.getElementById('ciTenureVal').value);
+            const unit = document.getElementById('ciTenureUnit').value;
+            const freq = parseInt(document.getElementById('ciFrequency').value);
+
+            // Convert tenure to years
+            let t = tenureVal;
+            if (unit === 'M') t = tenureVal / 12;
+
+            // CI Formula: A = P(1 + r/n)^(nt)
+            const maturity = P * Math.pow(1 + (R / freq), freq * t);
+            const interest = maturity - P;
+
+            document.getElementById('outCiInterest').innerText = formatINR(interest);
+            document.getElementById('outCiPrincipal').innerText = formatINR(P);
+            document.getElementById('outCiMaturity').innerText = formatINR(maturity);
+
+            // Chart Rendering
+            const ctx = document.getElementById('chartCi').getContext('2d');
+            if(activeChartInstance) activeChartInstance.destroy();
+            activeChartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: { labels: ['Principal Base', 'Compound Interest Earned'], datasets: [{ data: [P, interest], backgroundColor: ['#4f46e5', '#a855f7'], borderWidth: 0 }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+            });
+        }
+
+        // 1. ADVANCED LOAN EMI ENGINE & AMORTIZATION MATRIX
+        function runEmiEngine() {
+            const P = parseFloat(document.getElementById('emiPrincipal').value);
+            const r = (parseFloat(document.getElementById('emiRate').value) / 12) / 100;
+            const years = parseFloat(document.getElementById('emiTenure').value);
+            const n = years * 12;
+
+            const emi = (P * r * Math.pow(1+r, n)) / (Math.pow(1+r, n) - 1);
+            const grossPayment = emi * n;
+            const aggregatedInterest = grossPayment - P;
+
+            document.getElementById('outEmiValue').innerText = formatINR(emi);
+            document.getElementById('outEmiPrincipal').innerText = formatINR(P);
+            document.getElementById('outEmiInterest').innerText = formatINR(aggregatedInterest);
+            document.getElementById('outEmiGross').innerText = formatINR(grossPayment);
+
+            const ctx = document.getElementById('chartEmi').getContext('2d');
+            if(activeChartInstance) activeChartInstance.destroy();
+            activeChartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: { labels: ['Principal', 'Interest Content'], datasets: [{ data: [P, aggregatedInterest], backgroundColor: ['#10b981', '#f59e0b'], borderWidth: 0 }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+            });
+
+            let balance = P;
+            let tbody = document.getElementById('tableEmiAmortization');
+            tbody.innerHTML = "";
+            
+            for(let y=1; y<=years; y++) {
+                let yearlyInterest = 0;
+                let yearlyPrincipal = 0;
+                let openingBal = balance;
+                
+                for(let m=1; m<=12; m++) {
+                    let interestContribution = balance * r;
+                    let principalContribution = emi - interestContribution;
+                    yearlyInterest += interestContribution;
+                    yearlyPrincipal += principalContribution;
+                    balance -= principalContribution;
+                }
+                
+                let row = `<tr>
+                    <td class="p-3 font-bold">${y}</td>
+                    <td class="p-3">${formatINR(openingBal)}</td>
+                    <td class="p-3 text-amber-700">${formatINR(yearlyInterest)}</td>
+                    <td class="p-3 text-emerald-700">${formatINR(yearlyPrincipal)}</td>
+                    <td class="p-3 font-semibold">${formatINR(Math.max(0, balance))}</td>
+                </tr>`;
+                tbody.innerHTML += row;
+            }
+        }
+
+        // 2. FIRE ENGINE UPDATED WITH EXPLICIT INFLATION/SWR + COMPREHENSIVE STRATEGIC SPLITS
+        function runFireEngine() {
+            const age = parseFloat(document.getElementById('fireAge').value);
+            const ret = parseFloat(document.getElementById('fireRetire').value);
+            const exp = parseFloat(document.getElementById('fireExpenses').value);
+            const inflationRate = parseFloat(document.getElementById('fireInflation').value) / 100;
+            const swr = parseFloat(document.getElementById('fireSwr').value) / 100;
+            const expectedReturn = parseFloat(document.getElementById('fireReturn').value) / 100;
+            
+            const horizon = ret - age;
+            if(horizon <= 0) { alert("Target retirement age must be higher than your current milestone."); return; }
+
+            const annualExpensesToday = exp * 12;
+            const targetCorpusToday = annualExpensesToday / swr;
+            const futureCorpusInflationAdjusted = targetCorpusToday * Math.pow(1 + inflationRate, horizon);
+            
+            const mRate = expectedReturn / 12;
+            const months = horizon * 12;
+            const requiredSip = (futureCorpusInflationAdjusted * mRate) / ((Math.pow(1 + mRate, months) - 1) * (1 + mRate));
+
+            document.getElementById('outFireCorpus').innerText = formatINR(futureCorpusInflationAdjusted);
+            document.getElementById('outFireSIP').innerText = formatINR(requiredSip);
+
+            const grid = document.getElementById('fireBlueprintGrid');
+            grid.innerHTML = `
+                <div class="flex justify-between border-b pb-1 text-blue-900 font-bold bg-blue-50/50 p-1 rounded"><span>Core Equity Index (40%)</span><span>${formatINR(requiredSip * 0.4)}</span></div>
+                <div class="flex justify-between border-b pb-1 p-1"><span>Dividend Stocks (20%)</span><span>${formatINR(requiredSip * 0.2)}</span></div>
+                <div class="flex justify-between border-b pb-1 p-1"><span>Fixed Income / Bonds (20%)</span><span>${formatINR(requiredSip * 0.2)}</span></div>
+                <div class="flex justify-between border-b pb-1 p-1"><span>Real Estate - REITs (15%)</span><span>${formatINR(requiredSip * 0.15)}</span></div>
+                <div class="flex justify-between border-b pb-1 p-1"><span>Alternatives - Gold (5%)</span><span>${formatINR(requiredSip * 0.05)}</span></div>
+                
+                <div class="mt-3 pt-2 border-t border-slate-300 text-slate-500 font-bold text-[11px] uppercase tracking-wide">Risk & Protection Layout</div>
+                <div class="flex justify-between border-b pb-1 p-1 bg-amber-50 text-amber-900 rounded"><span>Liquid Emergency Fund Buffer</span><span>6 Mos Expenses</span></div>
+                <div class="flex justify-between border-b pb-1 p-1 bg-green-50 text-green-900 rounded"><span>Corporate & Super Top-up Health Ins</span><span>Active Premium Cover</span></div>
+                <div class="flex justify-between border-b pb-1 p-1 bg-emerald-50 text-emerald-900 rounded"><span>Pure Term Insurance Policy</span><span>10x-20x Annual Income Cover</span></div>
+                <div class="flex justify-between p-1 bg-slate-100 text-slate-800 rounded"><span>Property & Asset Indemnity Cover</span><span>Standard Liability Shield</span></div>
+            `;
+        }
+
+        // 3. MUTUAL FUND PLATFORMS
+        function toggleMfInputs() {
+            const strategy = document.getElementById('mfStrategy').value;
+            const lbl = document.getElementById('lblMfAmount');
+            const initialCorpusRow = document.getElementById('rowMfSwpInitial');
+
+            if(strategy === 'SWP') {
+                lbl.innerText = "Target Monthly Withdrawal Payout (₹)";
+                initialCorpusRow.classList.remove('hidden');
+            } else if (strategy === 'SIP') {
+                lbl.innerText = "Monthly Systematic Deposit (₹)";
+                initialCorpusRow.classList.add('hidden');
+            } else {
+                lbl.innerText = "One-Time Lumpsum Capital (₹)";
+                initialCorpusRow.classList.add('hidden');
+            }
+        }
+
+        function runMutualFundsEngine() {
+            const strategy = document.getElementById('mfStrategy').value;
+            const amount = parseFloat(document.getElementById('mfAmount').value);
+            const rate = parseFloat(document.getElementById('mfRate').value)/100;
+            const t = parseFloat(document.getElementById('mfYears').value);
+            const n = t * 12;
+            const rMonthly = rate / 12;
+
+            let invested = 0;
+            let balance = 0;
+
+            const lbl1 = document.getElementById('lblMfRes1');
+            const lbl2 = document.getElementById('lblMfRes2');
+            const lbl3 = document.getElementById('lblMfRes3');
+
+            if(strategy === 'SIP') {
+                invested = amount * n;
+                balance = amount * ((Math.pow(1 + rMonthly, n) - 1) / rMonthly) * (1 + rMonthly);
+                lbl1.innerText = "TOTAL SYSTEMATIC VESTED CAPITAL";
+                lbl2.innerText = "ESTIMATED COMPOUND RETURNS YIELD";
+                lbl3.innerText = "GROSS FUTURE PORTFOLIO WEALTH";
+            } else if(strategy === 'LUMPSUM') {
+                invested = amount;
+                balance = amount * Math.pow(1 + rate, t);
+                lbl1.innerText = "LUMPSUM INVESTED CAPITAL";
+                lbl2.innerText = "ESTIMATED RETURNING INTEREST GROWTH";
+                lbl3.innerText = "GROSS FUTURE VALUATION ASSET";
+            } else if(strategy === 'SWP') {
+                let initialCorpus = parseFloat(document.getElementById('mfSwpCorpus').value);
+                balance = initialCorpus;
+                let totalWithdrawn = amount * n;
+                for(let idx=1; idx<=n; idx++) {
+                    let interest = balance * rMonthly;
+                    balance = (balance + interest) - amount;
+                }
+                lbl1.innerText = "INITIAL CAPITAL ASSET POOL";
+                lbl2.innerText = "AGGREGATED MONTHLY INCOME ENJOYED";
+                lbl3.innerText = "RESIDUAL VALUE LEFT IN FUND DEPOSIT";
+                document.getElementById('outMfVested').innerText = formatINR(initialCorpus);
+                document.getElementById('outMfYield').innerText = formatINR(totalWithdrawn);
+                document.getElementById('outMfGross').innerText = formatINR(Math.max(0, balance));
+                
+                const ctx = document.getElementById('chartMf').getContext('2d');
+                if(activeChartInstance) activeChartInstance.destroy();
+                activeChartInstance = new Chart(ctx, {
+                    type: 'pie',
+                    data: { labels: ['Initial Pool', 'Total Payouts Drawn'], datasets: [{ data: [initialCorpus, totalWithdrawn], backgroundColor: ['#06b6d4', '#6366f1'], borderWidth: 0 }] },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+                return;
+            }
+
+            document.getElementById('outMfVested').innerText = formatINR(invested);
+            document.getElementById('outMfYield').innerText = formatINR(balance - invested);
+            document.getElementById('outMfGross').innerText = formatINR(balance);
+
+            const ctx = document.getElementById('chartMf').getContext('2d');
+            if(activeChartInstance) activeChartInstance.destroy();
+            activeChartInstance = new Chart(ctx, {
+                type: 'pie',
+                data: { labels: ['Capital Base', 'Yield Component'], datasets: [{ data: [invested, Math.max(0, balance - invested)], backgroundColor: ['#06b6d4', '#6366f1'], borderWidth: 0 }] },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+        }
+
+        // 4. FIXED DEPOSIT ENGINE MATRICES
+        function runFdEngine() {
+            const P = parseFloat(document.getElementById('fdAmount').value);
+            const R = parseFloat(document.getElementById('fdRate').value);
+            const t = parseFloat(document.getElementById('fdYears').value);
+            const mode = document.getElementById('fdCompounding').value;
+
+            let maturity = 0;
+            if(mode === 'STDR') {
+                maturity = P * Math.pow((1 + (R / 400)), (4 * t));
+            } else if(mode === 'TDR') {
+                maturity = P + (P * (R / 100) * t);
+            } else {
+                maturity = P + (P * (R / 1200) * (t * 12));
+            }
+            document.getElementById('outFdMaturity').innerText = formatINR(maturity);
+            document.getElementById('outFdInterest').innerText = formatINR(maturity - P);
+        }
+
+        // 5. RECURRING DEPOSIT RULES
+        function runRdEngine() {
+            const P = parseFloat(document.getElementById('rdAmount').value);
+            const R = parseFloat(document.getElementById('rdRate').value);
+            const t = parseFloat(document.getElementById('rdYears').value);
+            const months = t * 12;
+            let maturity = 0;
+            for(let i = 1; i <= months; i++) {
+                maturity += P * Math.pow(1 + (R / 400), (4 * (months - i + 1) / 12));
+            }
+            const invested = P * months;
+            document.getElementById('outRdPrincipal').innerText = formatINR(invested);
+            document.getElementById('outRdInterest').innerText = formatINR(maturity - invested);
+            document.getElementById('outRdMaturity').innerText = formatINR(maturity);
+        }
+
+        // 6. SOVEREIGN PPF SCHEME
+        function runPpfEngine() {
+            const deposit = Math.min(parseFloat(document.getElementById('ppfDeposit').value), 150000);
+            const rate = 0.071;
+            let maturity = 0;
+            for(let i=0; i<15; i++) {
+                maturity = (maturity + deposit) * (1 + rate);
+            }
+            const principal = deposit * 15;
+            document.getElementById('outPpfPrincipal').innerText = formatINR(principal);
+            document.getElementById('outPpfInterest').innerText = formatINR(maturity - principal);
+            document.getElementById('outPpfMaturity').innerText = formatINR(maturity);
+        }
+
+        // 7. SUKANYA SAMRIDDHI
+        function runSsaEngine() {
+            const deposit = Math.min(parseFloat(document.getElementById('ssaDeposit').value), 150000);
+            const rate = 0.082;
+            let balance = 0;
+            for(let year=1; year<=21; year++) {
+                if(year <= 15) {
+                    balance = (balance + deposit) * (1 + rate);
+                } else {
+                    balance = balance * (1 + rate);
+                }
+            }
+            const invested = deposit * 15;
+            document.getElementById('outSsaPrincipal').innerText = formatINR(invested);
+            document.getElementById('outSsaInterest').innerText = formatINR(balance - invested);
+            document.getElementById('outSsaMaturity').innerText = formatINR(balance);
+        }
+
+        // 8. SENIOR CITIZEN
+        function runScssEngine() {
+            const P = Math.min(parseFloat(document.getElementById('scssPrincipal').value), 3000000);
+            const rate = 0.082;
+            const quarterlyPayout = P * (rate / 4);
+            const grossInterest = quarterlyPayout * 4 * 5;
+            document.getElementById('outScssQuarterly').innerText = formatINR(quarterlyPayout);
+            document.getElementById('outScssTotalInt').innerText = formatINR(grossInterest);
+            document.getElementById('outScssGross').innerText = formatINR(P + grossInterest);
+        }
+
+        // 9. POST OFFICE MIS
+        function adjustPomisCap() {
+            const maxCap = parseFloat(document.getElementById('pomisMode').value);
+            const inputField = document.getElementById('pomisAmount');
+            if(parseFloat(inputField.value) > maxCap) inputField.value = maxCap;
+            inputField.max = maxCap;
+        }
+
+        function runPomisEngine() {
+            const maxCap = parseFloat(document.getElementById('pomisMode').value);
+            const P = Math.min(parseFloat(document.getElementById('pomisAmount').value), maxCap);
+            const rate = 0.074;
+            const monthlyPayout = (P * rate) / 12;
+            const grossInterest = monthlyPayout * 12 * 5;
+            document.getElementById('outPomisMonthly').innerText = formatINR(monthlyPayout);
+            document.getElementById('outPomisTotal').innerText = formatINR(grossInterest);
+        }
+
+        // 10. KVP
+        function runKvpEngine() {
+            const P = parseFloat(document.getElementById('kvpAmount').value);
+            document.getElementById('outKvpMaturity').innerText = formatINR(P * 2);
+            document.getElementById('outKvpTime').innerText = "115 Months (9 Yrs 7 Mos)";
+        }
+
+        window.onload = function() { switchCalc('si'); };
+    </script>
+</body>
 </html>
