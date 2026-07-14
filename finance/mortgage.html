@@ -27,7 +27,69 @@
     </nav>
     <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-2">Mortgage Calculator</h1>
     <p class="text-muted-foreground text-lg mb-8 max-w-3xl">Estimate monthly mortgage payments with reducing-balance amortization.</p>
+
     <div id="calc-root"></div>
+      
+    <!-- Chapter 1: The Math -->
+    <section class="mb-16 mt-12 max-w-4xl">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-white font-bold text-xl shadow-md">1</span>
+        <h2 class="text-3xl font-bold text-slate-900 m-0">The Mechanics Behind Mortgage Calculator</h2>
+      </div>
+      
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="p-6 sm:p-8">
+          <p class="text-lg text-slate-700 mb-6 leading-relaxed">
+            A mortgage operates on an amortization schedule, meaning each payment is split between the principal (the amount you borrowed) and interest (the cost of borrowing). In the early years, the majority of your payment goes toward interest. Over time, as the principal decreases, more of your payment goes toward paying off the loan.
+          </p>
+          
+          <!-- Myth vs Fact Box -->
+          <div class="bg-indigo-50 border-l-4 border-indigo-600 p-6 my-8 rounded-r-xl shadow-sm">
+            <h3 class="text-xl font-bold text-indigo-900 mt-0 mb-3 flex items-center gap-2">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              Myth vs. Scientific Fact
+            </h3>
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <p class="text-sm font-bold text-red-600 uppercase tracking-wider mb-1">The Myth</p>
+                <p class="text-slate-700 m-0">"I should always get a 30-year mortgage to lower my payments."</p>
+              </div>
+              <div>
+                <p class="text-sm font-bold text-emerald-600 uppercase tracking-wider mb-1">The Scientific Fact</p>
+                <p class="text-slate-700 m-0">While a 30-year mortgage lowers your monthly payment, you pay vastly more in interest over the life of the loan. A 15-year mortgage has higher payments but builds equity much faster and saves tens of thousands in interest.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chapter 2: Strategy -->
+    <section class="mb-16 max-w-4xl">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-white font-bold text-xl shadow-md">2</span>
+        <h2 class="text-3xl font-bold text-slate-900 m-0">Early Payoff Strategies</h2>
+      </div>
+      
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="p-6 sm:p-8">
+          <p class="text-lg text-slate-700 mb-6 leading-relaxed">
+            Making just one extra mortgage payment per year can shave years off your loan and save you thousands in interest. Always ensure your lender applies extra payments directly to the "principal" rather than prepaying the next month's bill.
+          </p>
+
+          <!-- Takeaway Summary -->
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-6 shadow-sm">
+            <h4 class="text-lg font-bold text-slate-900 mt-0 mb-3">Key Takeaways for Your Plan:</h4>
+            <ul class="list-disc pl-5 m-0 space-y-2 text-slate-700">
+              <li><strong>Analysis:</strong> Understand your amortization schedule.</li>
+              <li><strong>Optimization:</strong> Consider bi-weekly payments to accelerate payoff.</li>
+              <li><strong>Execution:</strong> Refinance only when the break-even point makes sense.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    
   </main>
   <footer id="site-footer"></footer>
   <script src="/assets/site.js" defer></script>

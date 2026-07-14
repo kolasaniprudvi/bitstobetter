@@ -114,6 +114,118 @@
         };
       }
     },
+    fd: {
+      title: 'Fixed Deposit (FD) Calculator',
+      category: 'finance',
+      blurb: 'Calculate FD maturity amount with different compounding frequencies.',
+      fields: [
+        { id: 'principal', label: 'Investment Amount', type: 'number', value: 100000 },
+        { id: 'rate', label: 'Interest Rate (% p.a.)', type: 'number', value: 7.0, step: 0.1 },
+        { id: 'years', label: 'Tenure (Years)', type: 'number', value: 5, step: 0.5 },
+        {
+          id: 'freq',
+          label: 'Compounding Frequency',
+          type: 'select',
+          options: [
+            ['4', 'Quarterly'],
+            ['2', 'Half-Yearly'],
+            ['1', 'Annually'],
+            ['12', 'Monthly']
+          ]
+        }
+      ],
+      compute: (v) => {
+        const P = num(v.principal);
+        const r = num(v.rate);
+        const t = num(v.years);
+        const n = parseInt(v.freq, 10);
+        
+        const amount = P * Math.pow(1 + (r / 100) / n, n * t);
+        const interest = amount - P;
+        
+        return {
+          summary: [
+            ['Total Investment', fmt(P, 2)],
+            ['Total Interest', fmt(interest, 2)],
+            ['Maturity Amount', fmt(amount, 2)]
+          ]
+        };
+      }
+    },
+    rd: {
+      title: 'Recurring Deposit (RD) Calculator',
+      category: 'finance',
+      blurb: 'Calculate RD maturity amount with quarterly compounding.',
+      fields: [
+        { id: 'deposit', label: 'Monthly Deposit', type: 'number', value: 5000 },
+        { id: 'rate', label: 'Interest Rate (% p.a.)', type: 'number', value: 6.5, step: 0.1 },
+        { id: 'years', label: 'Tenure (Years)', type: 'number', value: 5, step: 0.5 }
+      ],
+      compute: (v) => {
+        const P = num(v.deposit);
+        const r = num(v.rate);
+        const t = num(v.years);
+        
+        const m = Math.round(t * 12);
+        let amount = 0;
+        // Indian RDs are typically compounded quarterly
+        for (let i = 1; i <= m; i++) {
+          const monthsRemaining = m - i + 1;
+          const quarters = monthsRemaining / 3;
+          amount += P * Math.pow(1 + (r / 100) / 4, quarters);
+        }
+        
+        const totalInvested = P * m;
+        const interest = amount - totalInvested;
+        
+        return {
+          summary: [
+            ['Total Investment', fmt(totalInvested, 2)],
+            ['Total Interest', fmt(interest, 2)],
+            ['Maturity Amount', fmt(amount, 2)]
+          ]
+        };
+      }
+    },
+    ppf: {
+      title: 'PPF Calculator',
+      category: 'finance',
+      blurb: 'Calculate Public Provident Fund maturity over 15 years.',
+      fields: [
+        { id: 'deposit', label: 'Yearly Deposit (Max ₹1.5L)', type: 'number', value: 150000, max: 150000 },
+        { id: 'rate', label: 'Interest Rate (% p.a.)', type: 'number', value: 7.1, step: 0.1 },
+        { id: 'years', label: 'Tenure (Years)', type: 'number', value: 15 }
+      ],
+      compute: (v) => {
+        const P = num(v.deposit);
+        const r = num(v.rate);
+        const t = num(v.years);
+        
+        let amount = 0;
+        let totalInvested = 0;
+        
+        const rows = [];
+        for (let i = 1; i <= t; i++) {
+          const startBalance = amount;
+          totalInvested += P;
+          const interest = (startBalance + P) * (r / 100);
+          amount = startBalance + P + interest;
+          rows.push([i, fmt(P, 2), fmt(interest, 2), fmt(amount, 2)]);
+        }
+        
+        const totalInterest = amount - totalInvested;
+        
+        return {
+          summary: [
+            ['Total Investment', fmt(totalInvested, 2)],
+            ['Total Interest', fmt(totalInterest, 2)],
+            ['Maturity Amount', fmt(amount, 2)]
+          ],
+          headers: ['Year', 'Deposit', 'Interest', 'Closing Balance'],
+          rows: rows
+        };
+      }
+    },
     interest: {
       title: 'Interest Calculator',
       category: 'finance',

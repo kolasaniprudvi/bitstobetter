@@ -1,14 +1,14 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="index, follow" />
-  <title>EMI Calculator — Amortization, Charts &amp; Granular Reports — BitsToBetter</title>
-  <meta name="description" content="EMI calculator with loan-type dropdowns, full amortization matrix, Chart.js visuals, and granular PDF, CSV, Excel, and JSON report downloads." />
+  <title>EMI Calculator Hub — Amortization, Math & Strategy | BitsToBetter</title>
+  <meta name="description" content="EMI calculator with full amortization matrix, Chart.js visuals, and comprehensive educational guide on reducing-balance math and prepayment strategy." />
   <link rel="canonical" href="https://bitstobetter.com/finance/emi.html" />
   <link rel="icon" type="image/png" href="/assets/logo.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <meta name="theme-color" content="#0F172A" />
@@ -31,170 +31,254 @@
   }
   </script>
 </head>
-<body class="antialiased text-foreground">
+<body class="antialiased text-slate-800 bg-slate-50">
   <header id="site-header" data-active="finance"></header>
 
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-    <nav class="text-sm text-muted-foreground mb-6" aria-label="Breadcrumb">
-      <a href="/" class="hover:text-foreground">Home</a> /
-      <a href="/finance/" class="hover:text-foreground">Finance</a> /
-      <span class="text-foreground font-medium">EMI</span>
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
+    <!-- Breadcrumb -->
+    <nav class="text-sm text-slate-500 mb-8" aria-label="Breadcrumb">
+      <a href="/" class="hover:text-slate-900 transition-colors">Home</a> /
+      <a href="/finance/" class="hover:text-slate-900 transition-colors">Finance Hub</a> /
+      <span class="text-slate-900 font-medium">EMI Guide</span>
     </nav>
 
-    <h1 class="text-3xl sm:text-4xl font-extrabold">EMI Calculator &amp; Amortization Engine</h1>
-    <p class="mt-3 text-lg text-muted-foreground max-w-3xl">Dropdown-driven loan setup, month-by-month ledger, chart breakup, and granular multi-format reports (PDF summary, PDF full schedule, CSV, Excel, JSON).</p>
+    <!-- Hero Section -->
+    <div class="mb-12 border-b border-slate-200 pb-10">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-xs font-bold uppercase tracking-wider mb-4">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        Educational Framework
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">The EMI Math Framework</h1>
+      <p class="text-xl text-slate-600 max-w-3xl leading-relaxed">
+        Understand the mechanics behind Equated Monthly Instalments. This is your guide to reducing-balance math, amortization schedules, and strategic prepayment optimization.
+      </p>
+    </div>
 
-    <article class="article-prose mt-10 max-w-3xl" id="emi-guide">
-      <h2 class="text-2xl font-bold mb-4">Governing formula, tax posture &amp; execution strategy</h2>
-      <p>Equated Monthly Instalment (EMI) lending converts a large principal into a level periodic cash outflow while interest is computed on the outstanding reducing balance. The closed-form EMI is:</p>
-      <p class="font-mono text-sm bg-neutral-100 p-3 rounded border border-border">EMI = P × r × (1 + r)<sup>n</sup> / [(1 + r)<sup>n</sup> − 1]</p>
-      <p>where <strong>P</strong> is principal, <strong>r</strong> is the monthly rate (annual ÷ 12 ÷ 100), and <strong>n</strong> is tenure in months. Early instalments are interest-heavy; later ones retire principal faster — which is why prepayments early in the schedule destroy more interest cost per unit currency.</p>
-      <h3>Amortization mathematics</h3>
-      <p>Each month, interest = balance × r and principal = EMI − interest. Repeating until balance is zero yields the granular schedule you can export below. Floating-rate loans replace r periodically; stress-test by re-running with alternate rates from the dropdown presets.</p>
-      <h3>Fees, APR awareness, and disclosure</h3>
-      <p>Processing fees raise effective credit cost above the headline rate. Reconcile bank Key Fact Statements with your own amortization ledger before signing. Use the granular CSV/Excel export to reconcile month-level interest with tax worksheets.</p>
-      <h3>Tax implications (illustrative)</h3>
-      <p>In India, home-loan interest may qualify under Section 24(b) (subject to caps), while principal may compete inside the Section 80C ₹1.5 lakh envelope alongside PPF and ELSS. Commercial and investment-property interest treatment differs. Map your jurisdiction’s rules with a professional — BitsToBetter does not file returns.</p>
-      <h3>Strategic execution parameters</h3>
-      <ul>
-        <li>Stress EMI at +200 bps rate shocks before locking floating tenors.</li>
-        <li>Keep total EMI within a sustainable share of take-home pay (often cited: 35–45%).</li>
-        <li>Hold an emergency cash buffer of three to six months of EMI-plus-essentials.</li>
-        <li>When refinancing, compare break-even months against residual interest in the granular ledger.</li>
-      </ul>
-      <p>All math and report generation run locally in your browser — nothing is uploaded to BitsToBetter servers.</p>
-    </article>
+    <!-- Chapter 1: The Math -->
+    <section class="mb-16">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-white font-bold text-xl shadow-md">1</span>
+        <h2 class="text-3xl font-bold text-slate-900 m-0">The Mechanics of EMI</h2>
+      </div>
+      
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="p-6 sm:p-8">
+          <p class="text-lg text-slate-700 mb-6">
+            Equated Monthly Instalment (EMI) lending converts a large principal into a level periodic cash outflow while interest is computed on the outstanding reducing balance. The closed-form EMI formula is:
+          </p>
+          
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 mb-8 text-center shadow-inner">
+            <span class="font-mono text-xl sm:text-2xl font-bold text-slate-800">EMI = P × r × (1 + r)<sup>n</sup> / [(1 + r)<sup>n</sup> − 1]</span>
+          </div>
 
-    <section class="mt-12" id="calculator" aria-labelledby="calc-heading">
-      <h2 id="calc-heading" class="text-2xl font-bold">Compute your EMI</h2>
-      <div class="mt-6 grid lg:grid-cols-5 gap-8">
-        <form id="emi-form" class="lg:col-span-2 space-y-4 no-print calc-panel">
-          <div>
-            <label for="loan-type" class="block text-sm font-semibold">Loan type</label>
-            <select id="loan-type" class="field-select">
-              <option value="home">Home / Mortgage</option>
-              <option value="personal">Personal</option>
-              <option value="auto">Auto / Car</option>
-              <option value="education">Education</option>
-              <option value="business">Business</option>
-              <option value="lap">Loan Against Property</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-          <div>
-            <label for="currency" class="block text-sm font-semibold">Currency</label>
-            <select id="currency" class="field-select">
-              <option value="INR" selected>INR — Indian Rupee</option>
-              <option value="USD">USD — US Dollar</option>
-              <option value="EUR">EUR — Euro</option>
-              <option value="GBP">GBP — British Pound</option>
-              <option value="AED">AED — UAE Dirham</option>
-              <option value="SGD">SGD — Singapore Dollar</option>
-              <option value="AUD">AUD — Australian Dollar</option>
-            </select>
-          </div>
-          <div>
-            <label for="principal" class="block text-sm font-semibold">Loan amount (principal)</label>
-            <input id="principal" type="number" min="1" step="1" value="5000000" required class="field-input" />
-          </div>
-          <div>
-            <label for="rate" class="block text-sm font-semibold">Annual interest rate (%)</label>
-            <input id="rate" type="number" min="0.01" step="0.01" value="8.5" required class="field-input" />
-            <select id="rate-preset" class="field-select mt-2" aria-label="Rate preset">
-              <option value="">Rate presets…</option>
-              <option value="7.1">Home ~7.1%</option>
-              <option value="8.5">Home ~8.5%</option>
-              <option value="9.5">Auto ~9.5%</option>
-              <option value="11.5">Personal ~11.5%</option>
-              <option value="13">Education ~13%</option>
-            </select>
-          </div>
-          <div class="grid grid-cols-2 gap-3">
+          <div class="grid md:grid-cols-2 gap-8 mb-8">
             <div>
-              <label for="tenure-value" class="block text-sm font-semibold">Tenure</label>
-              <input id="tenure-value" type="number" min="1" value="20" required class="field-input" />
+              <h3 class="text-lg font-bold text-slate-900 mb-3 border-b border-slate-200 pb-2">Variables Explained</h3>
+              <ul class="space-y-3">
+                <li class="flex items-start">
+                  <span class="text-indigo-500 mr-2 mt-0.5">●</span>
+                  <span class="text-slate-700"><strong>P:</strong> Principal Loan Amount.</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-indigo-500 mr-2 mt-0.5">●</span>
+                  <span class="text-slate-700"><strong>r:</strong> Monthly Interest Rate (Annual Rate ÷ 12 ÷ 100).</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-indigo-500 mr-2 mt-0.5">●</span>
+                  <span class="text-slate-700"><strong>n:</strong> Loan Tenure in Months.</span>
+                </li>
+              </ul>
             </div>
-            <div>
-              <label for="tenure-unit" class="block text-sm font-semibold">Unit</label>
-              <select id="tenure-unit" class="field-select">
-                <option value="years" selected>Years</option>
-                <option value="months">Months</option>
-              </select>
-            </div>
-          </div>
-          <div>
-            <label for="fee" class="block text-sm font-semibold">Processing fee (%)</label>
-            <input id="fee" type="number" min="0" step="0.01" value="0.5" class="field-input" />
-          </div>
-          <div>
-            <label for="report-detail" class="block text-sm font-semibold">Report detail level</label>
-            <select id="report-detail" class="field-select">
-              <option value="full" selected>Granular — every month</option>
-              <option value="annual">Annual rollup</option>
-              <option value="summary">Summary KPIs only</option>
-            </select>
-          </div>
-          <button type="submit" class="btn-primary w-full">Calculate</button>
-
-          <div class="pt-2">
-            <p class="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">Download reports</p>
-            <div class="export-bar">
-              <button type="button" id="dl-pdf-summary" class="export-primary" disabled>PDF Summary</button>
-              <button type="button" id="dl-pdf-full" disabled>PDF Full Schedule</button>
-              <button type="button" id="dl-csv" disabled>CSV Granular</button>
-              <button type="button" id="dl-xlsx" disabled>Excel Granular</button>
-              <button type="button" id="dl-json" disabled>JSON</button>
-            </div>
-          </div>
-        </form>
-
-        <div class="lg:col-span-3 space-y-6">
-          <div id="summary" class="grid sm:grid-cols-3 gap-4" aria-live="polite">
-            <div class="stat-tile">
-              <p class="text-xs uppercase tracking-wider text-muted-foreground font-bold">Monthly EMI</p>
-              <p id="out-emi" class="mt-1 text-2xl font-bold">—</p>
-            </div>
-            <div class="stat-tile">
-              <p class="text-xs uppercase tracking-wider text-muted-foreground font-bold">Total interest</p>
-              <p id="out-interest" class="mt-1 text-2xl font-bold">—</p>
-            </div>
-            <div class="stat-tile">
-              <p class="text-xs uppercase tracking-wider text-muted-foreground font-bold">Total payable (+ fee)</p>
-              <p id="out-total" class="mt-1 text-2xl font-bold">—</p>
-            </div>
-          </div>
-          <div class="stat-tile">
-            <h3 class="text-sm font-bold mb-3">Principal vs interest</h3>
-            <div class="relative max-w-sm mx-auto" style="height:260px">
-              <canvas id="emi-chart" aria-label="Pie chart of principal versus interest"></canvas>
+            
+            <div class="bg-amber-50 rounded-xl p-5 border border-amber-100">
+              <h3 class="text-lg font-bold text-amber-900 mb-2 flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                The Interest Trap
+              </h3>
+              <p class="text-amber-800 text-sm">
+                Early instalments are heavily skewed towards interest. Your principal reduces very slowly at the start of a long-term loan (like a 20-year mortgage). This is why <strong>prepayments early in the schedule</strong> destroy significantly more interest cost than prepayments made later.
+              </p>
             </div>
           </div>
         </div>
       </div>
+    </section>
 
-      <div class="mt-8 calc-panel">
-        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-          <h3 class="text-lg font-bold">Amortization schedule</h3>
-          <select id="table-view" class="field-select w-auto" aria-label="Table view">
-            <option value="monthly" selected>Monthly (granular)</option>
-            <option value="yearly">Yearly rollup</option>
-          </select>
+    <!-- The Calculator Tool -->
+    <section class="mb-16">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-white font-bold text-xl shadow-md">2</span>
+        <h2 class="text-3xl font-bold text-slate-900 m-0">The Interactive Amortization Engine</h2>
+      </div>
+
+      <!-- Injected Calculator UI from Original -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8">
+        <div class="grid lg:grid-cols-5 gap-8">
+          <form id="emi-form" class="lg:col-span-2 space-y-4 no-print">
+            <div>
+              <label for="loan-type" class="block text-sm font-semibold text-slate-700">Loan type</label>
+              <select id="loan-type" class="field-select">
+                <option value="home">Home / Mortgage</option>
+                <option value="personal">Personal</option>
+                <option value="auto">Auto / Car</option>
+                <option value="education">Education</option>
+                <option value="business">Business</option>
+                <option value="lap">Loan Against Property</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div>
+              <label for="currency" class="block text-sm font-semibold text-slate-700">Currency</label>
+              <select id="currency" class="field-select">
+                <option value="INR" selected>INR — Indian Rupee</option>
+                <option value="USD">USD — US Dollar</option>
+                <option value="EUR">EUR — Euro</option>
+                <option value="GBP">GBP — British Pound</option>
+              </select>
+            </div>
+            <div>
+              <label for="principal" class="block text-sm font-semibold text-slate-700">Loan amount (principal)</label>
+              <input id="principal" type="number" min="1" step="1" value="5000000" required class="field-input" />
+            </div>
+            <div>
+              <label for="rate" class="block text-sm font-semibold text-slate-700">Annual interest rate (%)</label>
+              <input id="rate" type="number" min="0.01" step="0.01" value="8.5" required class="field-input" />
+              <select id="rate-preset" class="field-select mt-2" aria-label="Rate preset">
+                <option value="">Rate presets…</option>
+                <option value="7.1">Home ~7.1%</option>
+                <option value="8.5">Home ~8.5%</option>
+                <option value="9.5">Auto ~9.5%</option>
+                <option value="11.5">Personal ~11.5%</option>
+              </select>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label for="tenure-value" class="block text-sm font-semibold text-slate-700">Tenure</label>
+                <input id="tenure-value" type="number" min="1" value="20" required class="field-input" />
+              </div>
+              <div>
+                <label for="tenure-unit" class="block text-sm font-semibold text-slate-700">Unit</label>
+                <select id="tenure-unit" class="field-select">
+                  <option value="years" selected>Years</option>
+                  <option value="months">Months</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label for="fee" class="block text-sm font-semibold text-slate-700">Processing fee (%)</label>
+              <input id="fee" type="number" min="0" step="0.01" value="0.5" class="field-input" />
+            </div>
+            <div>
+              <label for="report-detail" class="block text-sm font-semibold text-slate-700">Report detail level</label>
+              <select id="report-detail" class="field-select">
+                <option value="full" selected>Granular — every month</option>
+                <option value="annual">Annual rollup</option>
+                <option value="summary">Summary KPIs only</option>
+              </select>
+            </div>
+            <button type="submit" class="btn-primary w-full bg-slate-900 text-white hover:bg-slate-800">Calculate & Build Ledger</button>
+
+            <div class="pt-4 border-t border-slate-200 mt-4">
+              <p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Export Data</p>
+              <div class="export-bar flex flex-wrap gap-2">
+                <button type="button" id="dl-pdf-summary" class="export-primary text-xs" disabled>PDF Summary</button>
+                <button type="button" id="dl-pdf-full" class="text-xs px-2 py-1 bg-slate-100 border rounded" disabled>PDF Full</button>
+                <button type="button" id="dl-csv" class="text-xs px-2 py-1 bg-slate-100 border rounded" disabled>CSV</button>
+                <button type="button" id="dl-xlsx" class="text-xs px-2 py-1 bg-slate-100 border rounded" disabled>Excel</button>
+                <button type="button" id="dl-json" class="text-xs px-2 py-1 bg-slate-100 border rounded" disabled>JSON</button>
+              </div>
+            </div>
+          </form>
+
+          <div class="lg:col-span-3 space-y-6">
+            <div id="summary" class="grid sm:grid-cols-3 gap-4" aria-live="polite">
+              <div class="bg-indigo-50 border border-indigo-100 p-4 rounded-xl">
+                <p class="text-xs uppercase tracking-wider text-indigo-800 font-bold">Monthly EMI</p>
+                <p id="out-emi" class="mt-1 text-2xl font-bold text-indigo-900">—</p>
+              </div>
+              <div class="bg-rose-50 border border-rose-100 p-4 rounded-xl">
+                <p class="text-xs uppercase tracking-wider text-rose-800 font-bold">Total interest</p>
+                <p id="out-interest" class="mt-1 text-2xl font-bold text-rose-900">—</p>
+              </div>
+              <div class="bg-slate-100 border border-slate-200 p-4 rounded-xl">
+                <p class="text-xs uppercase tracking-wider text-slate-600 font-bold">Total (+ fee)</p>
+                <p id="out-total" class="mt-1 text-2xl font-bold text-slate-900">—</p>
+              </div>
+            </div>
+            
+            <div class="border border-slate-200 p-4 rounded-xl">
+              <h3 class="text-sm font-bold text-slate-800 mb-3 text-center uppercase tracking-wider">Principal vs Interest Ratio</h3>
+              <div class="relative max-w-sm mx-auto" style="height:260px">
+                <canvas id="emi-chart" aria-label="Pie chart of principal versus interest"></canvas>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="table-scroll max-h-96 overflow-y-auto border border-border rounded">
-          <table class="amort-table min-w-full divide-y divide-neutral-200" id="amort-table">
-            <thead class="bg-neutral-50 sticky top-0">
-              <tr>
-                <th class="px-3 py-2 text-left font-semibold">Period</th>
-                <th class="px-3 py-2 text-right font-semibold">EMI</th>
-                <th class="px-3 py-2 text-right font-semibold">Interest</th>
-                <th class="px-3 py-2 text-right font-semibold">Principal</th>
-                <th class="px-3 py-2 text-right font-semibold">Balance</th>
-                <th class="px-3 py-2 text-right font-semibold">Cum. Interest</th>
-                <th class="px-3 py-2 text-right font-semibold">Cum. Principal</th>
-              </tr>
-            </thead>
-            <tbody id="amort-body" class="divide-y divide-neutral-100"></tbody>
-          </table>
+
+        <div class="mt-8 border-t border-slate-200 pt-8">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+            <h3 class="text-lg font-bold text-slate-900">Amortization Ledger</h3>
+            <select id="table-view" class="field-select w-auto text-sm" aria-label="Table view">
+              <option value="monthly" selected>Monthly (granular)</option>
+              <option value="yearly">Yearly rollup</option>
+            </select>
+          </div>
+          <div class="table-scroll max-h-96 overflow-y-auto border border-slate-200 rounded-xl shadow-sm">
+            <table class="amort-table min-w-full divide-y divide-slate-200 text-sm" id="amort-table">
+              <thead class="bg-slate-100 sticky top-0">
+                <tr>
+                  <th class="px-4 py-3 text-left font-bold text-slate-700">Period</th>
+                  <th class="px-4 py-3 text-right font-bold text-slate-700">EMI</th>
+                  <th class="px-4 py-3 text-right font-bold text-slate-700">Interest</th>
+                  <th class="px-4 py-3 text-right font-bold text-slate-700">Principal</th>
+                  <th class="px-4 py-3 text-right font-bold text-slate-700">Balance</th>
+                  <th class="px-4 py-3 text-right font-bold text-slate-700">Cum. Interest</th>
+                  <th class="px-4 py-3 text-right font-bold text-slate-700">Cum. Principal</th>
+                </tr>
+              </thead>
+              <tbody id="amort-body" class="bg-white divide-y divide-slate-100"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chapter 3: Strategy -->
+    <section class="mb-16">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-white font-bold text-xl shadow-md">3</span>
+        <h2 class="text-3xl font-bold text-slate-900 m-0">Strategic Execution</h2>
+      </div>
+      
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="p-6 sm:p-8">
+          <p class="text-lg text-slate-700 mb-6">
+            Understanding the math is only half the battle. Executing debt efficiently requires strategic planning.
+          </p>
+
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-lg font-bold text-slate-900 mb-3 border-b border-slate-200 pb-2">Key Execution Parameters</h3>
+              <ol class="space-y-4 text-slate-700 list-decimal pl-5">
+                <li><strong class="text-slate-900">Stress Test:</strong> Always stress test your EMI at +200 bps (basis points) rate shocks before locking in floating tenors to ensure affordability in high-inflation environments.</li>
+                <li><strong class="text-slate-900">Debt-to-Income:</strong> Keep total monthly debt obligations within a sustainable share of your take-home pay (often recommended: 35–45% maximum).</li>
+                <li><strong class="text-slate-900">Refinancing:</strong> When considering balance transfers, compare the break-even months against the residual interest in your granular ledger, factoring in processing fees.</li>
+              </ol>
+            </div>
+
+            <!-- Myth vs Fact Box -->
+            <div class="bg-indigo-50 border-l-4 border-indigo-600 p-5 rounded-r-xl">
+              <h3 class="text-lg font-bold text-indigo-900 mt-0 mb-3 flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                Myth vs. Mathematical Fact
+              </h3>
+              <p class="text-sm font-bold text-rose-600 uppercase tracking-wider mb-1">The Myth</p>
+              <p class="text-slate-700 text-sm m-0 mb-3">"A 30-year loan is always better because the monthly EMI is cheaper."</p>
+              
+              <p class="text-sm font-bold text-emerald-600 uppercase tracking-wider mb-1">The Scientific Fact</p>
+              <p class="text-slate-700 text-sm m-0">While the monthly outflow is lower, the total interest paid on a 30-year loan often exceeds the principal borrowed. A minor increase in EMI (e.g. opting for 20 years instead of 30) drastically reduces the total interest compounding effect.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -202,6 +286,7 @@
 
   <footer id="site-footer"></footer>
 
+  <!-- Unchanged Calculator Logic -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const fmt = (n) => n.toLocaleString(undefined, { maximumFractionDigits: 2, minimumFractionDigits: 2 });
@@ -332,25 +417,25 @@
           .map(function (r) {
             return (
               '<tr>' +
-              '<td class="px-3 py-1.5">' +
+              '<td class="px-4 py-2">' +
               r.label +
               '</td>' +
-              '<td class="px-3 py-1.5 text-right">' +
+              '<td class="px-4 py-2 text-right">' +
               fmt(r.emi) +
               '</td>' +
-              '<td class="px-3 py-1.5 text-right">' +
+              '<td class="px-4 py-2 text-right">' +
               fmt(r.interest) +
               '</td>' +
-              '<td class="px-3 py-1.5 text-right">' +
+              '<td class="px-4 py-2 text-right">' +
               fmt(r.principal) +
               '</td>' +
-              '<td class="px-3 py-1.5 text-right">' +
+              '<td class="px-4 py-2 text-right">' +
               fmt(r.balance) +
               '</td>' +
-              '<td class="px-3 py-1.5 text-right">' +
+              '<td class="px-4 py-2 text-right">' +
               fmt(r.cumInterest) +
               '</td>' +
-              '<td class="px-3 py-1.5 text-right">' +
+              '<td class="px-4 py-2 text-right">' +
               fmt(r.cumPrincipal) +
               '</td>' +
               '</tr>'
@@ -530,7 +615,3 @@
   </script>
 </body>
 </html>
-
-
-
-

@@ -17,7 +17,7 @@
   {"@context":"https://schema.org","@type":"SoftwareApplication","name":"BitsToBetter Compound Interest Calculator","applicationCategory":"FinanceApplication","operatingSystem":"Web Browser","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"url":"https://bitstobetter.com/finance/compound-interest.html"}
   </script>
 </head>
-<body class="font-sans antialiased" data-calc="compound-interest">
+<body class="font-sans antialiased" data-calc="interest">
   <header id="site-header"></header>
   <main class="container-hub max-w-6xl py-10">
     <nav class="text-sm text-muted-foreground mb-6" aria-label="Breadcrumb">
@@ -27,7 +27,69 @@
     </nav>
     <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-2">Compound Interest Calculator</h1>
     <p class="text-muted-foreground text-lg mb-8 max-w-3xl">Free browser-based calculator. Your data never leaves the device.</p>
+
     <div id="calc-root"></div>
+      
+    <!-- Chapter 1: The Math -->
+    <section class="mb-16 mt-12 max-w-4xl">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-white font-bold text-xl shadow-md">1</span>
+        <h2 class="text-3xl font-bold text-slate-900 m-0">The Mechanics Behind Compound Interest Calculator</h2>
+      </div>
+      
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="p-6 sm:p-8">
+          <p class="text-lg text-slate-700 mb-6 leading-relaxed">
+            Compound interest is the "eighth wonder of the world." It is the process where the interest you earn on your principal balance is reinvested, generating its own interest in the next period. Over long horizons, the growth curve becomes exponential rather than linear.
+          </p>
+          
+          <!-- Myth vs Fact Box -->
+          <div class="bg-indigo-50 border-l-4 border-indigo-600 p-6 my-8 rounded-r-xl shadow-sm">
+            <h3 class="text-xl font-bold text-indigo-900 mt-0 mb-3 flex items-center gap-2">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              Myth vs. Scientific Fact
+            </h3>
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <p class="text-sm font-bold text-red-600 uppercase tracking-wider mb-1">The Myth</p>
+                <p class="text-slate-700 m-0">"I can just start investing later when I make more money."</p>
+              </div>
+              <div>
+                <p class="text-sm font-bold text-emerald-600 uppercase tracking-wider mb-1">The Scientific Fact</p>
+                <p class="text-slate-700 m-0">Time is significantly more powerful than capital when it comes to compounding. Because your returns generate their own returns, starting 10 years earlier with half the money often yields a higher final corpus than starting later with double the money.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chapter 2: Strategy -->
+    <section class="mb-16 max-w-4xl">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-white font-bold text-xl shadow-md">2</span>
+        <h2 class="text-3xl font-bold text-slate-900 m-0">Maximizing Compounding Velocity</h2>
+      </div>
+      
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="p-6 sm:p-8">
+          <p class="text-lg text-slate-700 mb-6 leading-relaxed">
+            To maximize compounding velocity, you must optimize three variables: Time (start as early as possible), Rate (invest in growth assets like equities), and Frequency (compound daily or monthly instead of annually).
+          </p>
+
+          <!-- Takeaway Summary -->
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-6 shadow-sm">
+            <h4 class="text-lg font-bold text-slate-900 mt-0 mb-3">Key Takeaways for Your Plan:</h4>
+            <ul class="list-disc pl-5 m-0 space-y-2 text-slate-700">
+              <li><strong>Analysis:</strong> Time in the market beats timing the market.</li>
+              <li><strong>Optimization:</strong> Reinvest all dividends and interest.</li>
+              <li><strong>Execution:</strong> Higher compounding frequency accelerates wealth creation.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    
   </main>
   <footer id="site-footer"></footer>
   <script src="/assets/site.js" defer></script>

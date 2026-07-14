@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0F172A" />
+  <meta name="robots" content="index, follow" />
+  
+  <title>FIRE Engine — Retire Early Calculator & Investment Strategy Guide</title>
+  <meta name="description" content="Advanced FIRE calculator with SWR analysis, inflation modeling, and asset allocation strategies. Plan your financial independence journey with scientific precision." />
+  <meta name="keywords" content="FIRE, financial independence retire early, SWR, safe withdrawal rate, retirement calculator, investing, wealth accumulation" />
+  
+  <link rel="canonical" href="https://bitstobetter.com/finance/fire.html" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'] },
+          colors: {
+            border: 'hsl(214 32% 91%)',
+            foreground: 'hsl(222 47% 11%)',
+            muted: { DEFAULT: 'hsl(210 40% 96.1%)', foreground: 'hsl(215.4 16.3% 46.9%)' },
+            primary: { DEFAULT: 'hsl(222 47% 11%)', foreground: 'hsl(210 40% 98%)' },
+            secondary: { DEFAULT: 'hsl(210 40% 96.1%)', foreground: 'hsl(222 47% 11%)' },
+            card: { DEFAULT: '#fff', foreground: 'hsl(222 47% 11%)' }
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="/assets/site.css" />
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FinancialProduct",
+    "name": "FIRE Engine Calculator",
+    "description": "Advanced retirement calculator using SWR, inflation modeling, and asset allocation",
+    "brand": { "@type": "Organization", "name": "BitsToBetter" },
+    "url": "https://bitstobetter.com/finance/fire.html",
+    "applicationCategory": "FinanceApplication"
+  }
+  </script>
+
+  <style>
+    .card-input { @apply bg-white border border-border rounded-lg p-4 shadow-sm; }
+    .alert-box { @apply border-l-4 border-blue-400 bg-blue-50 text-blue-900 p-4 rounded; }
+    .warning-box { @apply border-l-4 border-amber-400 bg-amber-50 text-amber-900 p-4 rounded; }
+    .success-box { @apply border-l-4 border-green-400 bg-green-50 text-green-900 p-4 rounded; }
+    .section-header { @apply text-2xl font-bold mb-4 text-foreground flex items-center gap-2; }
+    .result-card { @apply bg-gradient-to-br from-slate-50 to-slate-100 border border-border rounded-lg p-6; }
+  </style>
+</head>
+
+<body class="font-sans antialiased bg-white text-foreground">
+  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[60] focus:bg-primary focus:text-primary-foreground focus:px-3 focus:py-2 focus:rounded">Skip to content</a>
+
+  <header id="site-header"></header>
+
+  <main id="main" class="py-12 md:py-20">
+    <div class="container-hub max-w-6xl mx-auto px-4 md:px-6">
+
+      <!-- Hero Section -->
+      <section class="mb-16">
+        <div class="bg-gradient-to-r from-emerald-50 via-blue-50 to-indigo-50 border border-emerald-200 rounded-2xl p-8 md:p-12">
+          <div class="max-w-3xl">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">🔥 FIRE Engine: Retire on Your Terms</h1>
+            <p class="text-lg text-muted-foreground mb-6">
+              Calculate your exact number to financial independence. This advanced calculator models inflation, applies the 4% safe withdrawal rate (SWR), and generates a scientifically-backed asset allocation strategy tailored to your risk tolerance.
+            </p>
+            <div class="flex flex-wrap gap-3">
+              <span class="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-border">
+                <svg class="h-5 w-5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path d="M10.894 2.553a.75.75 0 00-1.788 0l-.894 3.776a.75.75 0 001.497.092l.259-1.565a1.5 1.5 0 011.422-1.099h1.037a1.5 1.5 0 011.422 1.099l.26 1.565a.75.75 0 101.497-.092l-.894-3.776zM12.122 6.5a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/></svg>
+                <span class="font-semibold">SWR Science-Backed</span>
+              </span>
+              <span class="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-border">
+                <svg class="h-5 w-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.5 17a4.5 4.5 0 01-1.44-8.765 4.5 4.5 0 018.302-3.046 3.5 3.5 0 014.504 4.272A4 4 0 1015.5 17H5.5z" clip-rule="evenodd"/></svg>
+                <span class="font-semibold">Inflation Modeling</span>
+              </span>
+              <span class="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-border">
+                <svg class="h-5 w-5 text-indigo-600" fill="currentColor" viewBox="0 0 20 20"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
+                <span class="font-semibold">Portfolio Allocation</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        
+        <!-- CALCULATOR SIDEBAR -->
+        <div class="md:col-span-1">
+          <div class="sticky top-24">
+            <div class="card-input">
+              <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
+                <svg class="h-6 w-6 text-primary" fill="currentColor" viewBox="0 0 20 20"><path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM15.657 14.243a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM11 17a1 1 0 102 0v-1a1 1 0 10-2 0v1zM5.757 15.657a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM2 10a1 1 0 011-1h1a1 1 0 110 2H3a1 1 0 01-1-1zM5.757 5.757a1 1 0 00-1.414 1.414l.707.707a1 1 0 001.414-1.414l-.707-.707z"/></svg>
+                Your FIRE Plan
+              </h2>
+
+              <div class="space-y-5">
+                <!-- Current Age -->
+                <div>
+                  <label class="block text-sm font-semibold mb-2">Current Age</label>
+                  <input type="number" id="currentAge" value="30" min="18" max="100" class="w-full px-3 py-2 border border-border rounded-lg" placeholder="30">
+                  <p class="text-xs text-muted-foreground mt-1">When do you want to start planning?</p>
+                </div>
+
+                <!-- Target Retirement Age -->
+                <div>
+                  <label class="block text-sm font-semibold mb-2">Target Retirement Age</label>
+                  <input type="number" id="retirementAge" value="45" min="25" max="100" class="w-full px-3 py-2 border border-border rounded-lg" placeholder="45">
+                  <p class="text-xs text-muted-foreground mt-1">When do you want to stop working?</p>
+                </div>
+
+                <!-- Current Annual Expenses -->
+                <div>
+                  <label class="block text-sm font-semibold mb-2">Annual Expenses (₹)</label>
+                  <input type="number" id="annualExpenses" value="600000" min="0" step="10000" class="w-full px-3 py-2 border border-border rounded-lg" placeholder="600000">
+                  <p class="text-xs text-muted-foreground mt-1">Your yearly spend (housing, food, etc.)</p>
+                </div>
+
+                <!-- Current Net Worth -->
+                <div>
+                  <label class="block text-sm font-semibold mb-2">Current Net Worth (₹)</label>
+                  <input type="number" id="currentNetWorth" value="5000000" min="0" step="100000" class="w-full px-3 py-2 border border-border rounded-lg" placeholder="5000000">
+                  <p class="text-xs text-muted-foreground mt-1">Savings + investments (liquid assets)</p>
+                </div>
+
+                <!-- Annual Income -->
+                <div>
+                  <label class="block text-sm font-semibold mb-2">Annual Savings (₹)</label>
+                  <input type="number" id="annualSavings" value="800000" min="0" step="10000" class="w-full px-3 py-2 border border-border rounded-lg" placeholder="800000">
+                  <p class="text-xs text-muted-foreground mt-1">Money you invest per year</p>
+                </div>
+
+                <!-- Expected Return -->
+                <div>
+                  <label class="block text-sm font-semibold mb-2">Expected Annual Return (%)</label>
+                  <input type="number" id="expectedReturn" value="10" min="0" max="30" step="0.5" class="w-full px-3 py-2 border border-border rounded-lg" placeholder="10">
+                  <p class="text-xs text-muted-foreground mt-1">Historically: 10-12% equity, 5-7% debt</p>
+                </div>
+
+                <!-- Inflation Rate -->
+                <div>
+                  <label class="block text-sm font-semibold mb-2">Expected Inflation (%)</label>
+                  <input type="number" id="inflation" value="5.5" min="0" max="15" step="0.1" class="w-full px-3 py-2 border border-border rounded-lg" placeholder="5.5">
+                  <p class="text-xs text-muted-foreground mt-1">India avg: 5-6% (RBI target)</p>
+                </div>
+
+                <!-- Safe Withdrawal Rate -->
+                <div>
+                  <label class="block text-sm font-semibold mb-2">Safe Withdrawal Rate (%)</label>
+                  <input type="number" id="swr" value="4" min="2" max="5" step="0.1" class="w-full px-3 py-2 border border-border rounded-lg" placeholder="4">
+                  <p class="text-xs text-muted-foreground mt-1">4% rule (conservative & proven)</p>
+                </div>
+
+                <!-- Risk Profile -->
+                <div>
+                  <label class="block text-sm font-semibold mb-2">Risk Profile</label>
+                  <select id="riskProfile" class="w-full px-3 py-2 border border-border rounded-lg bg-white">
+                    <option value="aggressive">🚀 Aggressive (80% Equity, 20% Debt)</option>
+                    <option value="moderate" selected>⚖️ Moderate (60% Equity, 40% Debt)</option>
+                    <option value="conservative">🛡️ Conservative (40% Equity, 60% Debt)</option>
+                  </select>
+                </div>
+
+                <button onclick="calculateFIRE()" class="w-full px-4 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:opacity-90 transition-opacity">
+                  Calculate My FIRE Number
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RESULTS & EDUCATIONAL CONTENT -->
+        <div class="md:col-span-2">
+          
+          <!-- Results Section -->
+          <section id="results" class="mb-12">
+            <div id="resultsContainer" class="hidden">
+              <div class="result-card mb-6">
+                <div class="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <p class="text-sm text-muted-foreground mb-2">Your FIRE Number</p>
+                    <div class="text-4xl font-bold text-primary mb-1">₹<span id="fireNumber">0</span></div>
+                    <p class="text-xs text-muted-foreground">The corpus needed to retire comfortably</p>
+                  </div>
+                  <div>
+                    <p class="text-sm text-muted-foreground mb-2">Years to FIRE</p>
+                    <div class="text-4xl font-bold text-emerald-600 mb-1"><span id="yearsToFIRE">0</span> years</div>
+                    <p class="text-xs text-muted-foreground" id="retirementAgeDisplay">You'll reach FIRE at age...</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="alert-box mb-6">
+                <h3 class="font-semibold mb-2">📊 Your Recommended Asset Allocation</h3>
+                <div id="allocationDisplay" class="space-y-2"></div>
+              </div>
+
+              <button onclick="downloadPDF()" class="inline-flex items-center gap-2 px-4 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:opacity-90 transition-opacity mb-6">
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+                Download PDF Report
+              </button>
+            </div>
+          </section>
+
+          <!-- Educational Content: FIRE Fundamentals -->
+          <section class="mb-12">
+            <h2 class="section-header">
+              <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path d="M10.894 2.553a.75.75 0 00-1.788 0l-.894 3.776a.75.75 0 001.497.092l.259-1.565a1.5 1.5 0 011.422-1.099h1.037a1.5 1.5 0 011.422 1.099l.26 1.565a.75.75 0 101.497-.092l-.894-3.776zM12.122 6.5a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/></svg>
+              Understanding FIRE
+            </h2>
+
+            <div class="prose prose-sm max-w-none space-y-6">
+              <div class="border-l-4 border-primary/30 pl-4 py-2">
+                <h3 class="font-bold mb-2">What is FIRE?</h3>
+                <p><strong>FIRE = Financial Independence, Retire Early.</strong> It's the strategy of accumulating enough wealth to live off investment returns alone, without needing a salary. Instead of working until 60-65, FIRE proponents retire in their 40s or 50s.</p>
+              </div>
+
+              <div class="success-box">
+                <h3 class="font-bold mb-2">✓ The 4% Safe Withdrawal Rate</h3>
+                <p>Research by William Bengen (Trinity Study) shows that withdrawing 4% of your portfolio annually has a 95% success rate over 30+ years. Example: If you have ₹1 Cr, you can withdraw ₹4 lakhs/year safely.</p>
+              </div>
+
+              <div class="warning-box">
+                <h3 class="font-bold mb-2">⚠️ Critical: Inflation Matters</h3>
+                <p>At 5% inflation, your purchasing power halves every 14 years. Our calculator factors in inflation to ensure your withdrawal amount (and lifestyle) stays constant in real terms, not nominal.</p>
+              </div>
+
+              <h3 class="font-bold">The FIRE Math (Simplified)</h3>
+              <div class="bg-slate-900 text-white p-4 rounded-lg font-mono text-sm overflow-x-auto">
+                <div>FIRE Number = Annual Expenses ÷ SWR %</div>
+                <div class="mt-2 text-gray-400">Example:</div>
+                <div>₹6,00,000 expenses ÷ 0.04 = ₹1,50,00,000 corpus needed</div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Strategic Considerations -->
+          <section class="mb-12">
+            <h2 class="section-header">
+              <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/></svg>
+              Asset Allocation Strategy
+            </h2>
+
+            <div class="space-y-6">
+              <div class="border border-border rounded-lg p-6">
+                <h3 class="font-bold mb-3">🚀 Aggressive Portfolio (80% Equity)</h3>
+                <p class="mb-4 text-sm text-muted-foreground">Best for: Long investment horizon (15+ years to retirement), higher risk tolerance</p>
+                <div class="bg-muted p-4 rounded space-y-2">
+                  <div class="flex justify-between">
+                    <span>Indian Large-Cap Equity (Nifty 50)</span>
+                    <strong>40%</strong>
+                  </div>
+                  <div class="flex justify-between">
+                    <span>International Equity (US, developed markets)</span>
+                    <strong>25%</strong>
+                  </div>
+                  <div class="flex justify-between">
+                    <span>Debt (Bonds, FDs)</span>
+                    <strong>20%</strong>
+                  </div>
+                  <div class="flex justify-between">
+                    <span>Gold / Real Estate (Hedge)</span>
+                    <strong>15%</strong>
+                  </div>
+                </div>
+              </div>
+
+              <div class="border border-border rounded-lg p-6">
+                <h3 class="font-bold mb-3">⚖️ Moderate Portfolio (60% Equity)</h3>
+                <p class="mb-4 text-sm text-muted-foreground">Best for: Balanced approach, 10-15 years to retirement</p>
+                <div class="bg-muted p-4 rounded space-y-2">
+                  <div class="flex justify-between">
+                    <span>Indian Equity (Large + Mid Cap)</span>
+                    <strong>45%</strong>
+                  </div>
+                  <div class="flex justify-between">
+                    <span>Debt & FDs</span>
+                    <strong>35%</strong>
+                  </div>
+                  <div class="flex justify-between">
+                    <span>Real Estate / Gold</span>
+                    <strong>20%</strong>
+                  </div>
+                </div>
+              </div>
+
+              <div class="border border-border rounded-lg p-6">
+                <h3 class="font-bold mb-3">🛡️ Conservative Portfolio (40% Equity)</h3>
+                <p class="mb-4 text-sm text-muted-foreground">Best for: Short horizon (5-10 years), capital preservation priority</p>
+                <div class="bg-muted p-4 rounded space-y-2">
+                  <div class="flex justify-between">
+                    <span>Indian Equity</span>
+                    <strong>30%</strong>
+                  </div>
+                  <div class="flex justify-between">
+                    <span>Bonds, PPF, FDs</span>
+                    <strong>50%</strong>
+                  </div>
+                  <div class="flex justify-between">
+                    <span>Gold</span>
+                    <strong>20%</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Advanced Concepts -->
+          <section>
+            <h2 class="section-header">
+              <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.707 2.293a1 1 0 00-1.414 1.414l12 12a1 1 0 001.414-1.414l-12-12zM3 10a1 1 0 100 2h14a1 1 0 100-2H3z" clip-rule="evenodd"/></svg>
+              Common FIRE Pitfalls
+            </h2>
+
+            <div class="space-y-4">
+              <div class="border-l-4 border-red-400 bg-red-50 p-4 rounded">
+                <h3 class="font-bold text-red-900 mb-1">❌ Ignoring Sequence-of-Returns Risk</h3>
+                <p class="text-sm text-red-800">Poor market returns in early retirement years can devastate your corpus. Maintain a 2-3 year cash buffer.</p>
+              </div>
+
+              <div class="border-l-4 border-red-400 bg-red-50 p-4 rounded">
+                <h3 class="font-bold text-red-900 mb-1">❌ Underestimating Healthcare Costs</h3>
+                <p class="text-sm text-red-800">Retirement healthcare (post-60) can spike unexpectedly. Budget 15-20% extra for medical expenses.</p>
+              </div>
+
+              <div class="border-l-4 border-red-400 bg-red-50 p-4 rounded">
+                <h3 class="font-bold text-red-900 mb-1">❌ Lifestyle Inflation</h3>
+                <p class="text-sm text-red-800">Your expenses often rise with income. Plan for this by reviewing your assumptions annually.</p>
+              </div>
+
+              <div class="border-l-4 border-red-400 bg-red-50 p-4 rounded">
+                <h3 class="font-bold text-red-900 mb-1">❌ Neglecting Tax Optimization</h3>
+                <p class="text-sm text-red-800">In retirement, strategically withdraw from tax-efficient accounts (PPF, ELSS before SIPs).</p>
+              </div>
+            </div>
+          </section>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="/assets/header-component.js" defer></script>
+  <script src="/assets/site.js" defer></script>
+
+  <script>
+    function calculateFIRE() {
+      const currentAge = parseInt(document.getElementById('currentAge').value);
+      const retirementAge = parseInt(document.getElementById('retirementAge').value);
+      const annualExpenses = parseFloat(document.getElementById('annualExpenses').value);
+      const currentNetWorth = parseFloat(document.getElementById('currentNetWorth').value);
+      const annualSavings = parseFloat(document.getElementById('annualSavings').value);
+      const expectedReturn = parseFloat(document.getElementById('expectedReturn').value) / 100;
+      const inflation = parseFloat(document.getElementById('inflation').value) / 100;
+      const swr = parseFloat(document.getElementById('swr').value) / 100;
+
+      // Adjusted expenses for inflation at retirement
+      const yearsToRetirement = retirementAge - currentAge;
+      const futureExpenses = annualExpenses * Math.pow(1 + inflation, yearsToRetirement);
+
+      // FIRE number using SWR
+      const fireNumber = futureExpenses / swr;
+
+      // Project wealth growth
+      let wealth = currentNetWorth;
+      for (let i = 0; i < yearsToRetirement; i++) {
+        wealth = wealth * (1 + expectedReturn) + annualSavings;
+      }
+
+      const yearsToFIRE = wealth >= fireNumber ? yearsToRetirement : Math.ceil(Math.log((fireNumber - annualSavings / expectedReturn) / (currentNetWorth - annualSavings / expectedReturn)) / Math.log(1 + expectedReturn));
+
+      // Display results
+      document.getElementById('fireNumber').textContent = Math.round(fireNumber).toLocaleString('en-IN');
+      document.getElementById('yearsToFIRE').textContent = Math.max(0, yearsToFIRE);
+      document.getElementById('retirementAgeDisplay').textContent = `You'll reach FIRE at age ${currentAge + Math.max(0, yearsToFIRE)} (in ${yearsToRetirement} years)`;
+
+      // Show allocation
+      const riskProfile = document.getElementById('riskProfile').value;
+      let allocation = '';
+      if (riskProfile === 'aggressive') {
+        allocation = '80% Equity, 20% Debt & Commodities';
+      } else if (riskProfile === 'moderate') {
+        allocation = '60% Equity, 40% Debt & Safe Instruments';
+      } else {
+        allocation = '40% Equity, 60% Debt, Bonds & Gold';
+      }
+      document.getElementById('allocationDisplay').innerHTML = `<div class="bg-white p-3 rounded border border-border"><strong>${allocation}</strong></div>`;
+
+      document.getElementById('resultsContainer').classList.remove('hidden');
+    }
+
+    function downloadPDF() {
+      const element = document.getElementById('resultsContainer');
+      const opt = { margin: 10, filename: 'FIRE-Plan.pdf', image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' } };
+      html2pdf().set(opt).from(element).save();
+    }
+  </script>
+
+</body>
+</html>

@@ -12,20 +12,9 @@
 
   function brand() {
     return (
-      '<a href="/" class="brand-link">' +
-      '<svg width="32" height="32" viewBox="0 0 320 64" class="brand-logo" aria-label="BitsToBetter">' +
-      '<rect x="8" y="12" width="44" height="40" rx="6" fill="currentColor"/>' +
-      '<rect x="14" y="20" width="6" height="6" rx="1" fill="white" opacity="0.9"/>' +
-      '<rect x="24" y="20" width="6" height="6" rx="1" fill="white" opacity="0.6"/>' +
-      '<rect x="34" y="20" width="6" height="6" rx="1" fill="white" opacity="0.9"/>' +
-      '<rect x="14" y="30" width="6" height="6" rx="1" fill="white" opacity="0.6"/>' +
-      '<rect x="24" y="30" width="6" height="6" rx="1" fill="white" opacity="0.9"/>' +
-      '<rect x="34" y="30" width="6" height="6" rx="1" fill="white" opacity="0.6"/>' +
-      '<rect x="14" y="40" width="6" height="6" rx="1" fill="white" opacity="0.9"/>' +
-      '<rect x="24" y="40" width="6" height="6" rx="1" fill="white" opacity="0.6"/>' +
-      '<rect x="34" y="40" width="6" height="6" rx="1" fill="white" opacity="0.9"/>' +
-      '</svg>' +
-      '<span>BitsToBetter</span>' +
+      '<a href="/" class="brand-link flex items-center gap-2">' +
+      '<img src="/assets/favicon.svg" class="brand-logo w-8 h-8 rounded-lg" alt="BitsToBetter Logo">' +
+      '<span class="font-extrabold text-xl tracking-tight" style="color: #0f172a;">BitsToBetter</span>' +
       '</a>'
     );
   }
@@ -51,36 +40,42 @@
   }
 
   /** Wide scrollable dropdown for a calculator category */
-  function categoryDD(title, id, columns) {
-    // columns: [{ heading, links: [[href,label], ...] }, ...]
-    const cols = columns
+  function categoryDD(title, id, columns, footerLink) {
+    var cols = columns
       .map(function (col) {
+        var links = col.links
+          .map(function (link) {
+            return '<a href="' + link[0] + '" class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors">' + link[1] + '</a>';
+          })
+          .join('');
         return (
-          '<div class="dd-col">' +
-          '<h4 class="dd-col-title">' +
+          '<div class="group/sub relative">' +
+          '<button class="w-full flex items-center justify-between px-3 py-2 text-sm font-medium text-left rounded-md hover:bg-muted transition-colors">' +
           col.heading +
-          '</h4>' +
-          '<ul class="dd-col-list">' +
-          linkList(col.links) +
-          '</ul></div>'
+          '<svg class="h-4 w-4 -rotate-90 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>' +
+          '</button>' +
+          '<div class="absolute left-full top-0 pl-1 w-64 invisible opacity-0 -translate-x-2 group-hover/sub:visible group-hover/sub:opacity-100 group-hover/sub:translate-x-0 transition-all z-50">' +
+          '<div class="bg-card border border-border shadow-xl rounded-xl p-2">' +
+          links +
+          '</div></div>' +
+          '</div>'
         );
       })
       .join('');
 
     return (
-      '<div class="nav-dd" data-dd="' +
-      id +
-      '">' +
-      '<button type="button" class="nav-link" aria-expanded="false" aria-haspopup="true">' +
+      '<div class="nav-dd group relative" data-dd="' + id + '">' +
+      '<a href="' + footerLink[0] + '" class="nav-link flex items-center gap-1 group-hover:text-primary transition-colors py-4" aria-expanded="false">' +
       title +
-      ' ' +
-      CHEV +
-      '</button>' +
-      '<div class="dd-panel dd-panel--wide" role="menu">' +
-      '<div class="dd-bridge" aria-hidden="true"></div>' +
-      '<div class="dd-panel-inner">' +
+      '<span class="transform transition-transform group-hover:rotate-180">' + CHEV + '</span>' +
+      '</a>' +
+      '<div class="dd-panel absolute left-0 top-full pt-1 w-64 invisible opacity-0 translate-y-2 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all z-40">' +
+      '<div class="bg-card border border-border shadow-xl rounded-xl p-2">' +
+      '<a href="' + footerLink[0] + '" class="block px-3 py-2 mb-2 text-sm font-bold text-primary hover:bg-muted rounded-md border-b border-border transition-colors">View All ' + title + ' Tools</a>' +
+      '<div class="flex flex-col gap-1">' +
       cols +
-      '</div></div></div>'
+      '</div></div>' +
+      '</div></div>'
     );
   }
 
@@ -136,10 +131,9 @@
           ['/finance/nps.html', 'NPS Calculator'],
           ['/finance/epf.html', 'EPF Calculator'],
           ['/finance/nsc.html', 'NSC Calculator'],
-          ['/finance/', 'All financial tools →']
         ]
       }
-    ]);
+    ], ['/finance/', 'All financial tools →']);
   }
 
   function healthMenu() {
@@ -161,10 +155,9 @@
           ['/health/pregnancy.html', 'Pregnancy Calculator'],
           ['/health/pregnancy-conception.html', 'Pregnancy Conception'],
           ['/health/due-date.html', 'Due Date Calculator'],
-          ['/health/', 'All health tools →']
         ]
       }
-    ]);
+    ], ['/health/', 'All health tools →']);
   }
 
   function mathMenu() {
@@ -183,10 +176,9 @@
         links: [
           ['/math/triangle.html', 'Triangle Calculator'],
           ['/math/random-number.html', 'Random Number Generator'],
-          ['/math/', 'All math tools →']
         ]
       }
-    ]);
+    ], ['/math/', 'All math tools →']);
   }
 
   function lifestyleMenu() {
@@ -203,10 +195,9 @@
         links: [
           ['/lifestyle/password-generator.html', 'Password Generator'],
           ['/lifestyle/json-formatter.html', 'JSON Formatter'],
-          ['/lifestyle/', 'All lifestyle tools →']
         ]
       }
-    ]);
+    ], ['/lifestyle/', 'All lifestyle tools →']);
   }
 
   function otherMenu() {
@@ -229,10 +220,9 @@
           ['/other/subnet.html', 'Subnet Calculator'],
           ['/other/password.html', 'Password Generator'],
           ['/other/conversion.html', 'Conversion Calculator'],
-          ['/other/', 'All other tools →']
         ]
       }
-    ]);
+    ], ['/other/', 'All other tools →']);
   }
 
   function mountHeader() {
@@ -249,7 +239,7 @@
     root.innerHTML =
       '<div class="container-hub h-16 flex items-center justify-between gap-4">' +
       brand() +
-      '<nav class="hidden lg:flex items-center gap-6" aria-label="Primary">' +
+      '<nav class="hidden lg:flex items-center gap-8" aria-label="Primary">' +
       '<a href="/" class="nav-link' +
       (path === '/' || /\/index\.html$/.test(path) && path.split('/').length <= 2 ? ' is-active' : '') +
       '">Home</a>' +
@@ -368,6 +358,7 @@
     );
   }
 
+
   function wireNav(root) {
     const toggle = root.querySelector('#mobile-toggle');
     const mobile = root.querySelector('#mobile-nav');
@@ -377,65 +368,6 @@
         toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
       });
     }
-
-    // Hover-stable dropdowns with delay (prevents closing while moving to options)
-    root.querySelectorAll('.nav-dd').forEach(function (dd) {
-      let closeTimer = null;
-      const btn = dd.querySelector(':scope > button');
-
-      function open() {
-        if (closeTimer) {
-          clearTimeout(closeTimer);
-          closeTimer = null;
-        }
-        root.querySelectorAll('.nav-dd.is-open').forEach(function (other) {
-          if (other !== dd) closeDD(other);
-        });
-        dd.classList.add('is-open');
-        if (btn) btn.setAttribute('aria-expanded', 'true');
-      }
-
-      function closeDD(target) {
-        target.classList.remove('is-open');
-        const b = target.querySelector(':scope > button');
-        if (b) b.setAttribute('aria-expanded', 'false');
-      }
-
-      function scheduleClose() {
-        if (closeTimer) clearTimeout(closeTimer);
-        closeTimer = setTimeout(function () {
-          closeDD(dd);
-          closeTimer = null;
-        }, 400);
-      }
-
-      dd.addEventListener('mouseenter', open);
-      dd.addEventListener('mouseleave', scheduleClose);
-      dd.addEventListener('focusin', open);
-      dd.addEventListener('focusout', function (e) {
-        if (!dd.contains(e.relatedTarget)) scheduleClose();
-      });
-
-      if (btn) {
-        btn.addEventListener('click', function (e) {
-          e.preventDefault();
-          e.stopPropagation();
-          if (dd.classList.contains('is-open')) {
-            closeDD(dd);
-          } else {
-            open();
-          }
-        });
-      }
-    });
-
-    document.addEventListener('click', function (e) {
-      if (!root.contains(e.target)) {
-        root.querySelectorAll('.nav-dd.is-open').forEach(function (dd) {
-          dd.classList.remove('is-open');
-        });
-      }
-    });
 
     // Global search functionality
     const searchInput = document.getElementById('global-search');
@@ -459,29 +391,37 @@
         { title: 'Pomodoro Timer', url: '/lifestyle/pomodoro.html', category: 'Lifestyle' },
         { title: 'Password Generator', url: '/lifestyle/password-generator.html', category: 'Lifestyle' },
         { title: 'JSON Formatter', url: '/lifestyle/json-formatter.html', category: 'Lifestyle' },
-        { title: 'Habit Tracker', url: '/lifestyle/habit-tracker.html', category: 'Lifestyle' }
+        { title: 'Habit Tracker', url: '/lifestyle/habit-tracker.html', category: 'Lifestyle' },
+        { title: 'Posture & Biomechanics Guide', url: '/health/posture.html', category: 'Health' }
       ];
+
+      function executeSearch(query) {
+        if (query.length < 1) {
+          searchResults.classList.add('hidden');
+          return [];
+        }
+        
+        const words = query.split(' ').filter(w => w.length > 0);
+        return searchIndex.filter(function (item) {
+          const title = item.title.toLowerCase();
+          const cat = item.category.toLowerCase();
+          return words.every(w => title.includes(w) || cat.includes(w));
+        });
+      }
 
       searchInput.addEventListener('input', function (e) {
         const query = e.target.value.toLowerCase().trim();
+        const results = executeSearch(query);
         
-        if (query.length < 2) {
-          searchResults.classList.add('hidden');
-          return;
-        }
-
-        const results = searchIndex.filter(function (item) {
-          return item.title.toLowerCase().includes(query) || 
-                 item.category.toLowerCase().includes(query);
-        });
+        if (query.length < 1) return;
 
         if (results.length === 0) {
-          searchResults.innerHTML = '<div class="search-result-item">No results found</div>';
+          searchResults.innerHTML = '<div class="search-result-item p-2">No results found</div>';
         } else {
           searchResults.innerHTML = results.map(function (item) {
-            return '<a href="' + item.url + '" class="search-result-item">' +
-                   '<span class="search-result-title">' + item.title + '</span>' +
-                   '<span class="search-result-category">' + item.category + '</span>' +
+            return '<a href="' + item.url + '" class="search-result-item block p-2 hover:bg-muted">' +
+                   '<span class="search-result-title font-medium">' + item.title + '</span> - ' +
+                   '<span class="search-result-category text-sm text-muted-foreground">' + item.category + '</span>' +
                    '</a>';
           }).join('');
         }
@@ -490,10 +430,10 @@
       });
 
       // Close search results when clicking outside
-      document.addEventListener('click', function (e) {
-        if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
-          searchResults.classList.add('hidden');
-        }
+      document.addEventListener('click', function(e) {
+         if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+             searchResults.classList.add('hidden');
+         }
       });
     }
   }
@@ -506,7 +446,7 @@
     root.innerHTML =
       '<div class="container-hub">' +
       '<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">' +
-      '<div><a href="/" class="brand-link mb-3 inline-flex"><img src="/assets/logo.png" alt="" width="32" height="32" class="brand-logo" /><span>BitsToBetter</span></a>' +
+      '<div><a href="/" class="brand-link mb-3 inline-flex"><img src="/assets/favicon.svg" alt="" width="32" height="32" class="brand-logo" /><span>BitsToBetter</span></a>' +
       '<p class="mt-2 text-sm">Free calculators for finance, health, math, and everyday utilities. 100% browser-based.</p></div>' +
       '<div><h3 class="font-semibold text-foreground mb-3">Categories</h3><ul class="space-y-2">' +
       '<li><a href="/finance/">Financial</a></li><li><a href="/health/">Fitness &amp; Health</a></li>' +

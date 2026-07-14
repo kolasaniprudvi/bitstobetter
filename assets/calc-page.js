@@ -24,7 +24,7 @@
       '<form id="calc-form" class="lg:col-span-2 calc-panel space-y-4 no-print"></form>' +
       '<div class="lg:col-span-3 space-y-4">' +
       '<div id="calc-summary" class="calc-panel" aria-live="polite"><p class="text-muted-foreground text-sm">Enter values and calculate.</p></div>' +
-      '<div id="calc-table-wrap" class="calc-panel hidden overflow-x-auto"></div>' +
+      '<div id="calc-table-wrap" class="calc-panel hidden"></div>' +
       '<div class="export-bar no-print">' +
       '<button type="button" id="dl-csv" class="export-primary" disabled>CSV Report</button>' +
       '<button type="button" id="dl-json" disabled>JSON</button>' +
@@ -101,27 +101,31 @@
       if (result.headers && result.rows && result.rows.length) {
         wrap.classList.remove('hidden');
         wrap.innerHTML =
-          '<h3 class="font-bold mb-3">Detail ledger</h3><table class="amort-table min-w-full text-sm"><thead class="bg-muted"><tr>' +
+          '<h3 class="text-xl font-bold text-slate-900 mb-4">Detailed Ledger</h3>' +
+          '<div class="overflow-hidden border border-slate-200 rounded-xl shadow-sm bg-white">' +
+          '<div style="max-height: 400px; overflow-y: auto;">' +
+          '<table class="min-w-full divide-y divide-slate-200">' +
+          '<thead class="bg-slate-50 sticky top-0 z-10 shadow-sm"><tr>' +
           result.headers
             .map(function (h) {
-              return '<th class="px-2 py-2 text-left">' + h + '</th>';
+              return '<th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">' + h + '</th>';
             })
             .join('') +
-          '</tr></thead><tbody>' +
+          '</tr></thead><tbody class="bg-white divide-y divide-slate-100 text-sm">' +
           result.rows
             .map(function (r) {
               return (
-                '<tr class="border-b border-border">' +
+                '<tr class="hover:bg-slate-50 transition-colors">' +
                 r
                   .map(function (c) {
-                    return '<td class="px-2 py-1.5">' + c + '</td>';
+                    return '<td class="px-4 py-3 whitespace-nowrap text-slate-700">' + c + '</td>';
                   })
                   .join('') +
                 '</tr>'
               );
             })
             .join('') +
-          '</tbody></table>';
+          '</tbody></table></div></div>';
       } else {
         wrap.classList.add('hidden');
         wrap.innerHTML = '';

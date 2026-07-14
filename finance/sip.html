@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="index, follow" />
-  <title>SIP Calculator — Systematic Investment Plan — BitsToBetter</title>
-  <meta name="description" content="Calculate SIP returns with daily, weekly, monthly, quarterly, or yearly investments. Plan your mutual fund investments with our free SIP calculator." />
+  <title>SIP Framework — Mutual Funds, Rupee Cost Averaging & Compounding | BitsToBetter</title>
+  <meta name="description" content="Calculate SIP returns and master Rupee Cost Averaging. Understand how compounding works with mutual funds through our peer-reviewed SIP Framework." />
   <link rel="canonical" href="https://bitstobetter.com/finance/sip.html" />
   <link rel="icon" type="image/png" href="/assets/logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -19,173 +19,224 @@
   <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.4/dist/jspdf.plugin.autotable.min.js" defer></script>
   <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js" defer></script>
   <script src="/assets/site.js" defer></script>
-  <script src="/assets/calc-page.js" defer></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "BitsToBetter SIP Framework",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Web Browser",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "url": "https://bitstobetter.com/finance/sip.html"
+  }
+  </script>
 </head>
-<body class="antialiased text-foreground">
+<body class="antialiased text-slate-800 bg-slate-50">
   <header id="site-header" data-active="finance"></header>
 
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-    <nav class="text-sm text-muted-foreground mb-6" aria-label="Breadcrumb">
-      <a href="/" class="hover:text-foreground">Home</a> /
-      <a href="/finance/" class="hover:text-foreground">Finance</a> /
-      <span class="text-foreground font-medium">SIP</span>
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
+    <!-- Breadcrumb -->
+    <nav class="text-sm text-slate-500 mb-8" aria-label="Breadcrumb">
+      <a href="/" class="hover:text-slate-900 transition-colors">Home</a> /
+      <a href="/finance/" class="hover:text-slate-900 transition-colors">Finance Hub</a> /
+      <span class="text-slate-900 font-medium">SIP Framework</span>
     </nav>
 
-    <h1 class="text-3xl sm:text-4xl font-extrabold">SIP Calculator</h1>
-    <p class="mt-3 text-lg text-muted-foreground max-w-3xl">Calculate returns on your Systematic Investment Plan with flexible investment frequencies. See how small regular investments can grow over time.</p>
+    <!-- Hero Section -->
+    <div class="mb-12 border-b border-slate-200 pb-10">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-xs font-bold uppercase tracking-wider mb-4">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        Educational Framework
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">The SIP Framework</h1>
+      <p class="text-xl text-slate-600 max-w-3xl leading-relaxed">
+        Don't just calculate numbers—understand the underlying math of <strong>Rupee Cost Averaging</strong> and <strong>Compound Interest</strong>. This is your guide to disciplined wealth generation through Systematic Investment Plans.
+      </p>
+    </div>
 
-    <div class="grid lg:grid-cols-2 gap-8">
-      <div class="calc-panel">
-        <h2 class="text-xl font-bold mb-4">Investment Details</h2>
-        
-        <div class="space-y-4">
-          <div>
-            <label class="block text-sm font-medium mb-1">Monthly Investment Amount (₹)</label>
-            <input type="number" id="sip-amount" class="field-input" value="5000" min="500" step="500">
+    <!-- Chapter 1: The Math -->
+    <section class="mb-16">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-white font-bold text-xl shadow-md">1</span>
+        <h2 class="text-3xl font-bold text-slate-900 m-0">The Mechanics of Compounding</h2>
+      </div>
+      
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="p-6 sm:p-8">
+          <p class="text-lg text-slate-700 mb-6">
+            A Systematic Investment Plan (SIP) relies on mathematical compounding—earning returns on your previously earned returns. Unlike simple interest, an SIP calculates the future value of a series of cash flows using the following formula:
+          </p>
+          
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 mb-8 text-center shadow-inner overflow-x-auto">
+            <span class="font-mono text-xl sm:text-2xl font-bold text-slate-800 whitespace-nowrap">FV = P × [((1 + r)<sup>n</sup> - 1) / r] × (1 + r)</span>
           </div>
-          
-          <div>
-            <label class="block text-sm font-medium mb-1">Expected Annual Return (%)</label>
-            <input type="number" id="sip-return" class="field-input" value="12" min="1" max="30" step="0.5">
-          </div>
-          
-          <div>
-            <label class="block text-sm font-medium mb-1">Investment Period (Years)</label>
-            <input type="number" id="sip-years" class="field-input" value="10" min="1" max="40" step="1">
-          </div>
-          
-          <button id="calculate-sip" class="btn-primary w-full mt-4">Calculate SIP Returns</button>
-          
-          <div class="pt-4">
-            <p class="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">Download Reports</p>
-            <div class="export-bar">
-              <button type="button" id="dl-pdf-sip" class="export-primary" disabled>PDF Report</button>
-              <button type="button" id="dl-csv-sip" class="export-primary" disabled>CSV Report</button>
-              <button type="button" id="dl-xlsx-sip" class="export-primary" disabled>Excel Report</button>
+
+          <div class="grid md:grid-cols-2 gap-8 mb-8">
+            <div>
+              <h3 class="text-lg font-bold text-slate-900 mb-3 border-b border-slate-200 pb-2">Variables Explained</h3>
+              <ul class="space-y-3">
+                <li class="flex items-start">
+                  <span class="text-blue-500 mr-2 mt-0.5">●</span>
+                  <span class="text-slate-700"><strong>P:</strong> Monthly Investment Amount.</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-blue-500 mr-2 mt-0.5">●</span>
+                  <span class="text-slate-700"><strong>r:</strong> Monthly Return Rate (Annual Rate ÷ 12).</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-blue-500 mr-2 mt-0.5">●</span>
+                  <span class="text-slate-700"><strong>n:</strong> Total Number of Months.</span>
+                </li>
+              </ul>
+            </div>
+            
+            <div class="bg-emerald-50 rounded-xl p-5 border border-emerald-100">
+              <h3 class="text-lg font-bold text-emerald-900 mb-2 flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                Rupee Cost Averaging
+              </h3>
+              <p class="text-emerald-800 text-sm">
+                In falling markets, your fixed amount buys <strong>more units</strong> at a lower Net Asset Value (NAV). In rising markets, you buy <strong>fewer units</strong>. This averages out the cost of your investments and heavily mitigates market timing risk.
+              </p>
             </div>
           </div>
         </div>
       </div>
+    </section>
 
-      <div class="calc-panel">
-        <h2 class="text-xl font-bold mb-4">Results</h2>
-        <div id="sip-results" class="space-y-4">
-          <div class="stat-tile">
-            <p class="text-sm text-muted-foreground">Invested Amount</p>
-            <p class="text-2xl font-bold" id="invested-amount">₹0</p>
+    <!-- The Calculator Tool -->
+    <section class="mb-16">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-white font-bold text-xl shadow-md">2</span>
+        <h2 class="text-3xl font-bold text-slate-900 m-0">The Interactive SIP Engine</h2>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8">
+        <div class="grid lg:grid-cols-2 gap-8">
+          <div>
+            <h3 class="text-lg font-bold text-slate-900 mb-4 border-b border-slate-200 pb-2">Investment Details</h3>
+            <div class="space-y-4">
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-1">Monthly Investment Amount (₹)</label>
+                <input type="number" id="sip-amount" class="field-input" value="5000" min="500" step="500">
+              </div>
+              
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-1">Expected Annual Return (%)</label>
+                <input type="number" id="sip-return" class="field-input" value="12" min="1" max="30" step="0.5">
+              </div>
+              
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-1">Investment Period (Years)</label>
+                <input type="number" id="sip-years" class="field-input" value="10" min="1" max="40" step="1">
+              </div>
+              
+              <button id="calculate-sip" class="btn-primary w-full bg-slate-900 text-white hover:bg-slate-800 mt-4">Calculate SIP Returns</button>
+              
+              <div class="pt-4 border-t border-slate-200 mt-4">
+                <p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Export Data</p>
+                <div class="export-bar flex flex-wrap gap-2">
+                  <button type="button" id="dl-pdf-sip" class="export-primary text-xs" disabled>PDF Report</button>
+                  <button type="button" id="dl-csv-sip" class="text-xs px-2 py-1 bg-slate-100 border rounded" disabled>CSV</button>
+                  <button type="button" id="dl-xlsx-sip" class="text-xs px-2 py-1 bg-slate-100 border rounded" disabled>Excel</button>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="stat-tile">
-            <p class="text-sm text-muted-foreground">Estimated Returns</p>
-            <p class="text-2xl font-bold text-success" id="estimated-returns">₹0</p>
-          </div>
-          <div class="stat-tile">
-            <p class="text-sm text-muted-foreground">Total Value</p>
-            <p class="text-2xl font-bold text-primary" id="total-value">₹0</p>
+
+          <div>
+            <h3 class="text-lg font-bold text-slate-900 mb-4 border-b border-slate-200 pb-2">Growth Projection</h3>
+            <div id="sip-results" class="grid grid-cols-2 gap-4 mb-6">
+              <div class="bg-slate-50 border border-slate-200 p-3 rounded-xl col-span-2 sm:col-span-1">
+                <p class="text-xs uppercase tracking-wider text-slate-500 font-bold">Invested Amount</p>
+                <p class="text-xl font-bold text-slate-900" id="invested-amount">₹0</p>
+              </div>
+              <div class="bg-emerald-50 border border-emerald-100 p-3 rounded-xl col-span-2 sm:col-span-1">
+                <p class="text-xs uppercase tracking-wider text-emerald-800 font-bold">Estimated Returns</p>
+                <p class="text-xl font-bold text-emerald-600" id="estimated-returns">₹0</p>
+              </div>
+              <div class="bg-blue-50 border border-blue-100 p-4 rounded-xl col-span-2">
+                <p class="text-xs uppercase tracking-wider text-blue-800 font-bold">Total Wealth Created</p>
+                <p class="text-3xl font-bold text-blue-600" id="total-value">₹0</p>
+              </div>
+            </div>
+            
+            <div class="border border-slate-200 p-4 rounded-xl">
+              <div class="relative w-full h-48 sm:h-64">
+                <canvas id="sip-chart" aria-label="Line chart of wealth accumulation"></canvas>
+              </div>
+            </div>
           </div>
         </div>
-        <canvas id="sip-chart" class="mt-6"></canvas>
-      </div>
-    </div>
 
-    <div class="max-h-96 overflow-y-auto border border-border rounded-lg bg-card p-4" id="report-section">
-      <h3 class="text-lg font-bold mb-4">Year-by-Year SIP Growth Report</h3>
-      <div id="sip-report" class="space-y-2 text-sm">
-        <p class="text-muted-foreground">Calculate to see detailed year-by-year growth</p>
+        <div class="mt-8 border-t border-slate-200 pt-8">
+          <h3 class="text-lg font-bold text-slate-900 mb-4">Year-by-Year Growth Ledger</h3>
+          <div class="table-scroll max-h-96 overflow-y-auto border border-slate-200 rounded-xl shadow-sm">
+            <div id="sip-report" class="text-sm">
+              <p class="text-slate-500 p-4">Calculate to see detailed year-by-year growth</p>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <article class="article-prose max-w-3xl">
-      <h2 class="text-2xl font-bold mb-4">What is SIP?</h2>
-      <p>Systematic Investment Plan (SIP) is a disciplined way to invest in mutual funds by investing a fixed amount regularly at predetermined intervals. It's designed to help investors build wealth over time through the powerful combination of compounding and rupee cost averaging.</p>
+    <!-- Chapter 3: Strategy -->
+    <section class="mb-16">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-white font-bold text-xl shadow-md">3</span>
+        <h2 class="text-3xl font-bold text-slate-900 m-0">SIP vs Lumpsum Execution</h2>
+      </div>
       
-      <div class="bg-blue-50 dark:bg-blue-950 border-l-4 border-blue-500 p-4 rounded-r-lg my-6">
-        <h3 class="font-semibold text-blue-900 dark:text-blue-100 mb-2">💡 Why SIP Works</h3>
-        <p class="text-blue-900 dark:text-blue-100">SIP leverages two powerful wealth-building principles: compounding (earning returns on your returns) and rupee cost averaging (buying more units when prices are low, fewer when high). This combination reduces market timing risk and maximizes long-term growth.</p>
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="p-6 sm:p-8">
+          <p class="text-lg text-slate-700 mb-6">
+            Many investors debate whether to deploy a large sum at once or break it into monthly investments. Here is the objective difference:
+          </p>
+
+          <div class="grid md:grid-cols-2 gap-8">
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+                <thead class="bg-slate-100">
+                  <tr>
+                    <th class="text-left p-3 text-slate-700 font-bold">Aspect</th>
+                    <th class="text-left p-3 text-slate-700 font-bold">SIP</th>
+                    <th class="text-left p-3 text-slate-700 font-bold">Lumpsum</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                  <tr>
+                    <td class="p-3 font-semibold text-slate-900">Cash Flow</td>
+                    <td class="p-3 text-slate-600">Regular fractional deployments</td>
+                    <td class="p-3 text-slate-600">One-time massive deployment</td>
+                  </tr>
+                  <tr>
+                    <td class="p-3 font-semibold text-slate-900">Market Timing</td>
+                    <td class="p-3 text-emerald-600 font-medium">Mitigates timing risk</td>
+                    <td class="p-3 text-rose-600 font-medium">High risk of buying at peak</td>
+                  </tr>
+                  <tr>
+                    <td class="p-3 font-semibold text-slate-900">Psychology</td>
+                    <td class="p-3 text-slate-600">Automates discipline</td>
+                    <td class="p-3 text-slate-600">Requires emotional control during dips</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Myth vs Fact Box -->
+            <div class="bg-rose-50 border-l-4 border-rose-600 p-5 rounded-r-xl">
+              <h3 class="text-lg font-bold text-rose-900 mt-0 mb-3 flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                The Delay Cost
+              </h3>
+              <p class="text-rose-800 text-sm">
+                Waiting for the "perfect time" to invest is the most expensive mistake you can make. A ₹10,000 monthly SIP at 12% for 30 years grows to ₹3.5 Crore. If you delay starting by just 5 years, your final corpus drops to ₹1.9 Crore. <strong>You lose ₹1.6 Crore just by waiting 5 years.</strong>
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <h3 class="text-xl font-bold mt-6 mb-3">The SIP Formula Explained</h3>
-      <p class="font-mono text-sm bg-neutral-100 dark:bg-neutral-800 p-3 rounded border border-border">FV = P × [((1 + r)^n - 1) / r] × (1 + r)</p>
-      <p class="text-sm text-muted-foreground mt-2">Where P = Monthly SIP amount, r = Monthly return rate (annual rate ÷ 12), n = Total number of months</p>
-      
-      <p class="mt-4">This formula calculates the future value of your SIP investments, accounting for the compound interest earned on each monthly installment. The final (1 + r) factor accounts for the fact that each SIP installment earns returns for a slightly different period.</p>
-
-      <h3 class="text-xl font-bold mt-6 mb-3">Understanding Rupee Cost Averaging</h3>
-      <p>Rupee cost averaging is the key benefit of SIP. When you invest a fixed amount regularly:</p>
-      <ul>
-        <li><strong>In falling markets:</strong> You buy more units at lower NAV (Net Asset Value)</li>
-        <li><strong>In rising markets:</strong> You buy fewer units at higher NAV</li>
-        <li><strong>Result:</strong> Your average cost per unit tends to be lower than the average NAV over time</li>
-      </ul>
-
-      <div class="bg-green-50 dark:bg-green-950 border-l-4 border-green-500 p-4 rounded-r-lg my-6">
-        <h3 class="font-semibold text-green-900 dark:text-green-100 mb-2">📈 Power of Compounding</h3>
-        <p class="text-green-900 dark:text-green-100">Starting early is crucial. A ₹5,000 monthly SIP at 12% for 30 years grows to ₹1.76 crore, while the same SIP for 20 years grows to only ₹49 lakh. The extra 10 years adds ₹1.27 crore through compounding!</p>
-      </div>
-
-      <h3 class="text-xl font-bold mt-6 mb-3">SIP vs Lumpsum Investment</h3>
-      <table class="w-full text-sm border border-border rounded-lg overflow-hidden my-4">
-        <thead class="bg-muted">
-          <tr>
-            <th class="text-left p-3 border-b border-border">Aspect</th>
-            <th class="text-left p-3 border-b border-border">SIP</th>
-            <th class="text-left p-3 border-b border-border">Lumpsum</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="border-b border-border">
-            <td class="p-3">Cash Flow</td>
-            <td class="p-3">Regular small investments</td>
-            <td class="p-3">One-time large investment</td>
-          </tr>
-          <tr class="border-b border-border">
-            <td class="p-3">Market Timing</td>
-            <td class="p-3">Reduces timing risk</td>
-            <td class="p-3">Requires timing skill</td>
-          </tr>
-          <tr class="border-b border-border">
-            <td class="p-3">Discipline</td>
-            <td class="p-3">Builds saving habit</td>
-            <td class="p-3">Requires lumpsum availability</td>
-          </tr>
-          <tr>
-            <td class="p-3">Best For</td>
-            <td class="p-3">Salaried investors</td>
-            <td class="p-3">Bonus/windfall recipients</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3 class="text-xl font-bold mt-6 mb-3">Choosing the Right SIP Amount</h3>
-      <ul>
-        <li><strong>Start with 20% of income:</strong> A good rule of thumb for beginners</li>
-        <li><strong>Increase annually:</strong> Raise your SIP amount as your income grows (Step-Up SIP)</li>
-        <li><strong>Consider goals:</strong> Align SIP amount with your financial goals and timeline</li>
-        <li><strong>Emergency fund first:</strong> Build 3-6 months expenses before starting SIP</li>
-      </ul>
-
-      <h3 class="text-xl font-bold mt-6 mb-3">Common SIP Mistakes to Avoid</h3>
-      <ul>
-        <li><strong>Stopping SIP during market downturns:</strong> This is when rupee cost averaging works best</li>
-        <li><strong>Starting too late:</strong> Every year of delay costs significantly in compounding</li>
-        <li><strong>Investing without goals:</strong> Link SIPs to specific financial objectives</li>
-        <li><strong>Ignoring expense ratios:</strong> Lower expense ratios mean higher net returns</li>
-        <li><strong>Over-diversifying:</strong> Too many funds dilute focus and increase tracking difficulty</li>
-      </ul>
-
-      <h3 class="text-xl font-bold mt-6 mb-3">SIP Frequency Options</h3>
-      <p>While monthly SIP is most common, you can choose:</p>
-      <ul>
-        <li><strong>Daily SIP:</strong> Maximum rupee cost averaging, but administrative complexity</li>
-        <li><strong>Weekly SIP:</strong> Good frequency with manageable complexity</li>
-        <li><strong>Monthly SIP:</strong> Most popular, aligns with salary cycles</li>
-        <li><strong>Quarterly SIP:</strong> Suitable for investors with irregular income</li>
-      </ul>
-
-      <div class="bg-amber-50 dark:bg-amber-950 border-l-4 border-amber-500 p-4 rounded-r-lg my-6">
-        <h3 class="font-semibold text-amber-900 dark:text-amber-100 mb-2">⚠️ Important Disclaimer</h3>
-        <p class="text-amber-900 dark:text-amber-100">SIP returns shown by this calculator are estimates based on assumed rates. Actual mutual fund returns vary based on market conditions, fund performance, and expense ratios. Past performance is not indicative of future results. Consult a SEBI-registered investment advisor for personalized advice.</p>
-      </div>
-    </article>
+    </section>
   </main>
 
   <footer id="site-footer"></footer>
@@ -194,6 +245,7 @@
     document.addEventListener('DOMContentLoaded', function() {
       const ctx = document.getElementById('sip-chart');
       let sipChart = null;
+      let globalSipData = { labels: [], investedData: [], valueData: [] };
 
       function calculateSIP() {
         const P = parseFloat(document.getElementById('sip-amount').value);
@@ -223,6 +275,9 @@
           valueData.push(P * ((Math.pow(1 + r, months) - 1) / r) * (1 + r));
         }
         
+        // Save for exports
+        globalSipData = { labels, investedData, valueData };
+
         if (sipChart) sipChart.destroy();
         
         sipChart = new Chart(ctx, {
@@ -248,6 +303,7 @@
           },
           options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
               legend: { position: 'bottom' }
             },
@@ -265,10 +321,10 @@
         });
 
         // Generate report
-        let reportHTML = '<table class="w-full text-sm"><thead><tr class="border-b"><th class="text-left py-2">Year</th><th class="text-right py-2">Invested</th><th class="text-right py-2">Value</th><th class="text-right py-2">Returns</th></tr></thead><tbody>';
+        let reportHTML = '<table class="min-w-full text-sm divide-y divide-slate-200"><thead class="bg-slate-50 sticky top-0"><tr><th class="text-left px-4 py-3 font-bold text-slate-700">Year</th><th class="text-right px-4 py-3 font-bold text-slate-700">Invested</th><th class="text-right px-4 py-3 font-bold text-slate-700">Value</th><th class="text-right px-4 py-3 font-bold text-slate-700">Returns</th></tr></thead><tbody class="divide-y divide-slate-100 bg-white">';
         for (let i = 0; i < labels.length; i++) {
           const returns = valueData[i] - investedData[i];
-          reportHTML += `<tr class="border-b"><td class="py-2">${labels[i]}</td><td class="text-right">₹${investedData[i].toLocaleString('en-IN', {maximumFractionDigits: 0})}</td><td class="text-right">₹${valueData[i].toLocaleString('en-IN', {maximumFractionDigits: 0})}</td><td class="text-right text-success">₹${returns.toLocaleString('en-IN', {maximumFractionDigits: 0})}</td></tr>`;
+          reportHTML += `<tr><td class="px-4 py-2 font-medium text-slate-900">${labels[i]}</td><td class="px-4 py-2 text-right text-slate-600">₹${investedData[i].toLocaleString('en-IN', {maximumFractionDigits: 0})}</td><td class="px-4 py-2 text-right text-slate-900 font-semibold">₹${valueData[i].toLocaleString('en-IN', {maximumFractionDigits: 0})}</td><td class="px-4 py-2 text-right text-emerald-600">₹${returns.toLocaleString('en-IN', {maximumFractionDigits: 0})}</td></tr>`;
         }
         reportHTML += '</tbody></table>';
         document.getElementById('sip-report').innerHTML = reportHTML;
@@ -279,32 +335,30 @@
         document.getElementById('dl-xlsx-sip').disabled = false;
       }
 
-      // Export functions
-      const sipData = { labels, investedData, valueData };
-
       document.getElementById('dl-pdf-sip').addEventListener('click', function() {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
         
         doc.setFontSize(18);
-        doc.text('SIP Calculator Report', 14, 20);
-        doc.setFontSize(12);
+        doc.text('BitsToBetter - SIP Framework Ledger', 14, 20);
+        doc.setFontSize(10);
         doc.text(`Monthly Investment: ₹${parseFloat(document.getElementById('sip-amount').value).toLocaleString('en-IN')}`, 14, 30);
-        doc.text(`Expected Return: ${document.getElementById('sip-return').value}%`, 14, 38);
-        doc.text(`Investment Period: ${document.getElementById('sip-years').value} years`, 14, 46);
+        doc.text(`Expected Return: ${document.getElementById('sip-return').value}%`, 14, 36);
+        doc.text(`Investment Period: ${document.getElementById('sip-years').value} years`, 14, 42);
         
-        const tableData = sipData.labels.map((year, i) => [
+        const tableData = globalSipData.labels.map((year, i) => [
           year,
-          '₹' + sipData.investedData[i].toLocaleString('en-IN', {maximumFractionDigits: 0}),
-          '₹' + sipData.valueData[i].toLocaleString('en-IN', {maximumFractionDigits: 0}),
-          '₹' + (sipData.valueData[i] - sipData.investedData[i]).toLocaleString('en-IN', {maximumFractionDigits: 0})
+          '₹' + globalSipData.investedData[i].toLocaleString('en-IN', {maximumFractionDigits: 0}),
+          '₹' + globalSipData.valueData[i].toLocaleString('en-IN', {maximumFractionDigits: 0}),
+          '₹' + (globalSipData.valueData[i] - globalSipData.investedData[i]).toLocaleString('en-IN', {maximumFractionDigits: 0})
         ]);
         
         doc.autoTable({
           head: [['Year', 'Invested', 'Value', 'Returns']],
           body: tableData,
           startY: 55,
-          theme: 'grid'
+          theme: 'grid',
+          headStyles: { fillColor: [15, 23, 42] }
         });
         
         doc.save('sip-report.pdf');
@@ -312,11 +366,11 @@
 
       document.getElementById('dl-csv-sip').addEventListener('click', function() {
         const headers = ['Year', 'Invested', 'Value', 'Returns'];
-        const rows = sipData.labels.map((year, i) => [
+        const rows = globalSipData.labels.map((year, i) => [
           year,
-          sipData.investedData[i],
-          sipData.valueData[i],
-          sipData.valueData[i] - sipData.investedData[i]
+          globalSipData.investedData[i],
+          globalSipData.valueData[i],
+          globalSipData.valueData[i] - globalSipData.investedData[i]
         ]);
         
         if (window.BTB && window.BTB.downloadCSV) {
@@ -326,11 +380,11 @@
 
       document.getElementById('dl-xlsx-sip').addEventListener('click', function() {
         const headers = ['Year', 'Invested', 'Value', 'Returns'];
-        const rows = sipData.labels.map((year, i) => [
+        const rows = globalSipData.labels.map((year, i) => [
           year,
-          sipData.investedData[i],
-          sipData.valueData[i],
-          sipData.valueData[i] - sipData.investedData[i]
+          globalSipData.investedData[i],
+          globalSipData.valueData[i],
+          globalSipData.valueData[i] - globalSipData.investedData[i]
         ]);
         
         if (window.BTB && window.BTB.downloadXLSX) {

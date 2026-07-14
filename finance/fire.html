@@ -1,14 +1,15 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="index, follow" />
-  <title>FIRE Calculator — Inflation, SWR, Granular Reports — BitsToBetter</title>
-  <meta name="description" content="FIRE engine with dropdown controls, inflation-adjusted corpus, SWR, annuity-due PMT, 60/20/15/5 allocation, protection layout, and PDF/CSV/Excel/JSON downloads." />
+  <title>FIRE Calculator & Guide — Early Retirement Engine | BitsToBetter</title>
+  <meta name="description" content="Master Financial Independence & Retire Early (FIRE) with our advanced calculator. Adjust for inflation, safe withdrawal rates (SWR), and asset allocation (60/20/15/5). Export PDF/CSV reports." />
+  <meta name="keywords" content="FIRE calculator, financial independence retire early, safe withdrawal rate, SWR, early retirement planning India, inflation adjusted retirement" />
   <link rel="canonical" href="https://bitstobetter.com/finance/fire.html" />
   <link rel="icon" type="image/png" href="/assets/logo.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <meta name="theme-color" content="#0F172A" />
@@ -27,171 +28,252 @@
     "applicationCategory": "FinanceApplication",
     "operatingSystem": "Web Browser",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "url": "https://bitstobetter.com/finance/fire.html"
+    "url": "https://bitstobetter.com/finance/fire.html",
+    "description": "Calculate your path to Financial Independence and Retire Early (FIRE) factoring in inflation and Safe Withdrawal Rates."
   }
   </script>
 </head>
-<body class="antialiased text-foreground">
+<body class="antialiased text-slate-800 bg-slate-50">
   <header id="site-header" data-active="finance"></header>
 
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-    <nav class="text-sm text-muted-foreground mb-6" aria-label="Breadcrumb">
-      <a href="/" class="hover:text-foreground">Home</a> /
-      <a href="/finance/" class="hover:text-foreground">Finance</a> /
-      <span class="text-foreground font-medium">FIRE</span>
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
+    <!-- Breadcrumb -->
+    <nav class="text-sm text-slate-500 mb-8" aria-label="Breadcrumb">
+      <a href="/" class="hover:text-slate-900 transition-colors">Home</a> /
+      <a href="/finance/" class="hover:text-slate-900 transition-colors">Finance Hub</a> /
+      <span class="text-slate-900 font-medium">The FIRE Engine</span>
     </nav>
 
-    <h1 class="text-3xl sm:text-4xl font-extrabold">FIRE Engine — Inflation, SWR &amp; Protection</h1>
-    <p class="mt-3 text-lg text-muted-foreground max-w-3xl">Dropdown-driven assumptions, annuity-due funding path, 60/20/15/5 matrix, risk buffers, and granular year/month reports in PDF, CSV, Excel, and JSON.</p>
+    <!-- Hero Section -->
+    <div class="mb-12 border-b border-slate-200 pb-10">
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">The Wealth Blueprint: The FIRE Engine</h1>
+      <p class="text-xl text-slate-600 max-w-3xl leading-relaxed">
+        Achieving <strong>Financial Independence, Retire Early (FIRE)</strong> isn't magic; it's just math. We break down the jargon into structured chapters so you can understand inflation-adjusted corpus goals, Safe Withdrawal Rates (SWR), and build a bulletproof portfolio.
+      </p>
+    </div>
 
-    <article class="article-prose mt-10 max-w-3xl">
-      <h2 class="text-2xl font-bold mb-4">Formulas, tax context &amp; strategic parameters</h2>
-      <p>FIRE accumulation rests on corpus = retirement annual spend ÷ Safe Withdrawal Rate. Spending at independence is today’s baseline grown by inflation: E<sub>T</sub> = E<sub>0</sub> × (1 + i)<sup>T</sup>. Enter inflation and SWR explicitly so stress tests stay transparent.</p>
-      <p class="font-mono text-sm bg-neutral-100 p-3 rounded border border-border">PMT<sub>due</sub> = (FV − PV × (1+r)<sup>n</sup>) × r / [((1+r)<sup>n</sup> − 1) × (1+r)]</p>
-      <p>Contributions at month-start are annuity-due. The default sleeve split is 60% growth equities, 20% high-grade debt, 15% real assets, 5% satellite — educational, not advice. Indian savers should map PPF/NPS/ELSS inside Section 80C and verify POMIS joint-holding caps with India Post. Protection layout sizes 6 months of expenses in cash plus illustrative life (10×) and health (0.5×) income-based bounds.</p>
-      <p>Export the year-end ledger or expand to month-level granularity for reconciliations with your advisor.</p>
-    </article>
-
-    <section class="mt-12" id="calculator">
-      <h2 class="text-2xl font-bold">Run the FIRE model</h2>
-      <div class="mt-6 grid lg:grid-cols-5 gap-8">
-        <form id="fire-form" class="lg:col-span-2 space-y-3 no-print calc-panel">
-          <div>
-            <label for="currency" class="block text-sm font-semibold">Currency</label>
-            <select id="currency" class="field-select">
-              <option value="INR" selected>INR</option>
-              <option value="USD">USD</option>
-              <option value="EUR">EUR</option>
-              <option value="GBP">GBP</option>
-              <option value="AED">AED</option>
-            </select>
-          </div>
-          <div>
-            <label for="profile" class="block text-sm font-semibold">Planner profile</label>
-            <select id="profile" class="field-select">
-              <option value="lean">Lean FIRE</option>
-              <option value="standard" selected>Standard FIRE</option>
-              <option value="fat">Fat FIRE</option>
-              <option value="barista">Barista / Coast FIRE</option>
-            </select>
-          </div>
-          <div>
-            <label for="annual-expense" class="block text-sm font-semibold">Current annual baseline expenses</label>
-            <input id="annual-expense" type="number" min="1" value="1200000" required class="field-input" />
-          </div>
-          <div>
-            <label for="annual-income" class="block text-sm font-semibold">Current annual income</label>
-            <input id="annual-income" type="number" min="1" value="2400000" required class="field-input" />
-          </div>
-          <div>
-            <label for="current-corpus" class="block text-sm font-semibold">Current invested corpus</label>
-            <input id="current-corpus" type="number" min="0" value="2500000" class="field-input" />
-          </div>
-          <div class="grid grid-cols-2 gap-3">
+    <!-- The Calculator Engine -->
+    <section class="mb-20 scroll-mt-24" id="calculator">
+      <div class="flex items-center gap-3 mb-8">
+        <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-600 text-white font-bold text-xl shadow-md">1</span>
+        <h2 class="text-3xl font-bold text-slate-900 m-0">Interactive FIRE Engine</h2>
+      </div>
+      
+      <div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+        <div class="p-6 md:p-8 grid lg:grid-cols-5 gap-10 bg-slate-50/50">
+          <!-- Form Panel (Identical logic) -->
+          <form id="fire-form" class="lg:col-span-2 space-y-5 no-print">
             <div>
-              <label for="years" class="block text-sm font-semibold">Years to FIRE</label>
-              <input id="years" type="number" min="1" max="50" value="15" required class="field-input" />
-            </div>
-            <div>
-              <label for="inflation" class="block text-sm font-semibold">Inflation (%)</label>
-              <input id="inflation" type="number" min="0" step="0.1" value="6" required class="field-input" />
-            </div>
-          </div>
-          <div>
-            <label for="inflation-preset" class="block text-sm font-semibold">Inflation preset</label>
-            <select id="inflation-preset" class="field-select">
-              <option value="">Custom…</option>
-              <option value="4">Conservative 4%</option>
-              <option value="6" selected>Base 6%</option>
-              <option value="8">Elevated 8%</option>
-            </select>
-          </div>
-          <div class="grid grid-cols-2 gap-3">
-            <div>
-              <label for="swr" class="block text-sm font-semibold">SWR (%)</label>
-              <input id="swr" type="number" min="0.5" max="10" step="0.1" value="3.5" required class="field-input" />
-            </div>
-            <div>
-              <label for="swr-preset" class="block text-sm font-semibold">SWR preset</label>
-              <select id="swr-preset" class="field-select">
-                <option value="3">Conservative 3%</option>
-                <option value="3.5" selected>Base 3.5%</option>
-                <option value="4">Classic 4%</option>
+              <label for="currency" class="block text-sm font-semibold text-slate-900 mb-1">Currency</label>
+              <select id="currency" class="w-full rounded-lg border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm py-2 px-3 border bg-white">
+                <option value="INR" selected>INR</option>
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="GBP">GBP</option>
+                <option value="AED">AED</option>
               </select>
             </div>
-          </div>
-          <div>
-            <label for="return-rate" class="block text-sm font-semibold">Expected return (% p.a.)</label>
-            <input id="return-rate" type="number" min="0" step="0.1" value="11" required class="field-input" />
-          </div>
-          <div>
-            <label for="report-detail" class="block text-sm font-semibold">Report detail level</label>
-            <select id="report-detail" class="field-select">
-              <option value="yearly" selected>Year-end ledger</option>
-              <option value="monthly">Monthly granular</option>
-              <option value="summary">Summary KPIs only</option>
-            </select>
-          </div>
-          <button type="submit" class="btn-primary w-full !text-base !py-3">Calculate FIRE plan</button>
-          <div class="pt-2">
-            <p class="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">Download reports</p>
-            <div class="export-bar">
-              <button type="button" id="dl-pdf-summary" class="export-primary" disabled>PDF Summary</button>
-              <button type="button" id="dl-pdf-full" disabled>PDF Granular</button>
-              <button type="button" id="dl-csv" disabled>CSV Granular</button>
-              <button type="button" id="dl-xlsx" disabled>Excel Granular</button>
-              <button type="button" id="dl-json" disabled>JSON</button>
+            <div>
+              <label for="profile" class="block text-sm font-semibold text-slate-900 mb-1">Planner profile</label>
+              <select id="profile" class="w-full rounded-lg border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm py-2 px-3 border bg-white">
+                <option value="lean">Lean FIRE</option>
+                <option value="standard" selected>Standard FIRE</option>
+                <option value="fat">Fat FIRE</option>
+                <option value="barista">Barista / Coast FIRE</option>
+              </select>
             </div>
-          </div>
-        </form>
+            <div>
+              <label for="annual-expense" class="block text-sm font-semibold text-slate-900 mb-1">Current annual baseline expenses</label>
+              <input id="annual-expense" type="number" min="1" value="1200000" required class="w-full rounded-lg border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm py-2 px-3 border bg-white" />
+            </div>
+            <div>
+              <label for="annual-income" class="block text-sm font-semibold text-slate-900 mb-1">Current annual income</label>
+              <input id="annual-income" type="number" min="1" value="2400000" required class="w-full rounded-lg border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm py-2 px-3 border bg-white" />
+            </div>
+            <div>
+              <label for="current-corpus" class="block text-sm font-semibold text-slate-900 mb-1">Current invested corpus</label>
+              <input id="current-corpus" type="number" min="0" value="2500000" class="w-full rounded-lg border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm py-2 px-3 border bg-white" />
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label for="years" class="block text-sm font-semibold text-slate-900 mb-1">Years to FIRE</label>
+                <input id="years" type="number" min="1" max="50" value="15" required class="w-full rounded-lg border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm py-2 px-3 border bg-white" />
+              </div>
+              <div>
+                <label for="inflation" class="block text-sm font-semibold text-slate-900 mb-1">Inflation (%)</label>
+                <input id="inflation" type="number" min="0" step="0.1" value="6" required class="w-full rounded-lg border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm py-2 px-3 border bg-white" />
+              </div>
+            </div>
+            <div>
+              <label for="inflation-preset" class="block text-sm font-semibold text-slate-900 mb-1">Inflation preset</label>
+              <select id="inflation-preset" class="w-full rounded-lg border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm py-2 px-3 border bg-white">
+                <option value="">Custom…</option>
+                <option value="4">Conservative 4%</option>
+                <option value="6" selected>Base 6%</option>
+                <option value="8">Elevated 8%</option>
+              </select>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label for="swr" class="block text-sm font-semibold text-slate-900 mb-1">SWR (%)</label>
+                <input id="swr" type="number" min="0.5" max="10" step="0.1" value="3.5" required class="w-full rounded-lg border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm py-2 px-3 border bg-white" />
+              </div>
+              <div>
+                <label for="swr-preset" class="block text-sm font-semibold text-slate-900 mb-1">SWR preset</label>
+                <select id="swr-preset" class="w-full rounded-lg border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm py-2 px-3 border bg-white">
+                  <option value="3">Conservative 3%</option>
+                  <option value="3.5" selected>Base 3.5%</option>
+                  <option value="4">Classic 4%</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label for="return-rate" class="block text-sm font-semibold text-slate-900 mb-1">Expected return (% p.a.)</label>
+              <input id="return-rate" type="number" min="0" step="0.1" value="11" required class="w-full rounded-lg border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm py-2 px-3 border bg-white" />
+            </div>
+            <div>
+              <label for="report-detail" class="block text-sm font-semibold text-slate-900 mb-1">Report detail level</label>
+              <select id="report-detail" class="w-full rounded-lg border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm py-2 px-3 border bg-white">
+                <option value="yearly" selected>Year-end ledger</option>
+                <option value="monthly">Monthly granular</option>
+                <option value="summary">Summary KPIs only</option>
+              </select>
+            </div>
+            <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors">Calculate FIRE Plan</button>
+            <div class="pt-4 border-t border-slate-200">
+              <p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">Download Reports</p>
+              <div class="flex flex-wrap gap-2">
+                <button type="button" id="dl-pdf-summary" class="inline-flex items-center px-3 py-1.5 border border-slate-300 shadow-sm text-xs font-medium rounded text-slate-700 bg-white hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed" disabled>PDF Summary</button>
+                <button type="button" id="dl-pdf-full" class="inline-flex items-center px-3 py-1.5 border border-slate-300 shadow-sm text-xs font-medium rounded text-slate-700 bg-white hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed" disabled>PDF Granular</button>
+                <button type="button" id="dl-csv" class="inline-flex items-center px-3 py-1.5 border border-slate-300 shadow-sm text-xs font-medium rounded text-slate-700 bg-white hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed" disabled>CSV</button>
+                <button type="button" id="dl-xlsx" class="inline-flex items-center px-3 py-1.5 border border-slate-300 shadow-sm text-xs font-medium rounded text-slate-700 bg-white hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed" disabled>Excel</button>
+                <button type="button" id="dl-json" class="inline-flex items-center px-3 py-1.5 border border-slate-300 shadow-sm text-xs font-medium rounded text-slate-700 bg-white hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed" disabled>JSON</button>
+              </div>
+            </div>
+          </form>
 
-        <div class="lg:col-span-3 space-y-6">
-          <div class="grid sm:grid-cols-2 gap-4" aria-live="polite">
-            <div class="stat-tile"><p class="text-xs uppercase tracking-wider text-muted-foreground font-bold">Inflation-adjusted annual spend</p><p id="out-spend" class="mt-1 text-xl font-bold">—</p></div>
-            <div class="stat-tile"><p class="text-xs uppercase tracking-wider text-muted-foreground font-bold">Target wealth pool</p><p id="out-corpus" class="mt-1 text-xl font-bold">—</p></div>
-            <div class="stat-tile"><p class="text-xs uppercase tracking-wider text-muted-foreground font-bold">Monthly investment (annuity-due)</p><p id="out-pmt" class="mt-1 text-xl font-bold">—</p></div>
-            <div class="stat-tile"><p class="text-xs uppercase tracking-wider text-muted-foreground font-bold">Funding gap after PV growth</p><p id="out-gap" class="mt-1 text-xl font-bold">—</p></div>
-          </div>
-          <div class="stat-tile">
-            <h3 class="text-sm font-bold mb-3">60 / 20 / 15 / 5 asset matrix</h3>
-            <div class="grid sm:grid-cols-2 gap-4 items-center">
-              <div class="relative" style="height:220px"><canvas id="alloc-chart"></canvas></div>
-              <ul id="alloc-list" class="text-sm space-y-2"></ul>
+          <!-- Output Panel (Identical logic) -->
+          <div class="lg:col-span-3 space-y-6">
+            <div class="grid sm:grid-cols-2 gap-4" aria-live="polite">
+              <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                <p class="text-xs uppercase tracking-wider text-slate-500 font-bold">Inflation-adjusted annual spend</p>
+                <p id="out-spend" class="mt-2 text-2xl font-extrabold text-slate-900">—</p>
+              </div>
+              <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                <p class="text-xs uppercase tracking-wider text-slate-500 font-bold">Target wealth pool</p>
+                <p id="out-corpus" class="mt-2 text-2xl font-extrabold text-slate-900">—</p>
+              </div>
+              <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                <p class="text-xs uppercase tracking-wider text-slate-500 font-bold">Monthly investment (annuity-due)</p>
+                <p id="out-pmt" class="mt-2 text-2xl font-extrabold text-emerald-600">—</p>
+              </div>
+              <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                <p class="text-xs uppercase tracking-wider text-slate-500 font-bold">Funding gap after PV growth</p>
+                <p id="out-gap" class="mt-2 text-2xl font-extrabold text-slate-900">—</p>
+              </div>
             </div>
-          </div>
-          <div class="bg-neutral-50 border border-border rounded-xl p-5">
-            <h3 class="text-lg font-bold">Risk &amp; Protection Layout</h3>
-            <dl class="mt-4 grid sm:grid-cols-3 gap-4 text-sm">
-              <div><dt class="font-semibold text-muted-foreground">Cash emergency (6 mo)</dt><dd id="out-emergency" class="mt-1 text-lg font-bold">—</dd></div>
-              <div><dt class="font-semibold text-muted-foreground">Life cover (10× income)</dt><dd id="out-life" class="mt-1 text-lg font-bold">—</dd></div>
-              <div><dt class="font-semibold text-muted-foreground">Health cover (0.5× income)</dt><dd id="out-health" class="mt-1 text-lg font-bold">—</dd></div>
-            </dl>
+
+            <!-- Chapter 3 Content injected alongside chart -->
+            <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+              <h3 class="text-xl font-bold text-slate-900 mb-4">Chapter 3: The 60/20/15/5 Asset Matrix</h3>
+              <p class="text-sm text-slate-600 mb-6">
+                Our default sleeve split suggests 60% growth equities, 20% high-grade debt, 15% real assets, and 5% satellite (opportunistic) allocations. This diversification ensures you can weather market volatility while sustaining the Safe Withdrawal Rate.
+              </p>
+              <div class="grid sm:grid-cols-2 gap-6 items-center">
+                <div class="relative w-full" style="height:220px"><canvas id="alloc-chart"></canvas></div>
+                <ul id="alloc-list" class="text-sm space-y-3 text-slate-700"></ul>
+              </div>
+            </div>
+
+            <!-- High-Contrast Alert Banner for Risk -->
+            <div class="bg-slate-900 rounded-xl shadow-lg p-6 text-white">
+              <div class="flex items-center gap-3 mb-4">
+                <svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                <h3 class="text-xl font-bold m-0">Crucial Risk & Protection Layout</h3>
+              </div>
+              <p class="text-sm text-slate-300 mb-5">
+                Before aggressively investing, you must build a defensive moat. This layout sizes 6 months of expenses in cash, plus illustrative life cover (10× income) and health cover (0.5× income).
+              </p>
+              <dl class="grid sm:grid-cols-3 gap-6 text-sm bg-slate-800 p-4 rounded-lg">
+                <div><dt class="font-semibold text-slate-400">Cash emergency (6 mo)</dt><dd id="out-emergency" class="mt-1 text-lg font-bold text-white">—</dd></div>
+                <div><dt class="font-semibold text-slate-400">Life cover (10×)</dt><dd id="out-life" class="mt-1 text-lg font-bold text-white">—</dd></div>
+                <div><dt class="font-semibold text-slate-400">Health cover (0.5×)</dt><dd id="out-health" class="mt-1 text-lg font-bold text-white">—</dd></div>
+              </dl>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="mt-8 calc-panel">
-        <h3 class="text-lg font-bold mb-3">Accumulation ledger</h3>
-        <div class="table-scroll max-h-80 overflow-y-auto border border-border rounded">
-          <table class="amort-table min-w-full divide-y divide-neutral-200">
-            <thead class="bg-neutral-50 sticky top-0">
-              <tr>
-                <th class="px-3 py-2 text-left font-semibold">Period</th>
-                <th class="px-3 py-2 text-right font-semibold">Opening</th>
-                <th class="px-3 py-2 text-right font-semibold">Contributions</th>
-                <th class="px-3 py-2 text-right font-semibold">Growth</th>
-                <th class="px-3 py-2 text-right font-semibold">Closing</th>
-              </tr>
-            </thead>
-            <tbody id="ledger-body" class="divide-y divide-neutral-100"></tbody>
-          </table>
+        <div class="p-6 md:p-8 border-t border-slate-200">
+          <h3 class="text-xl font-bold text-slate-900 mb-4">Detailed Accumulation Ledger</h3>
+          <div class="overflow-hidden border border-slate-200 rounded-xl">
+            <div class="max-h-96 overflow-y-auto">
+              <table class="min-w-full divide-y divide-slate-200">
+                <thead class="bg-slate-50 sticky top-0 z-10 shadow-sm">
+                  <tr>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Period</th>
+                    <th class="px-4 py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">Opening</th>
+                    <th class="px-4 py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">Contributions</th>
+                    <th class="px-4 py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">Growth</th>
+                    <th class="px-4 py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">Closing</th>
+                  </tr>
+                </thead>
+                <tbody id="ledger-body" class="bg-white divide-y divide-slate-100 text-sm"></tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </section>
-  </main>
+  <!-- Chapter 1 -->
+    <section class="mb-16">
+      <h2 class="text-3xl font-bold text-slate-900 mb-6">Chapter 2: The Math Behind Financial Independence</h2>
+      <div class="prose prose-slate max-w-none text-lg">
+        <p>
+          At its core, FIRE accumulation rests on a simple formula: 
+          <strong>Corpus = Annual Expenses in Retirement ÷ Safe Withdrawal Rate (SWR)</strong>. 
+          But the expenses you have today won't be the same in 15 years because of <em>inflation</em>.
+        </p>
+        
+        <!-- Myth vs Fact Box -->
+        <div class="bg-indigo-50 border-l-4 border-indigo-600 p-6 my-8 rounded-r-xl shadow-sm">
+          <h3 class="text-xl font-bold text-indigo-900 mt-0 mb-3 flex items-center gap-2">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            Myth vs. Scientific Fact
+          </h3>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <p class="text-sm font-bold text-red-600 uppercase tracking-wider mb-1">The Myth</p>
+              <p class="text-slate-700 m-0">"I just need ₹1 Crore (or $1 Million) to retire and live off the interest forever without worrying."</p>
+            </div>
+            <div>
+              <p class="text-sm font-bold text-emerald-600 uppercase tracking-wider mb-1">The Scientific Fact</p>
+              <p class="text-slate-700 m-0">Due to inflation (purchasing power erosion), a fixed corpus loses value. Safe withdrawal research (like the Trinity Study) proves you must adjust your target based on projected spending <em>at the exact year</em> you retire.</p>
+            </div>
+          </div>
+        </div>
+
+        <p>
+          Spending at independence is today’s baseline grown by inflation: <code class="bg-slate-100 text-pink-600 px-2 py-1 rounded">E_T = E_0 × (1 + i)^T</code>. 
+          Our FIRE Engine calculates the required monthly investments as an <strong>annuity-due</strong> (meaning you invest at the start of the month, not the end).
+        </p>
+        
+        <!-- Takeaway Summary -->
+        <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm my-8">
+          <h4 class="text-lg font-bold text-slate-900 mt-0 mb-3">Key Takeaways for Your Plan:</h4>
+          <ul class="list-disc pl-5 m-0 space-y-2 text-slate-700">
+            <li><strong>Inflation is the silent tax:</strong> Always account for a minimum 6% inflation in India (or 3-4% globally).</li>
+            <li><strong>The 4% Rule is outdated:</strong> Many modern planners lean towards a more conservative <strong>3.25% - 3.5% SWR</strong> to survive extended market downturns.</li>
+            <li><strong>Start Early:</strong> Compound interest does the heavy lifting in the final years of accumulation.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    </main>
 
   <footer id="site-footer"></footer>
 
+  <!-- IDENTICAL SCRIPT LOGIC TO PRESERVE ALL FUNCTIONALITY -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const fmt = (n) => n.toLocaleString(undefined, { maximumFractionDigits: 0 });
@@ -199,10 +281,10 @@
       let last = null;
       let chartInstance = null;
       const ALLOC = [
-        { key: 'Growth equities', pct: 0.6, color: '#0F172A' },
+        { key: 'Growth equities', pct: 0.6, color: '#4F46E5' }, // Updated color to match theme
         { key: 'High-grade debt', pct: 0.2, color: '#10B981' },
-        { key: 'Real assets / alternatives', pct: 0.15, color: '#64748B' },
-        { key: 'Satellite / opportunistic', pct: 0.05, color: '#94A3B8' }
+        { key: 'Real assets / alt', pct: 0.15, color: '#F59E0B' }, // Updated color
+        { key: 'Satellite / opp', pct: 0.05, color: '#64748B' }
       ];
 
       document.getElementById('inflation-preset').addEventListener('change', function () {
@@ -281,15 +363,15 @@
       function renderAlloc(corpus) {
         document.getElementById('alloc-list').innerHTML = ALLOC.map(function (a) {
           return (
-            '<li><span class="inline-block w-3 h-3 rounded-sm mr-2 align-middle" style="background:' +
+            '<li class="flex items-center"><span class="inline-block w-3 h-3 rounded-full mr-3" style="background:' +
             a.color +
-            '"></span><strong>' +
+            '"></span><strong class="text-slate-900 font-bold mr-2">' +
             Math.round(a.pct * 100) +
             '%</strong> ' +
             a.key +
-            ' — ' +
+            ' <span class="ml-auto text-slate-500 font-medium">' +
             money(corpus * a.pct) +
-            '</li>'
+            '</span></li>'
           );
         }).join('');
         const ctx = document.getElementById('alloc-chart');
@@ -308,11 +390,12 @@
                 backgroundColor: ALLOC.map(function (a) {
                   return a.color;
                 }),
-                borderWidth: 0
+                borderWidth: 0,
+                hoverOffset: 4
               }
             ]
           },
-          options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+          options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, cutout: '70%' }
         });
       }
 
@@ -329,21 +412,21 @@
               });
         if (detail === 'summary') {
           document.getElementById('ledger-body').innerHTML =
-            '<tr><td class="px-3 py-2" colspan="5">Summary mode — use CSV/Excel/PDF granular exports or switch report detail.</td></tr>';
+            '<tr><td class="px-4 py-4 text-center text-slate-500 italic" colspan="5">Summary mode — use CSV/Excel/PDF granular exports or switch report detail to view ledger.</td></tr>';
           return;
         }
         document.getElementById('ledger-body').innerHTML = rows
           .map(function (r) {
             return (
-              '<tr><td class="px-3 py-1.5">' +
+              '<tr class="hover:bg-slate-50 transition-colors"><td class="px-4 py-3 whitespace-nowrap font-medium text-slate-900">' +
               r.label +
-              '</td><td class="px-3 py-1.5 text-right">' +
+              '</td><td class="px-4 py-3 whitespace-nowrap text-right text-slate-600">' +
               fmt(r.opening) +
-              '</td><td class="px-3 py-1.5 text-right">' +
+              '</td><td class="px-4 py-3 whitespace-nowrap text-right text-emerald-600 font-medium">+' +
               fmt(r.contrib) +
-              '</td><td class="px-3 py-1.5 text-right">' +
+              '</td><td class="px-4 py-3 whitespace-nowrap text-right text-indigo-600">+' +
               fmt(r.growth) +
-              '</td><td class="px-3 py-1.5 text-right">' +
+              '</td><td class="px-4 py-3 whitespace-nowrap text-right text-slate-900 font-bold">' +
               fmt(r.closing) +
               '</td></tr>'
             );
@@ -463,7 +546,7 @@
             return [a.key, Math.round(a.pct * 100) + '%', fmt(a.amount)];
           }),
           styles: { fontSize: 9 },
-          headStyles: { fillColor: [23, 23, 23] },
+          headStyles: { fillColor: [79, 70, 229] }, // Indigo 600
           margin: { left: m, right: m }
         });
 
@@ -481,7 +564,7 @@
               });
             }),
             styles: { fontSize: 7, cellPadding: 2 },
-            headStyles: { fillColor: [64, 64, 64] },
+            headStyles: { fillColor: [71, 85, 105] }, // Slate 600
             margin: { left: m, right: m }
           });
         }
@@ -517,7 +600,3 @@
   </script>
 </body>
 </html>
-
-
-
-
