@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <title>Pomodoro Timer — Productivity & Focus — BitsToBetter</title>
+  <meta name="description" content="Free Pomodoro timer for improved productivity and focus. Use the proven 25-minute work, 5-minute break technique to boost your efficiency and manage your time better." />
+  <meta name="keywords" content="pomodoro timer, productivity timer, focus timer, time management, work timer, study timer" />
+  <link rel="canonical" href="https://bitstobetter.com/lifestyle/pomodoro.html" />
+  <link rel="icon" type="image/png" href="/assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <meta name="theme-color" content="#0F172A" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/assets/site.css" />
+  <script src="/assets/site.js" defer></script>
+</head>
+<body class="antialiased text-foreground">
+  <header id="site-header" data-active="lifestyle"></header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <nav class="text-sm text-muted-foreground mb-6" aria-label="Breadcrumb">
+      <a href="/" class="hover:text-foreground">Home</a> /
+      <a href="/lifestyle/" class="hover:text-foreground">Lifestyle</a> /
+      <span class="text-foreground font-medium">Pomodoro Timer</span>
+    </nav>
+
+    <h1 class="text-3xl sm:text-4xl font-extrabold">Pomodoro Timer</h1>
+    <p class="mt-3 text-lg text-muted-foreground max-w-3xl">Boost your productivity with the proven Pomodoro Technique. Work in focused 25-minute intervals with short breaks to maintain peak mental performance.</p>
+
+    <div class="grid lg:grid-cols-2 gap-8">
+      <div class="calc-panel">
+        <h2 class="text-xl font-bold mb-4">Timer Settings</h2>
+        
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-1">Work Duration (minutes)</label>
+            <input type="number" id="work-duration" class="field-input" value="25" min="1" max="60" step="1">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Short Break (minutes)</label>
+            <input type="number" id="short-break" class="field-input" value="5" min="1" max="15" step="1">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Long Break (minutes)</label>
+            <input type="number" id="long-break" class="field-input" value="15" min="5" max="30" step="1">
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium mb-1">Sessions Before Long Break</label>
+            <input type="number" id="sessions-count" class="field-input" value="4" min="2" max="8" step="1">
+          </div>
+        </div>
+      </div>
+
+      <div class="calc-panel">
+        <h2 class="text-xl font-bold mb-4">Timer Display</h2>
+        
+        <div class="text-center py-8">
+          <div id="timer-display" class="text-6xl sm:text-7xl font-bold text-primary mb-4">25:00</div>
+          <div id="timer-status" class="text-lg font-medium text-muted-foreground mb-6">Ready to Start</div>
+          
+          <div class="flex justify-center gap-4">
+            <button id="start-btn" class="btn-primary px-8 py-3 text-lg">Start</button>
+            <button id="pause-btn" class="btn-secondary px-8 py-3 text-lg" disabled>Pause</button>
+            <button id="reset-btn" class="btn-outline px-8 py-3 text-lg">Reset</button>
+          </div>
+        </div>
+
+        <div class="mt-6 pt-6 border-t border-border">
+          <div class="grid grid-cols-3 gap-4 text-center">
+            <div>
+              <div id="completed-sessions" class="text-2xl font-bold">0</div>
+              <div class="text-sm text-muted-foreground">Completed</div>
+            </div>
+            <div>
+              <div id="total-focus-time" class="text-2xl font-bold">0m</div>
+              <div class="text-sm text-muted-foreground">Focus Time</div>
+            </div>
+            <div>
+              <div id="current-session" class="text-2xl font-bold">1/4</div>
+              <div class="text-sm text-muted-foreground">Session</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <article class="article-prose max-w-3xl">
+      <h2 class="text-2xl font-bold mb-4">What is the Pomodoro Technique?</h2>
+      <p>The Pomodoro Technique is a time management method developed by Francesco Cirillo in the late 1980s. It uses a timer to break work into intervals, traditionally 25 minutes in length, separated by short breaks. Each interval is known as a "pomodoro," from the Italian word for tomato.</p>
+      
+      <div class="bg-green-50 dark:bg-green-950 border-l-4 border-green-500 p-4 rounded-r-lg my-6">
+        <h3 class="font-semibold text-green-900 dark:text-green-100 mb-2">🍅 Why It Works</h3>
+        <p class="text-green-900 dark:text-green-100">The technique combats mental fatigue and maintains focus by working with your brain's natural attention span. Regular breaks prevent burnout and improve overall productivity.</p>
+      </div>
+
+      <h3 class="text-xl font-bold mt-6 mb-3">How to Use This Timer</h3>
+      <ol>
+        <li><strong>Set your work duration:</strong> Default is 25 minutes, but adjust based on your task complexity</li>
+        <li><strong>Work without distractions:</strong> Focus solely on one task during the work interval</li>
+        <li><strong>Take a short break:</strong> 5 minutes to stretch, hydrate, or rest your eyes</li>
+        <li><strong>After 4 sessions:</strong> Take a longer break (15-30 minutes) to recharge</li>
+      </ol>
+
+      <h3 class="text-xl font-bold mt-6 mb-3">Benefits of Pomodoro</h3>
+      <ul>
+        <li><strong>Improved Focus:</strong> Eliminates multitasking and increases deep work time</li>
+        <li><strong>Better Time Awareness:</strong> Makes you conscious of how long tasks take</li>
+        <li><strong>Reduced Mental Fatigue:</strong> Regular breaks prevent cognitive overload</li>
+        <li><strong>Increased Motivation:</strong> Completing pomodoros provides a sense of accomplishment</li>
+        <li><strong>Work-Life Balance:</strong> Encourages regular breaks and prevents overworking</li>
+      </ul>
+
+      <h3 class="text-xl font-bold mt-6 mb-3">Tips for Success</h3>
+      <ul>
+        <li>Eliminate notifications and distractions during work intervals</li>
+        <li>Use breaks for physical movement, not social media</li>
+        <li>Track your completed pomodoros to measure productivity</li>
+        <li>Adjust interval lengths based on your personal rhythm</li>
+        <li>Group similar tasks together for maximum efficiency</li>
+      </ul>
+    </article>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      let timerInterval = null;
+      let timeRemaining = 25 * 60;
+      let isRunning = false;
+      let isWorkSession = true;
+      let completedSessions = 0;
+      let totalFocusMinutes = 0;
+      let currentSessionNumber = 1;
+
+      const workDurationInput = document.getElementById('work-duration');
+      const shortBreakInput = document.getElementById('short-break');
+      const longBreakInput = document.getElementById('long-break');
+      const sessionsCountInput = document.getElementById('sessions-count');
+      
+      const timerDisplay = document.getElementById('timer-display');
+      const timerStatus = document.getElementById('timer-status');
+      const startBtn = document.getElementById('start-btn');
+      const pauseBtn = document.getElementById('pause-btn');
+      const resetBtn = document.getElementById('reset-btn');
+      
+      const completedSessionsDisplay = document.getElementById('completed-sessions');
+      const totalFocusTimeDisplay = document.getElementById('total-focus-time');
+      const currentSessionDisplay = document.getElementById('current-session');
+
+      function formatTime(seconds) {
+        const mins = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+      }
+
+      function updateDisplay() {
+        timerDisplay.textContent = formatTime(timeRemaining);
+        document.title = `${formatTime(timeRemaining)} - Pomodoro Timer`;
+      }
+
+      function updateStats() {
+        completedSessionsDisplay.textContent = completedSessions;
+        totalFocusTimeDisplay.textContent = totalFocusMinutes + 'm';
+        currentSessionDisplay.textContent = `${currentSessionNumber}/${sessionsCountInput.value}`;
+      }
+
+      function switchSession() {
+        if (isWorkSession) {
+          completedSessions++;
+          totalFocusMinutes += parseInt(workDurationInput.value);
+          
+          if (completedSessions % parseInt(sessionsCountInput.value) === 0) {
+            timeRemaining = parseInt(longBreakInput.value) * 60;
+            timerStatus.textContent = 'Long Break Time';
+            isWorkSession = false;
+          } else {
+            timeRemaining = parseInt(shortBreakInput.value) * 60;
+            timerStatus.textContent = 'Short Break Time';
+            isWorkSession = false;
+          }
+          currentSessionNumber = (completedSessions % parseInt(sessionsCountInput.value)) + 1;
+        } else {
+          timeRemaining = parseInt(workDurationInput.value) * 60;
+          timerStatus.textContent = 'Work Session';
+          isWorkSession = true;
+        }
+        
+        updateDisplay();
+        updateStats();
+        isRunning = false;
+        startBtn.disabled = false;
+        pauseBtn.disabled = true;
+        clearInterval(timerInterval);
+      }
+
+      function startTimer() {
+        if (!isRunning) {
+          isRunning = true;
+          startBtn.disabled = true;
+          pauseBtn.disabled = false;
+          timerStatus.textContent = isWorkSession ? 'Working...' : 'Break Time...';
+          
+          timerInterval = setInterval(function() {
+            if (timeRemaining > 0) {
+              timeRemaining--;
+              updateDisplay();
+            } else {
+              clearInterval(timerInterval);
+              switchSession();
+            }
+          }, 1000);
+        }
+      }
+
+      function pauseTimer() {
+        if (isRunning) {
+          isRunning = false;
+          startBtn.disabled = false;
+          pauseBtn.disabled = true;
+          timerStatus.textContent = 'Paused';
+          clearInterval(timerInterval);
+        }
+      }
+
+      function resetTimer() {
+        clearInterval(timerInterval);
+        isRunning = false;
+        isWorkSession = true;
+        timeRemaining = parseInt(workDurationInput.value) * 60;
+        completedSessions = 0;
+        totalFocusMinutes = 0;
+        currentSessionNumber = 1;
+        
+        startBtn.disabled = false;
+        pauseBtn.disabled = true;
+        timerStatus.textContent = 'Ready to Start';
+        
+        updateDisplay();
+        updateStats();
+        document.title = 'Pomodoro Timer — Productivity & Focus — BitsToBetter';
+      }
+
+      startBtn.addEventListener('click', startTimer);
+      pauseBtn.addEventListener('click', pauseTimer);
+      resetBtn.addEventListener('click', resetTimer);
+
+      workDurationInput.addEventListener('change', function() {
+        if (!isRunning && isWorkSession) {
+          timeRemaining = parseInt(this.value) * 60;
+          updateDisplay();
+        }
+      });
+
+      updateDisplay();
+      updateStats();
+    });
+  </script>
+</body>
+</html>

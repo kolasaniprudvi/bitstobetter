@@ -7,12 +7,38 @@
   const CHEV =
     '<svg class="h-4 w-4 dd-chev" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>';
 
+  const SEARCH_ICON =
+    '<svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>';
+
   function brand() {
     return (
       '<a href="/" class="brand-link">' +
-      '<img src="/assets/logo.png" alt="" width="32" height="32" class="brand-logo" decoding="async" />' +
+      '<svg width="32" height="32" viewBox="0 0 320 64" class="brand-logo" aria-label="BitsToBetter">' +
+      '<rect x="8" y="12" width="44" height="40" rx="6" fill="currentColor"/>' +
+      '<rect x="14" y="20" width="6" height="6" rx="1" fill="white" opacity="0.9"/>' +
+      '<rect x="24" y="20" width="6" height="6" rx="1" fill="white" opacity="0.6"/>' +
+      '<rect x="34" y="20" width="6" height="6" rx="1" fill="white" opacity="0.9"/>' +
+      '<rect x="14" y="30" width="6" height="6" rx="1" fill="white" opacity="0.6"/>' +
+      '<rect x="24" y="30" width="6" height="6" rx="1" fill="white" opacity="0.9"/>' +
+      '<rect x="34" y="30" width="6" height="6" rx="1" fill="white" opacity="0.6"/>' +
+      '<rect x="14" y="40" width="6" height="6" rx="1" fill="white" opacity="0.9"/>' +
+      '<rect x="24" y="40" width="6" height="6" rx="1" fill="white" opacity="0.6"/>' +
+      '<rect x="34" y="40" width="6" height="6" rx="1" fill="white" opacity="0.9"/>' +
+      '</svg>' +
       '<span>BitsToBetter</span>' +
       '</a>'
+    );
+  }
+
+  function searchUI() {
+    return (
+      '<div class="search-container">' +
+      '<div class="search-input-wrapper">' +
+      '<input type="text" id="global-search" class="search-input" placeholder="Search calculators, guides..." autocomplete="off">' +
+      '<button type="button" class="search-button" aria-label="Search">' + SEARCH_ICON + '</button>' +
+      '</div>' +
+      '<div id="search-results" class="search-results hidden"></div>' +
+      '</div>'
     );
   }
 
@@ -163,6 +189,26 @@
     ]);
   }
 
+  function lifestyleMenu() {
+    return categoryDD('Lifestyle', 'lifestyle', [
+      {
+        heading: 'Productivity',
+        links: [
+          ['/lifestyle/pomodoro.html', 'Pomodoro Timer'],
+          ['/lifestyle/habit-tracker.html', 'Habit Tracker']
+        ]
+      },
+      {
+        heading: 'Developer tools',
+        links: [
+          ['/lifestyle/password-generator.html', 'Password Generator'],
+          ['/lifestyle/json-formatter.html', 'JSON Formatter'],
+          ['/lifestyle/', 'All lifestyle tools →']
+        ]
+      }
+    ]);
+  }
+
   function otherMenu() {
     return categoryDD('Other', 'other', [
       {
@@ -210,6 +256,7 @@
       financeMenu() +
       healthMenu() +
       mathMenu() +
+      lifestyleMenu() +
       otherMenu() +
       '<a href="/about.html" class="nav-link' +
       active('about') +
@@ -218,6 +265,7 @@
       active('contact') +
       '">Contact</a>' +
       '</nav>' +
+      searchUI() +
       '<button type="button" id="mobile-toggle" class="lg:hidden p-2 text-muted-foreground" aria-label="Open menu" aria-expanded="false">' +
       '<svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>' +
       '</button></div>' +
@@ -295,6 +343,12 @@
         ['/math/random-number.html', 'Random Number'],
         ['/math/triangle.html', 'Triangle'],
         ['/math/standard-deviation.html', 'Standard Deviation']
+      ]) +
+      block('Lifestyle', [
+        ['/lifestyle/pomodoro.html', 'Pomodoro Timer'],
+        ['/lifestyle/habit-tracker.html', 'Habit Tracker'],
+        ['/lifestyle/password-generator.html', 'Password Generator'],
+        ['/lifestyle/json-formatter.html', 'JSON Formatter']
       ]) +
       block('Other', [
         ['/other/age.html', 'Age'],
@@ -382,6 +436,66 @@
         });
       }
     });
+
+    // Global search functionality
+    const searchInput = document.getElementById('global-search');
+    const searchResults = document.getElementById('search-results');
+    
+    if (searchInput && searchResults) {
+      const searchIndex = [
+        { title: 'SIP Calculator', url: '/finance/sip.html', category: 'Finance' },
+        { title: 'Lumpsum Calculator', url: '/finance/lumpsum.html', category: 'Finance' },
+        { title: 'Step-Up SIP Calculator', url: '/finance/step-up-sip.html', category: 'Finance' },
+        { title: 'SWP Calculator', url: '/finance/swp.html', category: 'Finance' },
+        { title: 'FIRE Engine', url: '/finance/fire.html', category: 'Finance' },
+        { title: 'EMI Calculator', url: '/finance/emi.html', category: 'Finance' },
+        { title: 'BMI Calculator', url: '/health/bmi.html', category: 'Health' },
+        { title: 'BMR Calculator', url: '/health/bmr.html', category: 'Health' },
+        { title: 'Calorie Calculator', url: '/health/calorie.html', category: 'Health' },
+        { title: 'Pregnancy Calculator', url: '/health/pregnancy.html', category: 'Health' },
+        { title: 'Scientific Calculator', url: '/math/scientific.html', category: 'Math' },
+        { title: 'Percentage Calculator', url: '/math/percentage.html', category: 'Math' },
+        { title: 'Fraction Calculator', url: '/math/fraction.html', category: 'Math' },
+        { title: 'Pomodoro Timer', url: '/lifestyle/pomodoro.html', category: 'Lifestyle' },
+        { title: 'Password Generator', url: '/lifestyle/password-generator.html', category: 'Lifestyle' },
+        { title: 'JSON Formatter', url: '/lifestyle/json-formatter.html', category: 'Lifestyle' },
+        { title: 'Habit Tracker', url: '/lifestyle/habit-tracker.html', category: 'Lifestyle' }
+      ];
+
+      searchInput.addEventListener('input', function (e) {
+        const query = e.target.value.toLowerCase().trim();
+        
+        if (query.length < 2) {
+          searchResults.classList.add('hidden');
+          return;
+        }
+
+        const results = searchIndex.filter(function (item) {
+          return item.title.toLowerCase().includes(query) || 
+                 item.category.toLowerCase().includes(query);
+        });
+
+        if (results.length === 0) {
+          searchResults.innerHTML = '<div class="search-result-item">No results found</div>';
+        } else {
+          searchResults.innerHTML = results.map(function (item) {
+            return '<a href="' + item.url + '" class="search-result-item">' +
+                   '<span class="search-result-title">' + item.title + '</span>' +
+                   '<span class="search-result-category">' + item.category + '</span>' +
+                   '</a>';
+          }).join('');
+        }
+
+        searchResults.classList.remove('hidden');
+      });
+
+      // Close search results when clicking outside
+      document.addEventListener('click', function (e) {
+        if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+          searchResults.classList.add('hidden');
+        }
+      });
+    }
   }
 
   function mountFooter() {

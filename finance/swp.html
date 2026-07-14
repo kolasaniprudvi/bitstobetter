@@ -93,14 +93,117 @@
 
     <article class="article-prose max-w-3xl">
       <h2 class="text-2xl font-bold mb-4">What is SWP?</h2>
-      <p>Systematic Withdrawal Plan (SWP) allows you to withdraw a fixed amount regularly from your mutual fund investments. It's ideal for creating regular income in retirement while keeping your money invested.</p>
+      <p>Systematic Withdrawal Plan (SWP) allows you to withdraw a fixed amount regularly from your mutual fund investments. It's the reverse of SIP - instead of investing regularly, you withdraw regularly while keeping your remaining corpus invested and growing.</p>
       
-      <h3 class="text-xl font-bold mt-6 mb-3">SWP Benefits</h3>
+      <div class="bg-blue-50 dark:bg-blue-950 border-l-4 border-blue-500 p-4 rounded-r-lg my-6">
+        <h3 class="font-semibold text-blue-900 dark:text-blue-100 mb-2">💡 Why SWP Matters</h3>
+        <p class="text-blue-900 dark:text-blue-100">SWP is ideal for retirees or investors needing regular income who want their investments to continue growing. It provides structured cash flow while maintaining market exposure for potential capital appreciation.</p>
+      </div>
+
+      <h3 class="text-xl font-bold mt-6 mb-3">The SWP Formula Explained</h3>
+      <p>SWP calculates how long your corpus will last based on withdrawal amount and expected returns:</p>
+      <p class="font-mono text-sm bg-neutral-100 dark:bg-neutral-800 p-3 rounded border border-border">Remaining_Corpus = (Corpus × (1 + r)^n) - (Withdrawal × ((1 + r)^n - 1) / r)</p>
+      <p class="text-sm text-muted-foreground mt-2">Where r = Monthly return rate, n = Number of months</p>
+
+      <p class="mt-4">This formula accounts for both the growth of your remaining corpus and the regular withdrawals. If your returns exceed withdrawals, your corpus can actually grow over time despite regular withdrawals.</p>
+
+      <div class="bg-green-50 dark:bg-green-950 border-l-4 border-green-500 p-4 rounded-r-lg my-6">
+        <h3 class="font-semibold text-green-900 dark:text-green-100 mb-2">📈 The Growth Withdrawal Strategy</h3>
+        <p class="text-green-900 dark:text-green-100">₹50 lakh corpus at 10% with ₹25,000 monthly withdrawal: After 20 years, you'd have withdrawn ₹60 lakh but your remaining corpus would be ₹73 lakh! Your money grew faster than you withdrew.</p>
+      </div>
+
+      <h3 class="text-xl font-bold mt-6 mb-3">SWP vs Other Income Options</h3>
+      <table class="w-full text-sm border border-border rounded-lg overflow-hidden my-4">
+        <thead class="bg-muted">
+          <tr>
+            <th class="text-left p-3 border-b border-border">Feature</th>
+            <th class="text-left p-3 border-b border-border">SWP</th>
+            <th class="text-left p-3 border-b border-border">FD Interest</th>
+            <th class="text-left p-3 border-b border-border">Annuity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-border">
+            <td class="p-3">Capital Protection</td>
+            <td class="p-3">Partial (market risk)</td>
+            <td class="p-3">Full</td>
+            <td class="p-3">None (principal consumed)</td>
+          </tr>
+          <tr class="border-b border-border">
+            <td class="p-3">Inflation Protection</td>
+            <td class="p-3">Potential for growth</td>
+            <td class="p-3">Fixed rate</td>
+            <td class="p-3">Fixed payouts</td>
+          </tr>
+          <tr class="border-b border-border">
+            <td class="p-3">Flexibility</td>
+            <td class="p-3">High (adjustable)</td>
+            <td class="p-3">Low (fixed tenure)</td>
+            <td class="p-3">None (fixed for life)</td>
+          </tr>
+          <tr>
+            <td class="p-3">Returns</td>
+            <td class="p-3">Variable (market-linked)</td>
+            <td class="p-3">Fixed</td>
+            <td class="p-3">Fixed</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 class="text-xl font-bold mt-6 mb-3">Benefits of SWP</h3>
       <ul>
-        <li><strong>Regular Income:</strong> Fixed monthly withdrawals for expenses</li>
-        <li><strong>Capital Appreciation:</strong> Remaining corpus continues to grow</li>
-        <li><strong>Flexibility:</strong> Adjust withdrawal amount as needed</li>
+        <li><strong>Regular Income:</strong> Fixed monthly withdrawals for predictable cash flow</li>
+        <li><strong>Capital Appreciation:</strong> Remaining corpus continues to grow with market</li>
+        <li><strong>Flexibility:</strong> Adjust withdrawal amount, pause, or stop anytime</li>
+        <li><strong>Tax Efficiency:</strong> Only withdrawals taxed, not entire corpus growth</li>
+        <li><strong>Inflation Hedge:</strong> Potential for income to grow if returns exceed inflation</li>
       </ul>
+
+      <h3 class="text-xl font-bold mt-6 mb-3">Choosing the Right Withdrawal Amount</h3>
+      <ul>
+        <li><strong>Conservative (2-3% annually):</strong> Corpus likely grows, sustainable long-term</li>
+        <li><strong>Moderate (4-6% annually):</strong> Balanced approach, corpus may stay stable</li>
+        <li><strong>Aggressive (7%+ annually):</strong> Higher income now, corpus may deplete faster</li>
+        <li><strong>Rule of thumb:</strong> Withdraw less than expected returns to preserve corpus</li>
+      </ul>
+
+      <h3 class="text-xl font-bold mt-6 mb-3">SWP for Different Life Stages</h3>
+      <ul>
+        <li><strong>Early retirement (50s):</strong> Lower withdrawals initially, increase gradually</li>
+        <li><strong>Retirement (60s):</strong> Moderate withdrawals, balance income and preservation</li>
+        <li><strong>Late retirement (70s+):</strong> Higher withdrawals if needed, focus on income</li>
+        <li><strong>Emergency fund:</strong> SWP from debt funds for temporary income needs</li>
+      </ul>
+
+      <h3 class="text-xl font-bold mt-6 mb-3">Common SWP Mistakes</h3>
+      <ul>
+        <li><strong>Withdrawing too much:</strong> Depleting corpus faster than expected</li>
+        <li><strong>Ignoring market cycles:</strong> Not adjusting withdrawals during downturns</li>
+        <li><strong>Wrong asset allocation:</strong> Using equity SWP for short-term needs</li>
+        <li><strong>No emergency buffer:</strong> Not keeping separate emergency fund</li>
+        <li><strong>Not reviewing periodically:</strong> Withdrawal rate should match corpus performance</li>
+      </ul>
+
+      <h3 class="text-xl font-bold mt-6 mb-3">SWP vs SIP: The Complete Picture</h3>
+      <ul>
+        <li><strong>Accumulation phase (working years):</strong> Use SIP to build corpus</li>
+        <li><strong>Transition phase (near retirement):</strong> Reduce SIP, prepare for SWP</li>
+        <li><strong>Distribution phase (retirement):</strong> Use SWP for regular income</li>
+        <li><strong>Combined approach:</strong> Some funds continue SIP while others use SWP</li>
+      </ul>
+
+      <h3 class="text-xl font-bold mt-6 mb-3">Tax Implications of SWP</h3>
+      <ul>
+        <li><strong>Equity funds:</strong> Each withdrawal taxed as capital gains (10% above ₹1 lakh if long-term)</li>
+        <li><strong>Debt funds:</strong> Each withdrawal taxed based on holding period</li>
+        <li><strong>Systematic:</strong> FIFO (First In, First Out) method applies for tax calculation</li>
+        <li><strong>Planning:</strong> Consider tax impact when setting withdrawal amounts</li>
+      </ul>
+
+      <div class="bg-amber-50 dark:bg-amber-950 border-l-4 border-amber-500 p-4 rounded-r-lg my-6">
+        <h3 class="font-semibold text-amber-900 dark:text-amber-100 mb-2">⚠️ Important Disclaimer</h3>
+        <p class="text-amber-900 dark:text-amber-100">SWP calculations are estimates based on assumed returns. Actual returns vary based on market conditions. Withdrawals that exceed returns will deplete your corpus faster. Consult a SEBI-registered investment advisor for personalized retirement planning.</p>
+      </div>
     </article>
   </main>
 
