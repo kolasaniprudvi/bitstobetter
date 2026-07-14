@@ -1,0 +1,536 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <title>EMI Calculator — Amortization, Charts &amp; Granular Reports — BitsToBetter</title>
+  <meta name="description" content="EMI calculator with loan-type dropdowns, full amortization matrix, Chart.js visuals, and granular PDF, CSV, Excel, and JSON report downloads." />
+  <link rel="canonical" href="https://bitstobetter.com/finance/emi.html" />
+  <link rel="icon" type="image/png" href="/assets/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <meta name="theme-color" content="#0F172A" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/assets/site.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.4/dist/jspdf.plugin.autotable.min.js" defer></script>
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js" defer></script>
+  <script src="/assets/site.js" defer></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "BitsToBetter EMI Calculator",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Web Browser",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "url": "https://bitstobetter.com/finance/emi.html"
+  }
+  </script>
+</head>
+<body class="antialiased text-foreground">
+  <header id="site-header" data-active="finance"></header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <nav class="text-sm text-muted-foreground mb-6" aria-label="Breadcrumb">
+      <a href="/" class="hover:text-foreground">Home</a> /
+      <a href="/finance/" class="hover:text-foreground">Finance</a> /
+      <span class="text-foreground font-medium">EMI</span>
+    </nav>
+
+    <h1 class="text-3xl sm:text-4xl font-extrabold">EMI Calculator &amp; Amortization Engine</h1>
+    <p class="mt-3 text-lg text-muted-foreground max-w-3xl">Dropdown-driven loan setup, month-by-month ledger, chart breakup, and granular multi-format reports (PDF summary, PDF full schedule, CSV, Excel, JSON).</p>
+
+    <article class="article-prose mt-10 max-w-3xl" id="emi-guide">
+      <h2 class="text-2xl font-bold mb-4">Governing formula, tax posture &amp; execution strategy</h2>
+      <p>Equated Monthly Instalment (EMI) lending converts a large principal into a level periodic cash outflow while interest is computed on the outstanding reducing balance. The closed-form EMI is:</p>
+      <p class="font-mono text-sm bg-neutral-100 p-3 rounded border border-border">EMI = P × r × (1 + r)<sup>n</sup> / [(1 + r)<sup>n</sup> − 1]</p>
+      <p>where <strong>P</strong> is principal, <strong>r</strong> is the monthly rate (annual ÷ 12 ÷ 100), and <strong>n</strong> is tenure in months. Early instalments are interest-heavy; later ones retire principal faster — which is why prepayments early in the schedule destroy more interest cost per unit currency.</p>
+      <h3>Amortization mathematics</h3>
+      <p>Each month, interest = balance × r and principal = EMI − interest. Repeating until balance is zero yields the granular schedule you can export below. Floating-rate loans replace r periodically; stress-test by re-running with alternate rates from the dropdown presets.</p>
+      <h3>Fees, APR awareness, and disclosure</h3>
+      <p>Processing fees raise effective credit cost above the headline rate. Reconcile bank Key Fact Statements with your own amortization ledger before signing. Use the granular CSV/Excel export to reconcile month-level interest with tax worksheets.</p>
+      <h3>Tax implications (illustrative)</h3>
+      <p>In India, home-loan interest may qualify under Section 24(b) (subject to caps), while principal may compete inside the Section 80C ₹1.5 lakh envelope alongside PPF and ELSS. Commercial and investment-property interest treatment differs. Map your jurisdiction’s rules with a professional — BitsToBetter does not file returns.</p>
+      <h3>Strategic execution parameters</h3>
+      <ul>
+        <li>Stress EMI at +200 bps rate shocks before locking floating tenors.</li>
+        <li>Keep total EMI within a sustainable share of take-home pay (often cited: 35–45%).</li>
+        <li>Hold an emergency cash buffer of three to six months of EMI-plus-essentials.</li>
+        <li>When refinancing, compare break-even months against residual interest in the granular ledger.</li>
+      </ul>
+      <p>All math and report generation run locally in your browser — nothing is uploaded to BitsToBetter servers.</p>
+    </article>
+
+    <section class="mt-12" id="calculator" aria-labelledby="calc-heading">
+      <h2 id="calc-heading" class="text-2xl font-bold">Compute your EMI</h2>
+      <div class="mt-6 grid lg:grid-cols-5 gap-8">
+        <form id="emi-form" class="lg:col-span-2 space-y-4 no-print calc-panel">
+          <div>
+            <label for="loan-type" class="block text-sm font-semibold">Loan type</label>
+            <select id="loan-type" class="field-select">
+              <option value="home">Home / Mortgage</option>
+              <option value="personal">Personal</option>
+              <option value="auto">Auto / Car</option>
+              <option value="education">Education</option>
+              <option value="business">Business</option>
+              <option value="lap">Loan Against Property</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div>
+            <label for="currency" class="block text-sm font-semibold">Currency</label>
+            <select id="currency" class="field-select">
+              <option value="INR" selected>INR — Indian Rupee</option>
+              <option value="USD">USD — US Dollar</option>
+              <option value="EUR">EUR — Euro</option>
+              <option value="GBP">GBP — British Pound</option>
+              <option value="AED">AED — UAE Dirham</option>
+              <option value="SGD">SGD — Singapore Dollar</option>
+              <option value="AUD">AUD — Australian Dollar</option>
+            </select>
+          </div>
+          <div>
+            <label for="principal" class="block text-sm font-semibold">Loan amount (principal)</label>
+            <input id="principal" type="number" min="1" step="1" value="5000000" required class="field-input" />
+          </div>
+          <div>
+            <label for="rate" class="block text-sm font-semibold">Annual interest rate (%)</label>
+            <input id="rate" type="number" min="0.01" step="0.01" value="8.5" required class="field-input" />
+            <select id="rate-preset" class="field-select mt-2" aria-label="Rate preset">
+              <option value="">Rate presets…</option>
+              <option value="7.1">Home ~7.1%</option>
+              <option value="8.5">Home ~8.5%</option>
+              <option value="9.5">Auto ~9.5%</option>
+              <option value="11.5">Personal ~11.5%</option>
+              <option value="13">Education ~13%</option>
+            </select>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label for="tenure-value" class="block text-sm font-semibold">Tenure</label>
+              <input id="tenure-value" type="number" min="1" value="20" required class="field-input" />
+            </div>
+            <div>
+              <label for="tenure-unit" class="block text-sm font-semibold">Unit</label>
+              <select id="tenure-unit" class="field-select">
+                <option value="years" selected>Years</option>
+                <option value="months">Months</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label for="fee" class="block text-sm font-semibold">Processing fee (%)</label>
+            <input id="fee" type="number" min="0" step="0.01" value="0.5" class="field-input" />
+          </div>
+          <div>
+            <label for="report-detail" class="block text-sm font-semibold">Report detail level</label>
+            <select id="report-detail" class="field-select">
+              <option value="full" selected>Granular — every month</option>
+              <option value="annual">Annual rollup</option>
+              <option value="summary">Summary KPIs only</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-primary w-full">Calculate</button>
+
+          <div class="pt-2">
+            <p class="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">Download reports</p>
+            <div class="export-bar">
+              <button type="button" id="dl-pdf-summary" class="export-primary" disabled>PDF Summary</button>
+              <button type="button" id="dl-pdf-full" disabled>PDF Full Schedule</button>
+              <button type="button" id="dl-csv" disabled>CSV Granular</button>
+              <button type="button" id="dl-xlsx" disabled>Excel Granular</button>
+              <button type="button" id="dl-json" disabled>JSON</button>
+            </div>
+          </div>
+        </form>
+
+        <div class="lg:col-span-3 space-y-6">
+          <div id="summary" class="grid sm:grid-cols-3 gap-4" aria-live="polite">
+            <div class="stat-tile">
+              <p class="text-xs uppercase tracking-wider text-muted-foreground font-bold">Monthly EMI</p>
+              <p id="out-emi" class="mt-1 text-2xl font-bold">—</p>
+            </div>
+            <div class="stat-tile">
+              <p class="text-xs uppercase tracking-wider text-muted-foreground font-bold">Total interest</p>
+              <p id="out-interest" class="mt-1 text-2xl font-bold">—</p>
+            </div>
+            <div class="stat-tile">
+              <p class="text-xs uppercase tracking-wider text-muted-foreground font-bold">Total payable (+ fee)</p>
+              <p id="out-total" class="mt-1 text-2xl font-bold">—</p>
+            </div>
+          </div>
+          <div class="stat-tile">
+            <h3 class="text-sm font-bold mb-3">Principal vs interest</h3>
+            <div class="relative max-w-sm mx-auto" style="height:260px">
+              <canvas id="emi-chart" aria-label="Pie chart of principal versus interest"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 calc-panel">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <h3 class="text-lg font-bold">Amortization schedule</h3>
+          <select id="table-view" class="field-select w-auto" aria-label="Table view">
+            <option value="monthly" selected>Monthly (granular)</option>
+            <option value="yearly">Yearly rollup</option>
+          </select>
+        </div>
+        <div class="table-scroll max-h-96 overflow-y-auto border border-border rounded">
+          <table class="amort-table min-w-full divide-y divide-neutral-200" id="amort-table">
+            <thead class="bg-neutral-50 sticky top-0">
+              <tr>
+                <th class="px-3 py-2 text-left font-semibold">Period</th>
+                <th class="px-3 py-2 text-right font-semibold">EMI</th>
+                <th class="px-3 py-2 text-right font-semibold">Interest</th>
+                <th class="px-3 py-2 text-right font-semibold">Principal</th>
+                <th class="px-3 py-2 text-right font-semibold">Balance</th>
+                <th class="px-3 py-2 text-right font-semibold">Cum. Interest</th>
+                <th class="px-3 py-2 text-right font-semibold">Cum. Principal</th>
+              </tr>
+            </thead>
+            <tbody id="amort-body" class="divide-y divide-neutral-100"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const fmt = (n) => n.toLocaleString(undefined, { maximumFractionDigits: 2, minimumFractionDigits: 2 });
+      let last = null;
+      let chartInstance = null;
+      const money = (n) => (last ? last.currency + ' ' : '') + fmt(n);
+
+      document.getElementById('rate-preset').addEventListener('change', function () {
+        if (this.value) document.getElementById('rate').value = this.value;
+      });
+
+      function monthsFromTenure(value, unit) {
+        return unit === 'months' ? Math.round(value) : Math.round(value * 12);
+      }
+
+      function buildSchedule(P, annualRate, nMonths) {
+        const r = annualRate / 12 / 100;
+        const emi =
+          r === 0 ? P / nMonths : (P * r * Math.pow(1 + r, nMonths)) / (Math.pow(1 + r, nMonths) - 1);
+        const rows = [];
+        let balance = P;
+        let cumI = 0;
+        let cumP = 0;
+        let totalInterest = 0;
+        for (let i = 1; i <= nMonths; i++) {
+          const interest = balance * r;
+          let principal = emi - interest;
+          let pay = emi;
+          if (i === nMonths) {
+            principal = balance;
+            pay = principal + interest;
+          }
+          balance = Math.max(0, balance - principal);
+          cumI += interest;
+          cumP += principal;
+          totalInterest += interest;
+          rows.push({
+            month: i,
+            year: Math.ceil(i / 12),
+            emi: pay,
+            interest,
+            principal,
+            balance,
+            cumInterest: cumI,
+            cumPrincipal: cumP
+          });
+        }
+        return { emi, nMonths, rows, totalInterest, P };
+      }
+
+      function yearlyRollup(rows) {
+        const map = {};
+        rows.forEach(function (r) {
+          if (!map[r.year]) {
+            map[r.year] = {
+              year: r.year,
+              emi: 0,
+              interest: 0,
+              principal: 0,
+              balance: r.balance,
+              cumInterest: r.cumInterest,
+              cumPrincipal: r.cumPrincipal
+            };
+          }
+          const y = map[r.year];
+          y.emi += r.emi;
+          y.interest += r.interest;
+          y.principal += r.principal;
+          y.balance = r.balance;
+          y.cumInterest = r.cumInterest;
+          y.cumPrincipal = r.cumPrincipal;
+        });
+        return Object.keys(map)
+          .sort(function (a, b) {
+            return a - b;
+          })
+          .map(function (k) {
+            return map[k];
+          });
+      }
+
+      function renderChart(principal, interest) {
+        const ctx = document.getElementById('emi-chart');
+        if (chartInstance) chartInstance.destroy();
+        chartInstance = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: ['Principal', 'Total interest'],
+            datasets: [{ data: [principal, interest], backgroundColor: ['#0F172A', '#10B981'], borderWidth: 0 }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { position: 'bottom' } }
+          }
+        });
+      }
+
+      function renderTable() {
+        if (!last) return;
+        const mode = document.getElementById('table-view').value;
+        const body = document.getElementById('amort-body');
+        const data =
+          mode === 'yearly'
+            ? yearlyRollup(last.rows).map(function (y) {
+                return {
+                  label: 'Year ' + y.year,
+                  emi: y.emi,
+                  interest: y.interest,
+                  principal: y.principal,
+                  balance: y.balance,
+                  cumInterest: y.cumInterest,
+                  cumPrincipal: y.cumPrincipal
+                };
+              })
+            : last.rows.map(function (r) {
+                return {
+                  label: String(r.month),
+                  emi: r.emi,
+                  interest: r.interest,
+                  principal: r.principal,
+                  balance: r.balance,
+                  cumInterest: r.cumInterest,
+                  cumPrincipal: r.cumPrincipal
+                };
+              });
+        body.innerHTML = data
+          .map(function (r) {
+            return (
+              '<tr>' +
+              '<td class="px-3 py-1.5">' +
+              r.label +
+              '</td>' +
+              '<td class="px-3 py-1.5 text-right">' +
+              fmt(r.emi) +
+              '</td>' +
+              '<td class="px-3 py-1.5 text-right">' +
+              fmt(r.interest) +
+              '</td>' +
+              '<td class="px-3 py-1.5 text-right">' +
+              fmt(r.principal) +
+              '</td>' +
+              '<td class="px-3 py-1.5 text-right">' +
+              fmt(r.balance) +
+              '</td>' +
+              '<td class="px-3 py-1.5 text-right">' +
+              fmt(r.cumInterest) +
+              '</td>' +
+              '<td class="px-3 py-1.5 text-right">' +
+              fmt(r.cumPrincipal) +
+              '</td>' +
+              '</tr>'
+            );
+          })
+          .join('');
+      }
+
+      function setExportEnabled(on) {
+        ['dl-pdf-summary', 'dl-pdf-full', 'dl-csv', 'dl-xlsx', 'dl-json'].forEach(function (id) {
+          document.getElementById(id).disabled = !on;
+        });
+      }
+
+      function granularRows() {
+        const detail = document.getElementById('report-detail').value;
+        if (detail === 'summary') return [];
+        if (detail === 'annual') {
+          return yearlyRollup(last.rows).map(function (y) {
+            return [
+              'Year ' + y.year,
+              y.emi,
+              y.interest,
+              y.principal,
+              y.balance,
+              y.cumInterest,
+              y.cumPrincipal
+            ];
+          });
+        }
+        return last.rows.map(function (r) {
+          return [r.month, r.year, r.emi, r.interest, r.principal, r.balance, r.cumInterest, r.cumPrincipal];
+        });
+      }
+
+      function granularHeaders() {
+        const detail = document.getElementById('report-detail').value;
+        if (detail === 'annual') {
+          return ['Period', 'EMI Sum', 'Interest', 'Principal', 'Ending Balance', 'Cum Interest', 'Cum Principal'];
+        }
+        return ['Month', 'Year', 'EMI', 'Interest', 'Principal', 'Balance', 'Cum Interest', 'Cum Principal'];
+      }
+
+      document.getElementById('emi-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const P = parseFloat(document.getElementById('principal').value);
+        const rate = parseFloat(document.getElementById('rate').value);
+        const tenureValue = parseFloat(document.getElementById('tenure-value').value);
+        const tenureUnit = document.getElementById('tenure-unit').value;
+        const feePct = parseFloat(document.getElementById('fee').value) || 0;
+        const nMonths = monthsFromTenure(tenureValue, tenureUnit);
+        if (!(P > 0) || !(rate >= 0) || !(nMonths > 0)) return;
+
+        const result = buildSchedule(P, rate, nMonths);
+        const feeAmt = (P * feePct) / 100;
+        const totalPayment = result.emi * nMonths + feeAmt;
+
+        last = {
+          loanType: document.getElementById('loan-type').selectedOptions[0].text,
+          currency: document.getElementById('currency').value,
+          P,
+          rate,
+          tenureValue,
+          tenureUnit,
+          nMonths,
+          feePct,
+          feeAmt,
+          emi: result.emi,
+          totalInterest: result.totalInterest,
+          totalPayment,
+          rows: result.rows
+        };
+
+        document.getElementById('out-emi').textContent = money(result.emi);
+        document.getElementById('out-interest').textContent = money(result.totalInterest);
+        document.getElementById('out-total').textContent = money(totalPayment);
+        renderChart(P, result.totalInterest);
+        renderTable();
+        setExportEnabled(true);
+      });
+
+      document.getElementById('table-view').addEventListener('change', renderTable);
+
+      function makePdf(full) {
+        if (!last || typeof window.jspdf === 'undefined') return;
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+        const m = 40;
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(16);
+        doc.text('BitsToBetter — EMI ' + (full ? 'Granular Schedule' : 'Summary'), m, 48);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(10);
+        doc.setTextColor(80);
+        doc.text('Generated ' + new Date().toISOString().slice(0, 10) + ' · Client-side · B&W brand', m, 66);
+        doc.setTextColor(0);
+        const meta = [
+          'Loan type: ' + last.loanType + ' · Currency: ' + last.currency,
+          'Principal: ' + fmt(last.P) + ' · Rate: ' + last.rate + '% p.a.',
+          'Tenure: ' + last.tenureValue + ' ' + last.tenureUnit + ' (' + last.nMonths + ' months)',
+          'Monthly EMI: ' + fmt(last.emi),
+          'Total interest: ' + fmt(last.totalInterest),
+          'Processing fee: ' + fmt(last.feeAmt) + ' · Total payable: ' + fmt(last.totalPayment)
+        ];
+        let y = 90;
+        meta.forEach(function (line) {
+          doc.text(line, m, y);
+          y += 16;
+        });
+        try {
+          const img = document.getElementById('emi-chart').toDataURL('image/png', 1.0);
+          doc.addImage(img, 'PNG', 360, 84, 170, 120);
+        } catch (err) {}
+
+        if (full || document.getElementById('report-detail').value !== 'summary') {
+          const headers = granularHeaders();
+          const body = granularRows().map(function (r) {
+            return r.map(function (c, i) {
+              return i === 0 || (headers[0] === 'Month' && i === 1) ? String(c) : fmt(Number(c));
+            });
+          });
+          doc.autoTable({
+            startY: 220,
+            head: [headers],
+            body: body,
+            styles: { fontSize: 7, cellPadding: 2 },
+            headStyles: { fillColor: [23, 23, 23] },
+            margin: { left: m, right: m }
+          });
+        }
+        doc.setFontSize(8);
+        doc.setTextColor(120);
+        doc.text('Educational estimate only. Verify with your lender’s Key Fact Statement.', m, doc.internal.pageSize.getHeight() - 28);
+        doc.save(full ? 'BitsToBetter-EMI-Granular.pdf' : 'BitsToBetter-EMI-Summary.pdf');
+      }
+
+      document.getElementById('dl-pdf-summary').addEventListener('click', function () {
+        makePdf(false);
+      });
+      document.getElementById('dl-pdf-full').addEventListener('click', function () {
+        makePdf(true);
+      });
+      document.getElementById('dl-csv').addEventListener('click', function () {
+        if (!last) return;
+        BTB.downloadCSV('BitsToBetter-EMI-Granular.csv', granularHeaders(), granularRows());
+      });
+      document.getElementById('dl-xlsx').addEventListener('click', function () {
+        if (!last) return;
+        BTB.downloadXLSX('BitsToBetter-EMI-Granular.xlsx', 'Amortization', granularHeaders(), granularRows());
+      });
+      document.getElementById('dl-json').addEventListener('click', function () {
+        if (!last) return;
+        BTB.downloadJSON('BitsToBetter-EMI-Report.json', {
+          meta: {
+            brand: 'BitsToBetter',
+            generatedAt: new Date().toISOString(),
+            loanType: last.loanType,
+            currency: last.currency
+          },
+          summary: {
+            principal: last.P,
+            rate: last.rate,
+            months: last.nMonths,
+            emi: last.emi,
+            totalInterest: last.totalInterest,
+            fee: last.feeAmt,
+            totalPayable: last.totalPayment
+          },
+          schedule: last.rows
+        });
+      });
+
+      window.addEventListener('load', function () {
+        document.getElementById('emi-form').requestSubmit();
+      });
+    });
+  </script>
+</body>
+</html>
+
+
+
+

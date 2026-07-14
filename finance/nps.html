@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <title>NPS Calculator — National Pension System — BitsToBetter</title>
+  <meta name="description" content="Estimate your retirement corpus, monthly pension, and 80CCD tax savings under the National Pension System." />
+  <link rel="canonical" href="https://bitstobetter.com/finance/nps.html" />
+  <link rel="icon" type="image/png" href="/assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <meta name="theme-color" content="#0F172A" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/assets/site.css" />
+  <script src="/assets/site.js" defer></script>
+</head>
+<body class="antialiased text-foreground">
+  <header id="site-header" data-active="finance"></header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <nav class="text-sm text-muted-foreground mb-6" aria-label="Breadcrumb">
+      <a href="/" class="hover:text-foreground">Home</a> /
+      <a href="/finance/" class="hover:text-foreground">Finance</a> /
+      <span class="text-foreground font-medium">NPS</span>
+    </nav>
+
+    <h1 class="text-3xl sm:text-4xl font-extrabold">NPS Calculator</h1>
+    <p class="mt-3 text-lg text-muted-foreground max-w-3xl">Estimate your retirement corpus and monthly pension under the National Pension System with tax benefits under Section 80CCD.</p>
+
+    <div class="grid lg:grid-cols-2 gap-8 mt-10">
+      <div class="calc-panel">
+        <h2 class="text-xl font-bold mb-4">NPS Details</h2>
+        
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-1">Monthly Contribution (₹)</label>
+            <input type="number" id="nps-contribution" class="field-input" value="5000" min="500" step="500">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Current Age</label>
+            <input type="number" id="nps-age" class="field-input" value="30" min="18" max="60" step="1">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Expected Return (%)</label>
+            <input type="number" id="nps-return" class="field-input" value="10" min="5" max="15" step="0.5">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Annuity Expected Return (%)</label>
+            <input type="number" id="nps-annuity-return" class="field-input" value="6" min="4" max="8" step="0.5">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Annuity Portion (%)</label>
+            <input type="number" id="nps-annuity-percent" class="field-input" value="40" min="40" max="100" step="5">
+          </div>
+          
+          <button id="calculate-nps" class="btn-primary w-full mt-4">Calculate NPS</button>
+        </div>
+      </div>
+
+      <div class="calc-panel">
+        <h2 class="text-xl font-bold mb-4">NPS Projection</h2>
+        <div id="nps-results" class="space-y-4">
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Total Contribution</p>
+            <p class="text-2xl font-bold" id="nps-total-contribution">₹0</p>
+          </div>
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Total Corpus at 60</p>
+            <p class="text-2xl font-bold text-primary" id="nps-corpus">₹0</p>
+          </div>
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Lump Sum (60% portion)</p>
+            <p class="text-xl font-bold" id="nps-lumpsum">₹0</p>
+          </div>
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Monthly Pension</p>
+            <p class="text-xl font-bold text-success" id="nps-pension">₹0</p>
+          </div>
+          <div class="stat-tile bg-primary/5 border border-primary/20">
+            <p class="text-sm font-medium text-primary">80CCD Tax Benefit (per year)</p>
+            <p class="text-xl font-bold text-primary" id="nps-tax-benefit">₹0</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <article class="article-prose mt-10 max-w-3xl">
+      <h2 class="text-2xl font-bold mb-4">National Pension System (NPS)</h2>
+      <p>NPS is a government-sponsored pension scheme that helps you save for retirement. At maturity (age 60), you must use at least 40% of the corpus to purchase an annuity for monthly pension.</p>
+      
+      <h3 class="text-xl font-bold mt-6 mb-3">Tax Benefits</h3>
+      <ul>
+        <li><strong>80CCD(1B):</strong> Additional ₹50,000 deduction over and above 80C</li>
+        <li><strong>80CCD(1):</strong> Up to 10% of salary (self-employed: 20%) deductible</li>
+      </ul>
+    </article>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function calculateNPS() {
+        const monthlyContribution = parseFloat(document.getElementById('nps-contribution').value);
+        const currentAge = parseFloat(document.getElementById('nps-age').value);
+        const expectedReturn = parseFloat(document.getElementById('nps-return').value);
+        const annuityReturn = parseFloat(document.getElementById('nps-annuity-return').value);
+        const annuityPercent = parseFloat(document.getElementById('nps-annuity-percent').value);
+        
+        const yearsTo60 = Math.max(0, 60 - currentAge);
+        const months = yearsTo60 * 12;
+        const monthlyRate = expectedReturn / 12 / 100;
+        
+        // Total corpus using SIP formula
+        const corpus = monthlyContribution * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate);
+        const totalContribution = monthlyContribution * months;
+        
+        // At maturity: annuity portion and lump sum
+        const annuityAmount = (corpus * annuityPercent) / 100;
+        const lumpSum = corpus - annuityAmount;
+        
+        // Monthly pension from annuity
+        const monthlyPension = (annuityAmount * annuityReturn / 100) / 12;
+        
+        // Tax benefit (80CCD)
+        const taxBenefit = Math.min(monthlyContribution * 12, 150000); // Up to ₹1.5L under 80CCD(1) + 80CCD(1B)
+        
+        document.getElementById('nps-total-contribution').textContent = '₹' + totalContribution.toLocaleString('en-IN', {maximumFractionDigits: 0});
+        document.getElementById('nps-corpus').textContent = '₹' + corpus.toLocaleString('en-IN', {maximumFractionDigits: 0});
+        document.getElementById('nps-lumpsum').textContent = '₹' + lumpSum.toLocaleString('en-IN', {maximumFractionDigits: 0});
+        document.getElementById('nps-pension').textContent = '₹' + monthlyPension.toLocaleString('en-IN', {maximumFractionDigits: 0});
+        document.getElementById('nps-tax-benefit').textContent = '₹' + taxBenefit.toLocaleString('en-IN');
+      }
+
+      document.getElementById('calculate-nps').addEventListener('click', calculateNPS);
+      calculateNPS();
+    });
+  </script>
+</body>
+</html>

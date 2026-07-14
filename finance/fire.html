@@ -1,0 +1,523 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <title>FIRE Calculator — Inflation, SWR, Granular Reports — BitsToBetter</title>
+  <meta name="description" content="FIRE engine with dropdown controls, inflation-adjusted corpus, SWR, annuity-due PMT, 60/20/15/5 allocation, protection layout, and PDF/CSV/Excel/JSON downloads." />
+  <link rel="canonical" href="https://bitstobetter.com/finance/fire.html" />
+  <link rel="icon" type="image/png" href="/assets/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <meta name="theme-color" content="#0F172A" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/assets/site.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.4/dist/jspdf.plugin.autotable.min.js" defer></script>
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js" defer></script>
+  <script src="/assets/site.js" defer></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "BitsToBetter FIRE Engine",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Web Browser",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "url": "https://bitstobetter.com/finance/fire.html"
+  }
+  </script>
+</head>
+<body class="antialiased text-foreground">
+  <header id="site-header" data-active="finance"></header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <nav class="text-sm text-muted-foreground mb-6" aria-label="Breadcrumb">
+      <a href="/" class="hover:text-foreground">Home</a> /
+      <a href="/finance/" class="hover:text-foreground">Finance</a> /
+      <span class="text-foreground font-medium">FIRE</span>
+    </nav>
+
+    <h1 class="text-3xl sm:text-4xl font-extrabold">FIRE Engine — Inflation, SWR &amp; Protection</h1>
+    <p class="mt-3 text-lg text-muted-foreground max-w-3xl">Dropdown-driven assumptions, annuity-due funding path, 60/20/15/5 matrix, risk buffers, and granular year/month reports in PDF, CSV, Excel, and JSON.</p>
+
+    <article class="article-prose mt-10 max-w-3xl">
+      <h2 class="text-2xl font-bold mb-4">Formulas, tax context &amp; strategic parameters</h2>
+      <p>FIRE accumulation rests on corpus = retirement annual spend ÷ Safe Withdrawal Rate. Spending at independence is today’s baseline grown by inflation: E<sub>T</sub> = E<sub>0</sub> × (1 + i)<sup>T</sup>. Enter inflation and SWR explicitly so stress tests stay transparent.</p>
+      <p class="font-mono text-sm bg-neutral-100 p-3 rounded border border-border">PMT<sub>due</sub> = (FV − PV × (1+r)<sup>n</sup>) × r / [((1+r)<sup>n</sup> − 1) × (1+r)]</p>
+      <p>Contributions at month-start are annuity-due. The default sleeve split is 60% growth equities, 20% high-grade debt, 15% real assets, 5% satellite — educational, not advice. Indian savers should map PPF/NPS/ELSS inside Section 80C and verify POMIS joint-holding caps with India Post. Protection layout sizes 6 months of expenses in cash plus illustrative life (10×) and health (0.5×) income-based bounds.</p>
+      <p>Export the year-end ledger or expand to month-level granularity for reconciliations with your advisor.</p>
+    </article>
+
+    <section class="mt-12" id="calculator">
+      <h2 class="text-2xl font-bold">Run the FIRE model</h2>
+      <div class="mt-6 grid lg:grid-cols-5 gap-8">
+        <form id="fire-form" class="lg:col-span-2 space-y-3 no-print calc-panel">
+          <div>
+            <label for="currency" class="block text-sm font-semibold">Currency</label>
+            <select id="currency" class="field-select">
+              <option value="INR" selected>INR</option>
+              <option value="USD">USD</option>
+              <option value="EUR">EUR</option>
+              <option value="GBP">GBP</option>
+              <option value="AED">AED</option>
+            </select>
+          </div>
+          <div>
+            <label for="profile" class="block text-sm font-semibold">Planner profile</label>
+            <select id="profile" class="field-select">
+              <option value="lean">Lean FIRE</option>
+              <option value="standard" selected>Standard FIRE</option>
+              <option value="fat">Fat FIRE</option>
+              <option value="barista">Barista / Coast FIRE</option>
+            </select>
+          </div>
+          <div>
+            <label for="annual-expense" class="block text-sm font-semibold">Current annual baseline expenses</label>
+            <input id="annual-expense" type="number" min="1" value="1200000" required class="field-input" />
+          </div>
+          <div>
+            <label for="annual-income" class="block text-sm font-semibold">Current annual income</label>
+            <input id="annual-income" type="number" min="1" value="2400000" required class="field-input" />
+          </div>
+          <div>
+            <label for="current-corpus" class="block text-sm font-semibold">Current invested corpus</label>
+            <input id="current-corpus" type="number" min="0" value="2500000" class="field-input" />
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label for="years" class="block text-sm font-semibold">Years to FIRE</label>
+              <input id="years" type="number" min="1" max="50" value="15" required class="field-input" />
+            </div>
+            <div>
+              <label for="inflation" class="block text-sm font-semibold">Inflation (%)</label>
+              <input id="inflation" type="number" min="0" step="0.1" value="6" required class="field-input" />
+            </div>
+          </div>
+          <div>
+            <label for="inflation-preset" class="block text-sm font-semibold">Inflation preset</label>
+            <select id="inflation-preset" class="field-select">
+              <option value="">Custom…</option>
+              <option value="4">Conservative 4%</option>
+              <option value="6" selected>Base 6%</option>
+              <option value="8">Elevated 8%</option>
+            </select>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label for="swr" class="block text-sm font-semibold">SWR (%)</label>
+              <input id="swr" type="number" min="0.5" max="10" step="0.1" value="3.5" required class="field-input" />
+            </div>
+            <div>
+              <label for="swr-preset" class="block text-sm font-semibold">SWR preset</label>
+              <select id="swr-preset" class="field-select">
+                <option value="3">Conservative 3%</option>
+                <option value="3.5" selected>Base 3.5%</option>
+                <option value="4">Classic 4%</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label for="return-rate" class="block text-sm font-semibold">Expected return (% p.a.)</label>
+            <input id="return-rate" type="number" min="0" step="0.1" value="11" required class="field-input" />
+          </div>
+          <div>
+            <label for="report-detail" class="block text-sm font-semibold">Report detail level</label>
+            <select id="report-detail" class="field-select">
+              <option value="yearly" selected>Year-end ledger</option>
+              <option value="monthly">Monthly granular</option>
+              <option value="summary">Summary KPIs only</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-primary w-full !text-base !py-3">Calculate FIRE plan</button>
+          <div class="pt-2">
+            <p class="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">Download reports</p>
+            <div class="export-bar">
+              <button type="button" id="dl-pdf-summary" class="export-primary" disabled>PDF Summary</button>
+              <button type="button" id="dl-pdf-full" disabled>PDF Granular</button>
+              <button type="button" id="dl-csv" disabled>CSV Granular</button>
+              <button type="button" id="dl-xlsx" disabled>Excel Granular</button>
+              <button type="button" id="dl-json" disabled>JSON</button>
+            </div>
+          </div>
+        </form>
+
+        <div class="lg:col-span-3 space-y-6">
+          <div class="grid sm:grid-cols-2 gap-4" aria-live="polite">
+            <div class="stat-tile"><p class="text-xs uppercase tracking-wider text-muted-foreground font-bold">Inflation-adjusted annual spend</p><p id="out-spend" class="mt-1 text-xl font-bold">—</p></div>
+            <div class="stat-tile"><p class="text-xs uppercase tracking-wider text-muted-foreground font-bold">Target wealth pool</p><p id="out-corpus" class="mt-1 text-xl font-bold">—</p></div>
+            <div class="stat-tile"><p class="text-xs uppercase tracking-wider text-muted-foreground font-bold">Monthly investment (annuity-due)</p><p id="out-pmt" class="mt-1 text-xl font-bold">—</p></div>
+            <div class="stat-tile"><p class="text-xs uppercase tracking-wider text-muted-foreground font-bold">Funding gap after PV growth</p><p id="out-gap" class="mt-1 text-xl font-bold">—</p></div>
+          </div>
+          <div class="stat-tile">
+            <h3 class="text-sm font-bold mb-3">60 / 20 / 15 / 5 asset matrix</h3>
+            <div class="grid sm:grid-cols-2 gap-4 items-center">
+              <div class="relative" style="height:220px"><canvas id="alloc-chart"></canvas></div>
+              <ul id="alloc-list" class="text-sm space-y-2"></ul>
+            </div>
+          </div>
+          <div class="bg-neutral-50 border border-border rounded-xl p-5">
+            <h3 class="text-lg font-bold">Risk &amp; Protection Layout</h3>
+            <dl class="mt-4 grid sm:grid-cols-3 gap-4 text-sm">
+              <div><dt class="font-semibold text-muted-foreground">Cash emergency (6 mo)</dt><dd id="out-emergency" class="mt-1 text-lg font-bold">—</dd></div>
+              <div><dt class="font-semibold text-muted-foreground">Life cover (10× income)</dt><dd id="out-life" class="mt-1 text-lg font-bold">—</dd></div>
+              <div><dt class="font-semibold text-muted-foreground">Health cover (0.5× income)</dt><dd id="out-health" class="mt-1 text-lg font-bold">—</dd></div>
+            </dl>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 calc-panel">
+        <h3 class="text-lg font-bold mb-3">Accumulation ledger</h3>
+        <div class="table-scroll max-h-80 overflow-y-auto border border-border rounded">
+          <table class="amort-table min-w-full divide-y divide-neutral-200">
+            <thead class="bg-neutral-50 sticky top-0">
+              <tr>
+                <th class="px-3 py-2 text-left font-semibold">Period</th>
+                <th class="px-3 py-2 text-right font-semibold">Opening</th>
+                <th class="px-3 py-2 text-right font-semibold">Contributions</th>
+                <th class="px-3 py-2 text-right font-semibold">Growth</th>
+                <th class="px-3 py-2 text-right font-semibold">Closing</th>
+              </tr>
+            </thead>
+            <tbody id="ledger-body" class="divide-y divide-neutral-100"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const fmt = (n) => n.toLocaleString(undefined, { maximumFractionDigits: 0 });
+      const fmt2 = (n) => n.toLocaleString(undefined, { maximumFractionDigits: 2, minimumFractionDigits: 2 });
+      let last = null;
+      let chartInstance = null;
+      const ALLOC = [
+        { key: 'Growth equities', pct: 0.6, color: '#0F172A' },
+        { key: 'High-grade debt', pct: 0.2, color: '#10B981' },
+        { key: 'Real assets / alternatives', pct: 0.15, color: '#64748B' },
+        { key: 'Satellite / opportunistic', pct: 0.05, color: '#94A3B8' }
+      ];
+
+      document.getElementById('inflation-preset').addEventListener('change', function () {
+        if (this.value) document.getElementById('inflation').value = this.value;
+      });
+      document.getElementById('swr-preset').addEventListener('change', function () {
+        if (this.value) document.getElementById('swr').value = this.value;
+      });
+      document.getElementById('profile').addEventListener('change', function () {
+        const map = { lean: 3, standard: 3.5, fat: 4, barista: 3.25 };
+        document.getElementById('swr').value = map[this.value] || 3.5;
+        document.getElementById('swr-preset').value = String(map[this.value] || 3.5);
+      });
+
+      function pmtAnnuityDue(PV, FV, annualReturn, years) {
+        const n = Math.round(years * 12);
+        const r = annualReturn / 100 / 12;
+        if (n <= 0) return 0;
+        if (Math.abs(r) < 1e-12) return Math.max(0, (FV - PV) / n);
+        const growth = Math.pow(1 + r, n);
+        return Math.max(0, ((FV - PV * growth) * r) / ((growth - 1) * (1 + r)));
+      }
+
+      function buildMonthly(PV, monthlyPmt, annualReturn, years) {
+        const r = annualReturn / 100 / 12;
+        let bal = PV;
+        const rows = [];
+        const totalMonths = Math.round(years * 12);
+        for (let m = 1; m <= totalMonths; m++) {
+          const opening = bal;
+          bal += monthlyPmt;
+          const g = bal * r;
+          bal += g;
+          rows.push({
+            month: m,
+            year: Math.ceil(m / 12),
+            opening,
+            contrib: monthlyPmt,
+            growth: g,
+            closing: bal
+          });
+        }
+        return rows;
+      }
+
+      function buildYearly(monthlyRows) {
+        const map = {};
+        monthlyRows.forEach(function (r) {
+          if (!map[r.year]) {
+            map[r.year] = { year: r.year, opening: r.opening, contrib: 0, growth: 0, closing: r.closing };
+          }
+          map[r.year].contrib += r.contrib;
+          map[r.year].growth += r.growth;
+          map[r.year].closing = r.closing;
+        });
+        return Object.keys(map)
+          .sort(function (a, b) {
+            return a - b;
+          })
+          .map(function (k) {
+            return map[k];
+          });
+      }
+
+      function money(n, digits) {
+        const c = last ? last.currency + ' ' : '';
+        return c + (digits === 2 ? fmt2(n) : fmt(n));
+      }
+
+      function setExport(on) {
+        ['dl-pdf-summary', 'dl-pdf-full', 'dl-csv', 'dl-xlsx', 'dl-json'].forEach(function (id) {
+          document.getElementById(id).disabled = !on;
+        });
+      }
+
+      function renderAlloc(corpus) {
+        document.getElementById('alloc-list').innerHTML = ALLOC.map(function (a) {
+          return (
+            '<li><span class="inline-block w-3 h-3 rounded-sm mr-2 align-middle" style="background:' +
+            a.color +
+            '"></span><strong>' +
+            Math.round(a.pct * 100) +
+            '%</strong> ' +
+            a.key +
+            ' — ' +
+            money(corpus * a.pct) +
+            '</li>'
+          );
+        }).join('');
+        const ctx = document.getElementById('alloc-chart');
+        if (chartInstance) chartInstance.destroy();
+        chartInstance = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: ALLOC.map(function (a) {
+              return a.key;
+            }),
+            datasets: [
+              {
+                data: ALLOC.map(function (a) {
+                  return corpus * a.pct;
+                }),
+                backgroundColor: ALLOC.map(function (a) {
+                  return a.color;
+                }),
+                borderWidth: 0
+              }
+            ]
+          },
+          options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+        });
+      }
+
+      function displayLedger() {
+        if (!last) return;
+        const detail = document.getElementById('report-detail').value;
+        const rows =
+          detail === 'monthly'
+            ? last.monthly.map(function (r) {
+                return { label: 'M' + r.month, opening: r.opening, contrib: r.contrib, growth: r.growth, closing: r.closing };
+              })
+            : last.yearly.map(function (r) {
+                return { label: 'Year ' + r.year, opening: r.opening, contrib: r.contrib, growth: r.growth, closing: r.closing };
+              });
+        if (detail === 'summary') {
+          document.getElementById('ledger-body').innerHTML =
+            '<tr><td class="px-3 py-2" colspan="5">Summary mode — use CSV/Excel/PDF granular exports or switch report detail.</td></tr>';
+          return;
+        }
+        document.getElementById('ledger-body').innerHTML = rows
+          .map(function (r) {
+            return (
+              '<tr><td class="px-3 py-1.5">' +
+              r.label +
+              '</td><td class="px-3 py-1.5 text-right">' +
+              fmt(r.opening) +
+              '</td><td class="px-3 py-1.5 text-right">' +
+              fmt(r.contrib) +
+              '</td><td class="px-3 py-1.5 text-right">' +
+              fmt(r.growth) +
+              '</td><td class="px-3 py-1.5 text-right">' +
+              fmt(r.closing) +
+              '</td></tr>'
+            );
+          })
+          .join('');
+      }
+
+      function exportRows() {
+        const detail = document.getElementById('report-detail').value;
+        if (detail === 'summary') return [];
+        if (detail === 'monthly') {
+          return last.monthly.map(function (r) {
+            return [r.month, r.year, r.opening, r.contrib, r.growth, r.closing];
+          });
+        }
+        return last.yearly.map(function (r) {
+          return [r.year, r.opening, r.contrib, r.growth, r.closing];
+        });
+      }
+
+      function exportHeaders() {
+        return document.getElementById('report-detail').value === 'monthly'
+          ? ['Month', 'Year', 'Opening', 'Contributions', 'Growth', 'Closing']
+          : ['Year', 'Opening', 'Contributions', 'Growth', 'Closing'];
+      }
+
+      document.getElementById('report-detail').addEventListener('change', displayLedger);
+
+      document.getElementById('fire-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const E0 = parseFloat(document.getElementById('annual-expense').value);
+        const income = parseFloat(document.getElementById('annual-income').value);
+        const PV = parseFloat(document.getElementById('current-corpus').value) || 0;
+        const T = parseFloat(document.getElementById('years').value);
+        const inflation = parseFloat(document.getElementById('inflation').value);
+        const swr = parseFloat(document.getElementById('swr').value);
+        const annualReturn = parseFloat(document.getElementById('return-rate').value);
+        const currency = document.getElementById('currency').value;
+        const profile = document.getElementById('profile').selectedOptions[0].text;
+
+        const ET = E0 * Math.pow(1 + inflation / 100, T);
+        const corpus = ET / (swr / 100);
+        const monthlyPmt = pmtAnnuityDue(PV, corpus, annualReturn, T);
+        const pvGrown = PV * Math.pow(1 + annualReturn / 100, T);
+        const gap = Math.max(0, corpus - pvGrown);
+        const monthly = buildMonthly(PV, monthlyPmt, annualReturn, T);
+        const yearly = buildYearly(monthly);
+
+        last = {
+          currency,
+          profile,
+          E0,
+          income,
+          PV,
+          T,
+          inflation,
+          swr,
+          annualReturn,
+          ET,
+          corpus,
+          monthlyPmt,
+          gap,
+          emergency: (E0 / 12) * 6,
+          life: income * 10,
+          health: income * 0.5,
+          monthly,
+          yearly,
+          alloc: ALLOC.map(function (a) {
+            return { key: a.key, pct: a.pct, amount: corpus * a.pct };
+          })
+        };
+
+        document.getElementById('out-spend').textContent = money(ET);
+        document.getElementById('out-corpus').textContent = money(corpus);
+        document.getElementById('out-pmt').textContent = money(monthlyPmt, 2);
+        document.getElementById('out-gap').textContent = money(gap);
+        document.getElementById('out-emergency').textContent = money(last.emergency);
+        document.getElementById('out-life').textContent = money(last.life);
+        document.getElementById('out-health').textContent = money(last.health);
+        renderAlloc(corpus);
+        displayLedger();
+        setExport(true);
+      });
+
+      function makePdf(full) {
+        if (!last || typeof window.jspdf === 'undefined') return;
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+        const m = 40;
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(16);
+        doc.text('BitsToBetter — FIRE ' + (full ? 'Granular Plan' : 'Summary'), m, 48);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(10);
+        doc.setTextColor(80);
+        doc.text('Generated ' + new Date().toISOString().slice(0, 10) + ' · ' + last.profile + ' · ' + last.currency, m, 66);
+        doc.setTextColor(0);
+        let y = 90;
+        [
+          'Inflation ' + last.inflation + '% · SWR ' + last.swr + '% · Return ' + last.annualReturn + '% · Horizon ' + last.T + 'y',
+          'Inflation-adjusted spend: ' + fmt(last.ET),
+          'Target wealth pool: ' + fmt(last.corpus),
+          'Monthly PMT (annuity-due): ' + fmt2(last.monthlyPmt),
+          'Emergency cash: ' + fmt(last.emergency) + ' · Life: ' + fmt(last.life) + ' · Health: ' + fmt(last.health)
+        ].forEach(function (line) {
+          doc.text(line, m, y);
+          y += 16;
+        });
+        try {
+          doc.addImage(document.getElementById('alloc-chart').toDataURL('image/png', 1.0), 'PNG', 360, 88, 170, 120);
+        } catch (err) {}
+
+        doc.autoTable({
+          startY: 200,
+          head: [['Sleeve', 'Weight', 'Amount']],
+          body: last.alloc.map(function (a) {
+            return [a.key, Math.round(a.pct * 100) + '%', fmt(a.amount)];
+          }),
+          styles: { fontSize: 9 },
+          headStyles: { fillColor: [23, 23, 23] },
+          margin: { left: m, right: m }
+        });
+
+        if (full || document.getElementById('report-detail').value !== 'summary') {
+          doc.autoTable({
+            startY: doc.lastAutoTable.finalY + 14,
+            head: [exportHeaders()],
+            body: exportRows().map(function (r) {
+              return r.map(function (c, i) {
+                return i < 2 && document.getElementById('report-detail').value === 'monthly'
+                  ? String(c)
+                  : i === 0
+                    ? String(c)
+                    : fmt(Number(c));
+              });
+            }),
+            styles: { fontSize: 7, cellPadding: 2 },
+            headStyles: { fillColor: [64, 64, 64] },
+            margin: { left: m, right: m }
+          });
+        }
+        doc.setFontSize(8);
+        doc.setTextColor(120);
+        doc.text('Educational estimate. Not investment, tax, or insurance advice.', m, doc.internal.pageSize.getHeight() - 28);
+        doc.save(full ? 'BitsToBetter-FIRE-Granular.pdf' : 'BitsToBetter-FIRE-Summary.pdf');
+      }
+
+      document.getElementById('dl-pdf-summary').addEventListener('click', function () {
+        makePdf(false);
+      });
+      document.getElementById('dl-pdf-full').addEventListener('click', function () {
+        makePdf(true);
+      });
+      document.getElementById('dl-csv').addEventListener('click', function () {
+        if (!last) return;
+        BTB.downloadCSV('BitsToBetter-FIRE-Granular.csv', exportHeaders(), exportRows());
+      });
+      document.getElementById('dl-xlsx').addEventListener('click', function () {
+        if (!last) return;
+        BTB.downloadXLSX('BitsToBetter-FIRE-Granular.xlsx', 'FIRE Ledger', exportHeaders(), exportRows());
+      });
+      document.getElementById('dl-json').addEventListener('click', function () {
+        if (!last) return;
+        BTB.downloadJSON('BitsToBetter-FIRE-Report.json', last);
+      });
+
+      window.addEventListener('load', function () {
+        document.getElementById('fire-form').requestSubmit();
+      });
+    });
+  </script>
+</body>
+</html>
+
+
+
+

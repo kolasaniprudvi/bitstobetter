@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <title>SWP Calculator — Systematic Withdrawal Plan — BitsToBetter</title>
+  <meta name="description" content="Plan retirement income from your mutual fund corpus with SWP. Calculate how long your money will last with monthly withdrawals." />
+  <link rel="canonical" href="https://bitstobetter.com/finance/swp.html" />
+  <link rel="icon" type="image/png" href="/assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <meta name="theme-color" content="#0F172A" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/assets/site.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.4/dist/jspdf.plugin.autotable.min.js" defer></script>
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js" defer></script>
+  <script src="/assets/site.js" defer></script>
+</head>
+<body class="antialiased text-foreground">
+  <header id="site-header" data-active="finance"></header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <nav class="text-sm text-muted-foreground mb-6" aria-label="Breadcrumb">
+      <a href="/" class="hover:text-foreground">Home</a> /
+      <a href="/finance/" class="hover:text-foreground">Finance</a> /
+      <span class="text-foreground font-medium">SWP</span>
+    </nav>
+
+    <h1 class="text-3xl sm:text-4xl font-extrabold">SWP Calculator</h1>
+    <p class="mt-3 text-lg text-muted-foreground max-w-3xl">Plan your retirement income with Systematic Withdrawal Plan. Calculate how long your corpus will last with regular monthly withdrawals.</p>
+
+    <div class="grid lg:grid-cols-2 gap-8">
+      <div class="calc-panel">
+        <h2 class="text-xl font-bold mb-4">SWP Details</h2>
+        
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-1">Total Corpus (₹)</label>
+            <input type="number" id="swp-corpus" class="field-input" value="5000000" min="100000" step="50000">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Monthly Withdrawal (₹)</label>
+            <input type="number" id="swp-withdrawal" class="field-input" value="25000" min="1000" step="1000">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Expected Annual Return (%)</label>
+            <input type="number" id="swp-return" class="field-input" value="10" min="5" max="15" step="0.5">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">SWP Period (Years)</label>
+            <input type="number" id="swp-years" class="field-input" value="20" min="1" max="40" step="1">
+          </div>
+          
+          <button id="calculate-swp" class="btn-primary w-full mt-4">Calculate SWP</button>
+          
+          <div class="pt-4">
+            <p class="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">Download Reports</p>
+            <div class="export-bar">
+              <button type="button" id="dl-pdf-swp" class="export-primary" disabled>PDF Report</button>
+              <button type="button" id="dl-csv-swp" class="export-primary" disabled>CSV Report</button>
+              <button type="button" id="dl-xlsx-swp" class="export-primary" disabled>Excel Report</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="calc-panel">
+        <h2 class="text-xl font-bold mb-4">SWP Analysis</h2>
+        <div id="swp-results" class="space-y-4">
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Total Withdrawals</p>
+            <p class="text-2xl font-bold" id="swp-total-withdrawal">₹0</p>
+          </div>
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Remaining Corpus</p>
+            <p class="text-2xl font-bold" id="swp-remaining">₹0</p>
+          </div>
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Total Years Corpus Lasts</p>
+            <p class="text-2xl font-bold text-primary" id="swp-years-last">0 years</p>
+          </div>
+        </div>
+        <canvas id="swp-chart" class="mt-6"></canvas>
+      </div>
+    </div>
+
+    <article class="article-prose max-w-3xl">
+      <h2 class="text-2xl font-bold mb-4">What is SWP?</h2>
+      <p>Systematic Withdrawal Plan (SWP) allows you to withdraw a fixed amount regularly from your mutual fund investments. It's ideal for creating regular income in retirement while keeping your money invested.</p>
+      
+      <h3 class="text-xl font-bold mt-6 mb-3">SWP Benefits</h3>
+      <ul>
+        <li><strong>Regular Income:</strong> Fixed monthly withdrawals for expenses</li>
+        <li><strong>Capital Appreciation:</strong> Remaining corpus continues to grow</li>
+        <li><strong>Flexibility:</strong> Adjust withdrawal amount as needed</li>
+      </ul>
+    </article>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const ctx = document.getElementById('swp-chart');
+      let swpChart = null;
+
+      function calculateSWP() {
+        const corpus = parseFloat(document.getElementById('swp-corpus').value);
+        const monthlyWithdrawal = parseFloat(document.getElementById('swp-withdrawal').value);
+        const annualReturn = parseFloat(document.getElementById('swp-return').value);
+        const years = parseFloat(document.getElementById('swp-years').value);
+        
+        const monthlyRate = annualReturn / 12 / 100;
+        const totalMonths = years * 12;
+        
+        let balance = corpus;
+        let totalWithdrawn = 0;
+        let corpusDepletedMonth = totalMonths;
+        
+        const labels = [];
+        const balanceData = [];
+        
+        for (let month = 1; month <= totalMonths; month++) {
+          balance = balance * (1 + monthlyRate) - monthlyWithdrawal;
+          totalWithdrawn += monthlyWithdrawal;
+          
+          if (balance <= 0 && corpusDepletedMonth === totalMonths) {
+            corpusDepletedMonth = month;
+          }
+          
+          if (month % 12 === 0) {
+            labels.push('Year ' + (month / 12));
+            balanceData.push(Math.max(0, balance));
+          }
+        }
+        
+        const yearsLast = corpusDepletedMonth / 12;
+        const remainingCorpus = Math.max(0, balance);
+        
+        document.getElementById('swp-total-withdrawal').textContent = '₹' + totalWithdrawn.toLocaleString('en-IN', {maximumFractionDigits: 0});
+        document.getElementById('swp-remaining').textContent = '₹' + remainingCorpus.toLocaleString('en-IN', {maximumFractionDigits: 0});
+        document.getElementById('swp-years-last').textContent = yearsLast.toFixed(1) + ' years';
+        
+        if (swpChart) swpChart.destroy();
+        
+        swpChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Remaining Corpus',
+              data: balanceData,
+              borderColor: '#3b82f6',
+              backgroundColor: 'rgba(59, 130, 246, 0.1)',
+              fill: true
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { position: 'bottom' }
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                ticks: {
+                  callback: function(value) {
+                    return '₹' + (value / 100000).toFixed(1) + 'L';
+                  }
+                }
+              }
+            }
+          }
+        });
+
+        // Enable export buttons
+        document.getElementById('dl-pdf-swp').disabled = false;
+        document.getElementById('dl-csv-swp').disabled = false;
+        document.getElementById('dl-xlsx-swp').disabled = false;
+      }
+
+      // Export functions
+      const swpData = { labels, balanceData };
+
+      document.getElementById('dl-pdf-swp').addEventListener('click', function() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        
+        doc.setFontSize(18);
+        doc.text('SWP Calculator Report', 14, 20);
+        doc.setFontSize(12);
+        doc.text(`Total Corpus: ₹${parseFloat(document.getElementById('swp-corpus').value).toLocaleString('en-IN')}`, 14, 30);
+        doc.text(`Monthly Withdrawal: ₹${parseFloat(document.getElementById('swp-withdrawal').value).toLocaleString('en-IN')}`, 14, 38);
+        doc.text(`Expected Return: ${document.getElementById('swp-return').value}%`, 14, 46);
+        doc.text(`SWP Period: ${document.getElementById('swp-years').value} years`, 14, 54);
+        
+        const tableData = swpData.labels.map((year, i) => [
+          year,
+          '₹' + swpData.balanceData[i].toLocaleString('en-IN', {maximumFractionDigits: 0})
+        ]);
+        
+        doc.autoTable({
+          head: [['Year', 'Remaining Corpus']],
+          body: tableData,
+          startY: 60,
+          theme: 'grid'
+        });
+        
+        doc.save('swp-report.pdf');
+      });
+
+      document.getElementById('dl-csv-swp').addEventListener('click', function() {
+        const headers = ['Year', 'Remaining Corpus'];
+        const rows = swpData.labels.map((year, i) => [
+          year,
+          swpData.balanceData[i]
+        ]);
+        
+        if (window.BTB && window.BTB.downloadCSV) {
+          window.BTB.downloadCSV('swp-report.csv', headers, rows);
+        }
+      });
+
+      document.getElementById('dl-xlsx-swp').addEventListener('click', function() {
+        const headers = ['Year', 'Remaining Corpus'];
+        const rows = swpData.labels.map((year, i) => [
+          year,
+          swpData.balanceData[i]
+        ]);
+        
+        if (window.BTB && window.BTB.downloadXLSX) {
+          window.BTB.downloadXLSX('swp-report.xlsx', 'SWP Report', headers, rows);
+        }
+      });
+
+      document.getElementById('calculate-swp').addEventListener('click', calculateSWP);
+      calculateSWP();
+    });
+  </script>
+</body>
+</html>

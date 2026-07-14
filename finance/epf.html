@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <title>EPF Calculator — Employee Provident Fund — BitsToBetter</title>
+  <meta name="description" content="Project your Provident Fund corpus at retirement using the current EPFO rate. Calculate your EPF balance with employer contribution." />
+  <link rel="canonical" href="https://bitstobetter.com/finance/epf.html" />
+  <link rel="icon" type="image/png" href="/assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <meta name="theme-color" content="#0F172A" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/assets/site.css" />
+  <script src="/assets/site.js" defer></script>
+</head>
+<body class="antialiased text-foreground">
+  <header id="site-header" data-active="finance"></header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <nav class="text-sm text-muted-foreground mb-6" aria-label="Breadcrumb">
+      <a href="/" class="hover:text-foreground">Home</a> /
+      <a href="/finance/" class="hover:text-foreground">Finance</a> /
+      <span class="text-foreground font-medium">EPF</span>
+    </nav>
+
+    <h1 class="text-3xl sm:text-4xl font-extrabold">EPF Calculator</h1>
+    <p class="mt-3 text-lg text-muted-foreground max-w-3xl">Project your Employee Provident Fund corpus at retirement. Calculate with current EPFO interest rate and employer contribution.</p>
+
+    <div class="grid lg:grid-cols-2 gap-8 mt-10">
+      <div class="calc-panel">
+        <h2 class="text-xl font-bold mb-4">EPF Details</h2>
+        
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-1">Monthly Basic Salary (₹)</label>
+            <input type="number" id="epf-salary" class="field-input" value="25000" min="5000" step="1000">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Your Age</label>
+            <input type="number" id="epf-age" class="field-input" value="30" min="18" max="58" step="1">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Current EPF Balance (₹)</label>
+            <input type="number" id="epf-balance" class="field-input" value="100000" min="0" step="1000">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Expected Annual Return (%)</label>
+            <input type="number" id="epf-return" class="field-input" value="8.25" min="5" max="12" step="0.1">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Contribution Rate (%)</label>
+            <input type="number" id="epf-rate" class="field-input" value="12" min="12" max="12" step="1" readonly>
+          </div>
+          
+          <button id="calculate-epf" class="btn-primary w-full mt-4">Calculate EPF</button>
+        </div>
+      </div>
+
+      <div class="calc-panel">
+        <h2 class="text-xl font-bold mb-4">EPF Projection</h2>
+        <div id="epf-results" class="space-y-4">
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Your Monthly Contribution</p>
+            <p class="text-xl font-bold" id="epf-employee-contrib">₹0</p>
+          </div>
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Employer Monthly Contribution</p>
+            <p class="text-xl font-bold" id="epf-employer-contrib">₹0</p>
+          </div>
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Total Monthly Contribution</p>
+            <p class="text-xl font-bold text-primary" id="epf-total-monthly">₹0</p>
+          </div>
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Years to Retirement (58)</p>
+            <p class="text-xl font-bold" id="epf-years">0 years</p>
+          </div>
+          <div class="stat-tile bg-success/10 border border-success/20">
+            <p class="text-sm font-medium text-success">Estimated EPF Corpus at 58</p>
+            <p class="text-3xl font-bold text-success" id="epf-corpus">₹0</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <article class="article-prose mt-10 max-w-3xl">
+      <h2 class="text-2xl font-bold mb-4">Employee Provident Fund (EPF)</h2>
+      <p>EPF is a government-backed retirement savings scheme where both employee and employer contribute 12% of basic salary each month. The current EPFO interest rate is 8.25%.</p>
+      
+      <h3 class="text-xl font-bold mt-6 mb-3">EPF Contribution Structure</h3>
+      <ul>
+        <li><strong>Employee:</strong> 12% of basic salary goes to EPF</li>
+        <li><strong>Employer:</strong> 12% of basic salary (3.67% to EPF + 8.33% to EPS)</li>
+        <li><strong>Total:</strong> 15.67% of basic salary accumulates in EPF</li>
+      </ul>
+    </article>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function calculateEPF() {
+        const salary = parseFloat(document.getElementById('epf-salary').value);
+        const age = parseFloat(document.getElementById('epf-age').value);
+        const currentBalance = parseFloat(document.getElementById('epf-balance').value);
+        const annualReturn = parseFloat(document.getElementById('epf-return').value);
+        
+        const yearsTo58 = Math.max(0, 58 - age);
+        const months = yearsTo58 * 12;
+        const monthlyRate = annualReturn / 12 / 100;
+        
+        // EPF contribution: Employee 12%, Employer 3.67% to EPF (rest goes to EPS)
+        const employeeContrib = salary * 0.12;
+        const employerContrib = salary * 0.0367;
+        const totalMonthlyContrib = employeeContrib + employerContrib;
+        
+        // Future value of current balance
+        const fvCurrentBalance = currentBalance * Math.pow(1 + monthlyRate, months);
+        
+        // Future value of monthly contributions (SIP formula)
+        const fvContributions = totalMonthlyContrib * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate);
+        
+        const totalCorpus = fvCurrentBalance + fvContributions;
+        
+        document.getElementById('epf-employee-contrib').textContent = '₹' + employeeContrib.toLocaleString('en-IN');
+        document.getElementById('epf-employer-contrib').textContent = '₹' + employerContrib.toLocaleString('en-IN');
+        document.getElementById('epf-total-monthly').textContent = '₹' + totalMonthlyContrib.toLocaleString('en-IN');
+        document.getElementById('epf-years').textContent = yearsTo58 + ' years';
+        document.getElementById('epf-corpus').textContent = '₹' + totalCorpus.toLocaleString('en-IN', {maximumFractionDigits: 0});
+      }
+
+      document.getElementById('calculate-epf').addEventListener('click', calculateEPF);
+      calculateEPF();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <title>Goal SIP Calculator — Reverse SIP — BitsToBetter</title>
+  <meta name="description" content="Reverse SIP calculator: tell us your target corpus and time horizon, we tell you the exact monthly SIP needed to reach your goal." />
+  <link rel="canonical" href="https://bitstobetter.com/finance/goal-sip.html" />
+  <link rel="icon" type="image/png" href="/assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <meta name="theme-color" content="#0F172A" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/assets/site.css" />
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.4/dist/jspdf.plugin.autotable.min.js" defer></script>
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js" defer></script>
+  <script src="/assets/site.js" defer></script>
+</head>
+<body class="antialiased text-foreground">
+  <header id="site-header" data-active="finance"></header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <nav class="text-sm text-muted-foreground mb-6" aria-label="Breadcrumb">
+      <a href="/" class="hover:text-foreground">Home</a> /
+      <a href="/finance/" class="hover:text-foreground">Finance</a> /
+      <span class="text-foreground font-medium">Goal SIP</span>
+    </nav>
+
+    <h1 class="text-3xl sm:text-4xl font-extrabold">Goal SIP Calculator</h1>
+    <p class="mt-3 text-lg text-muted-foreground max-w-3xl">Reverse SIP solver: tell us your target corpus and time horizon — we tell you the exact monthly SIP needed to reach your financial goal.</p>
+
+    <div class="grid lg:grid-cols-2 gap-8">
+      <div class="calc-panel">
+        <h2 class="text-xl font-bold mb-4">Goal Details</h2>
+        
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-1">Target Corpus (₹)</label>
+            <input type="number" id="goal-corpus" class="field-input" value="10000000" min="100000" step="100000">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Time Horizon (Years)</label>
+            <input type="number" id="goal-years" class="field-input" value="10" min="1" max="40" step="1">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Expected Annual Return (%)</label>
+            <input type="number" id="goal-return" class="field-input" value="12" min="5" max="20" step="0.5">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Existing Savings (₹)</label>
+            <input type="number" id="goal-existing" class="field-input" value="0" min="0" step="10000">
+          </div>
+          
+          <button id="calculate-goal" class="btn-primary w-full mt-4">Calculate Required SIP</button>
+          
+          <div class="pt-4">
+            <p class="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">Download Reports</p>
+            <div class="export-bar">
+              <button type="button" id="dl-pdf-goal" class="export-primary" disabled>PDF Report</button>
+              <button type="button" id="dl-csv-goal" class="export-primary" disabled>CSV Report</button>
+              <button type="button" id="dl-xlsx-goal" class="export-primary" disabled>Excel Report</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="calc-panel">
+        <h2 class="text-xl font-bold mb-4">Goal Analysis</h2>
+        <div id="goal-results" class="space-y-4">
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Target Corpus</p>
+            <p class="text-2xl font-bold" id="goal-target">₹0</p>
+          </div>
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Existing Savings Growth</p>
+            <p class="text-xl font-bold" id="goal-existing-growth">₹0</p>
+          </div>
+          <div class="stat-tile bg-primary/5 border border-primary/20">
+            <p class="text-sm font-medium text-primary">Required Monthly SIP</p>
+            <p class="text-3xl font-bold text-primary" id="goal-sip">₹0</p>
+          </div>
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Total Investment Needed</p>
+            <p class="text-xl font-bold" id="goal-total-investment">₹0</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <article class="article-prose max-w-3xl">
+      <h2 class="text-2xl font-bold mb-4">Goal-Based Investing</h2>
+      <p>Goal SIP helps you work backwards from your financial goals. Instead of guessing how much to invest, you define your target and we calculate the required SIP amount.</p>
+      
+      <h3 class="text-xl font-bold mt-6 mb-3">Common Financial Goals</h3>
+      <ul>
+        <li><strong>Retirement:</strong> ₹3-5 crore corpus for comfortable retirement</li>
+        <li><strong>Child Education:</strong> ₹50 lakh - ₹1 crore for higher education</li>
+        <li><strong>Home Down Payment:</strong> ₹20-30 lakh for 20% down payment</li>
+      </ul>
+    </article>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function calculateGoal() {
+        const targetCorpus = parseFloat(document.getElementById('goal-corpus').value);
+        const years = parseFloat(document.getElementById('goal-years').value);
+        const annualReturn = parseFloat(document.getElementById('goal-return').value);
+        const existingSavings = parseFloat(document.getElementById('goal-existing').value);
+        
+        const monthlyRate = annualReturn / 12 / 100;
+        const months = years * 12;
+        
+        // Future value of existing savings
+        const existingGrowth = existingSavings * Math.pow(1 + monthlyRate, months);
+        
+        // Amount needed from SIP
+        const amountNeeded = Math.max(0, targetCorpus - existingGrowth);
+        
+        // Required SIP (reverse SIP formula)
+        let requiredSIP = 0;
+        if (amountNeeded > 0) {
+          requiredSIP = amountNeeded * monthlyRate / ((Math.pow(1 + monthlyRate, months) - 1) * (1 + monthlyRate));
+        }
+        
+        const totalInvestment = requiredSIP * months;
+        
+        document.getElementById('goal-target').textContent = '₹' + targetCorpus.toLocaleString('en-IN');
+        document.getElementById('goal-existing-growth').textContent = '₹' + existingGrowth.toLocaleString('en-IN', {maximumFractionDigits: 0});
+        document.getElementById('goal-sip').textContent = '₹' + requiredSIP.toLocaleString('en-IN', {maximumFractionDigits: 0});
+        document.getElementById('goal-total-investment').textContent = '₹' + totalInvestment.toLocaleString('en-IN', {maximumFractionDigits: 0});
+
+        // Enable export buttons
+        document.getElementById('dl-pdf-goal').disabled = false;
+        document.getElementById('dl-csv-goal').disabled = false;
+        document.getElementById('dl-xlsx-goal').disabled = false;
+      }
+
+      // Export functions
+      const goalData = { targetCorpus, years, annualReturn, existingSavings, existingGrowth, amountNeeded, requiredSIP, totalInvestment };
+
+      document.getElementById('dl-pdf-goal').addEventListener('click', function() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        
+        doc.setFontSize(18);
+        doc.text('Goal SIP Calculator Report', 14, 20);
+        doc.setFontSize(12);
+        doc.text(`Target Corpus: ₹${targetCorpus.toLocaleString('en-IN')}`, 14, 30);
+        doc.text(`Time Horizon: ${years} years`, 14, 38);
+        doc.text(`Expected Return: ${annualReturn}%`, 14, 46);
+        doc.text(`Existing Savings: ₹${existingSavings.toLocaleString('en-IN')}`, 14, 54);
+        
+        const tableData = [
+          ['Target Corpus', '₹' + targetCorpus.toLocaleString('en-IN')],
+          ['Existing Savings Growth', '₹' + existingGrowth.toLocaleString('en-IN', {maximumFractionDigits: 0})],
+          ['Amount Needed from SIP', '₹' + amountNeeded.toLocaleString('en-IN', {maximumFractionDigits: 0})],
+          ['Required Monthly SIP', '₹' + requiredSIP.toLocaleString('en-IN', {maximumFractionDigits: 0})],
+          ['Total Investment Needed', '₹' + totalInvestment.toLocaleString('en-IN', {maximumFractionDigits: 0})]
+        ];
+        
+        doc.autoTable({
+          head: [['Parameter', 'Value']],
+          body: tableData,
+          startY: 65,
+          theme: 'grid'
+        });
+        
+        doc.save('goal-sip-report.pdf');
+      });
+
+      document.getElementById('dl-csv-goal').addEventListener('click', function() {
+        const headers = ['Parameter', 'Value'];
+        const rows = [
+          ['Target Corpus', targetCorpus],
+          ['Existing Savings Growth', existingGrowth],
+          ['Amount Needed from SIP', amountNeeded],
+          ['Required Monthly SIP', requiredSIP],
+          ['Total Investment Needed', totalInvestment]
+        ];
+        
+        if (window.BTB && window.BTB.downloadCSV) {
+          window.BTB.downloadCSV('goal-sip-report.csv', headers, rows);
+        }
+      });
+
+      document.getElementById('dl-xlsx-goal').addEventListener('click', function() {
+        const headers = ['Parameter', 'Value'];
+        const rows = [
+          ['Target Corpus', targetCorpus],
+          ['Existing Savings Growth', existingGrowth],
+          ['Amount Needed from SIP', amountNeeded],
+          ['Required Monthly SIP', requiredSIP],
+          ['Total Investment Needed', totalInvestment]
+        ];
+        
+        if (window.BTB && window.BTB.downloadXLSX) {
+          window.BTB.downloadXLSX('goal-sip-report.xlsx', 'Goal SIP Report', headers, rows);
+        }
+      });
+
+      document.getElementById('calculate-goal').addEventListener('click', calculateGoal);
+      calculateGoal();
+    });
+  </script>
+</body>
+</html>

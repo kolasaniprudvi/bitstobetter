@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <title>HRA Exemption Calculator — Section 10(13A) — BitsToBetter</title>
+  <meta name="description" content="Calculate HRA exemption under Section 10(13A). See how much of your House Rent Allowance is tax-free with all three bounds shown." />
+  <link rel="canonical" href="https://bitstobetter.com/finance/hra.html" />
+  <link rel="icon" type="image/png" href="/assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <meta name="theme-color" content="#0F172A" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/assets/site.css" />
+  <script src="/assets/site.js" defer></script>
+</head>
+<body class="antialiased text-foreground">
+  <header id="site-header" data-active="finance"></header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <nav class="text-sm text-muted-foreground mb-6" aria-label="Breadcrumb">
+      <a href="/" class="hover:text-foreground">Home</a> /
+      <a href="/finance/" class="hover:text-foreground">Finance</a> /
+      <span class="text-foreground font-medium">HRA Exemption</span>
+    </nav>
+
+    <h1 class="text-3xl sm:text-4xl font-extrabold">HRA Exemption Calculator</h1>
+    <p class="mt-3 text-lg text-muted-foreground max-w-3xl">Calculate your HRA exemption under Section 10(13A). The exemption is the minimum of three conditions - we show all three for transparency.</p>
+
+    <div class="grid lg:grid-cols-2 gap-8 mt-10">
+      <div class="calc-panel">
+        <h2 class="text-xl font-bold mb-4">HRA Details</h2>
+        
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-1">Basic Salary (₹/year)</label>
+            <input type="number" id="basic-salary" class="field-input" value="600000" min="0" step="1000">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">HRA Received (₹/year)</label>
+            <input type="number" id="hra-received" class="field-input" value="240000" min="0" step="1000">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Actual Rent Paid (₹/year)</label>
+            <input type="number" id="rent-paid" class="field-input" value="180000" min="0" step="1000">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">City Type</label>
+            <select id="city-type" class="field-select">
+              <option value="metro">Metro (50% of Basic)</option>
+              <option value="non-metro">Non-Metro (40% of Basic)</option>
+            </select>
+          </div>
+          
+          <button id="calculate-hra" class="btn-primary w-full mt-4">Calculate HRA Exemption</button>
+        </div>
+      </div>
+
+      <div class="calc-panel">
+        <h2 class="text-xl font-bold mb-4">HRA Exemption Analysis</h2>
+        <div id="hra-results" class="space-y-4">
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Condition 1: Actual HRA Received</p>
+            <p class="text-xl font-bold" id="condition1">₹0</p>
+          </div>
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Condition 2: Rent Paid - 10% of Basic</p>
+            <p class="text-xl font-bold" id="condition2">₹0</p>
+          </div>
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Condition 3: 50%/40% of Basic Salary</p>
+            <p class="text-xl font-bold" id="condition3">₹0</p>
+          </div>
+          <div class="stat-tile bg-primary/5 border border-primary/20">
+            <p class="text-sm font-medium text-primary">Exempted HRA (Minimum of above)</p>
+            <p class="text-2xl font-bold text-primary" id="exempted-hra">₹0</p>
+          </div>
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Taxable HRA</p>
+            <p class="text-xl font-bold" id="taxable-hra">₹0</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <article class="article-prose mt-10 max-w-3xl">
+      <h2 class="text-2xl font-bold mb-4">HRA Exemption Rules</h2>
+      <p>HRA exemption is calculated as the minimum of these three conditions:</p>
+      <ol>
+        <li>Actual HRA received from employer</li>
+        <li>Actual rent paid minus 10% of basic salary</li>
+        <li>50% of basic salary for metro cities, 40% for non-metro cities</li>
+      </ol>
+      
+      <h3 class="text-xl font-bold mt-6 mb-3">Metro Cities</h3>
+      <p>Delhi, Mumbai, Kolkata, Chennai are considered metro cities for HRA calculation (50% of basic salary).</p>
+    </article>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function calculateHRA() {
+        const basicSalary = parseFloat(document.getElementById('basic-salary').value);
+        const hraReceived = parseFloat(document.getElementById('hra-received').value);
+        const rentPaid = parseFloat(document.getElementById('rent-paid').value);
+        const cityType = document.getElementById('city-type').value;
+        
+        // Condition 1: Actual HRA received
+        const cond1 = hraReceived;
+        
+        // Condition 2: Rent paid - 10% of basic
+        const cond2 = rentPaid - (0.10 * basicSalary);
+        
+        // Condition 3: 50% or 40% of basic based on city
+        const cond3 = cityType === 'metro' ? (0.50 * basicSalary) : (0.40 * basicSalary);
+        
+        // Exemption is minimum of all conditions (but not negative)
+        const exemption = Math.max(0, Math.min(cond1, cond2, cond3));
+        const taxableHRA = Math.max(0, hraReceived - exemption);
+        
+        document.getElementById('condition1').textContent = '₹' + cond1.toLocaleString('en-IN');
+        document.getElementById('condition2').textContent = '₹' + Math.max(0, cond2).toLocaleString('en-IN');
+        document.getElementById('condition3').textContent = '₹' + cond3.toLocaleString('en-IN');
+        document.getElementById('exempted-hra').textContent = '₹' + exemption.toLocaleString('en-IN');
+        document.getElementById('taxable-hra').textContent = '₹' + taxableHRA.toLocaleString('en-IN');
+      }
+
+      document.getElementById('calculate-hra').addEventListener('click', calculateHRA);
+      calculateHRA();
+    });
+  </script>
+</body>
+</html>

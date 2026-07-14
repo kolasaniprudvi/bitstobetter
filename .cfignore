@@ -1,0 +1,8 @@
+# Cloudflare Pages: only ship static site assets
+.git/
+.vscode/
+.idea/
+.wrangler/
+*.log
+.env
+.env.*

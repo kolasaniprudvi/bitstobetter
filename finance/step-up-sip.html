@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <title>Step-Up SIP Calculator — Increasing Investments — BitsToBetter</title>
+  <meta name="description" content="Calculate SIP returns with increasing contributions. Step-up SIP helps maximize wealth creation by increasing investment amount annually." />
+  <link rel="canonical" href="https://bitstobetter.com/finance/step-up-sip.html" />
+  <link rel="icon" type="image/png" href="/assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <meta name="theme-color" content="#0F172A" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/assets/site.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.4/dist/jspdf.plugin.autotable.min.js" defer></script>
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js" defer></script>
+  <script src="/assets/site.js" defer></script>
+</head>
+<body class="antialiased text-foreground">
+  <header id="site-header" data-active="finance"></header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <nav class="text-sm text-muted-foreground mb-6" aria-label="Breadcrumb">
+      <a href="/" class="hover:text-foreground">Home</a> /
+      <a href="/finance/" class="hover:text-foreground">Finance</a> /
+      <span class="text-foreground font-medium">Step-Up SIP</span>
+    </nav>
+
+    <h1 class="text-3xl sm:text-4xl font-extrabold">Step-Up SIP Calculator</h1>
+    <p class="mt-3 text-lg text-muted-foreground max-w-3xl">Calculate SIP returns with annual step-up. Increase your investment amount each year to accelerate wealth creation and beat inflation.</p>
+
+    <div class="grid lg:grid-cols-2 gap-8">
+      <div class="calc-panel">
+        <h2 class="text-xl font-bold mb-4">Step-Up SIP Details</h2>
+        
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-1">Initial Monthly SIP (₹)</label>
+            <input type="number" id="stepup-initial" class="field-input" value="5000" min="500" step="500">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Annual Step-Up Rate (%)</label>
+            <input type="number" id="stepup-rate" class="field-input" value="10" min="0" max="50" step="5">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Expected Annual Return (%)</label>
+            <input type="number" id="stepup-return" class="field-input" value="12" min="1" max="30" step="0.5">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Investment Period (Years)</label>
+            <input type="number" id="stepup-years" class="field-input" value="10" min="1" max="40" step="1">
+          </div>
+          
+          <button id="calculate-stepup" class="btn-primary w-full mt-4">Calculate Step-Up SIP</button>
+          
+          <div class="pt-4">
+            <p class="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">Download Reports</p>
+            <div class="export-bar">
+              <button type="button" id="dl-pdf-stepup" class="export-primary" disabled>PDF Report</button>
+              <button type="button" id="dl-csv-stepup" class="export-primary" disabled>CSV Report</button>
+              <button type="button" id="dl-xlsx-stepup" class="export-primary" disabled>Excel Report</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="calc-panel">
+        <h2 class="text-xl font-bold mb-4">Results</h2>
+        <div id="stepup-results" class="space-y-4">
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Total Invested Amount</p>
+            <p class="text-2xl font-bold" id="stepup-invested">₹0</p>
+          </div>
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Final Monthly SIP</p>
+            <p class="text-xl font-bold" id="stepup-final-sip">₹0</p>
+          </div>
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Estimated Returns</p>
+            <p class="text-2xl font-bold text-success" id="stepup-returns">₹0</p>
+          </div>
+          <div class="stat-tile bg-primary/5 border border-primary/20">
+            <p class="text-sm font-medium text-primary">Total Value</p>
+            <p class="text-3xl font-bold text-primary" id="stepup-value">₹0</p>
+          </div>
+        </div>
+        <canvas id="stepup-chart" class="mt-6"></canvas>
+      </div>
+    </div>
+
+    <article class="article-prose max-w-3xl">
+      <h2 class="text-2xl font-bold mb-4">What is Step-Up SIP?</h2>
+      <p>Step-Up SIP allows you to increase your SIP amount by a fixed percentage every year. As your income grows, you can proportionally increase your investments, leading to significantly higher corpus over time.</p>
+      
+      <h3 class="text-xl font-bold mt-6 mb-3">Benefits of Step-Up SIP</h3>
+      <ul>
+        <li><strong>Disciplined Investing:</strong> Auto-increase keeps pace with income growth</li>
+        <li><strong>Higher Corpus:</strong> Compounding effect on increasing amounts</li>
+        <li><strong>Inflation Hedge:</strong> Investments grow faster than inflation</li>
+      </ul>
+    </article>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const ctx = document.getElementById('stepup-chart');
+      let stepupChart = null;
+
+      function calculateStepUp() {
+        const initialSIP = parseFloat(document.getElementById('stepup-initial').value);
+        const stepUpRate = parseFloat(document.getElementById('stepup-rate').value);
+        const annualReturn = parseFloat(document.getElementById('stepup-return').value);
+        const years = parseFloat(document.getElementById('stepup-years').value);
+        
+        const monthlyRate = annualReturn / 12 / 100;
+        const stepUpFactor = 1 + stepUpRate / 100;
+        
+        let totalInvested = 0;
+        let finalValue = 0;
+        let currentSIP = initialSIP;
+        
+        const labels = [];
+        const investedData = [];
+        const valueData = [];
+        
+        for (let year = 1; year <= years; year++) {
+          // SIP for this year
+          const yearlyInvestment = currentSIP * 12;
+          totalInvested += yearlyInvestment;
+          
+          // Future value of this year's SIP at end of term
+          const monthsRemaining = (years - year) * 12;
+          const fvOfYearlySIP = currentSIP * ((Math.pow(1 + monthlyRate, 12) - 1) / monthlyRate) * (1 + monthlyRate);
+          const fvAtMaturity = fvOfYearlySIP * Math.pow(1 + monthlyRate, monthsRemaining);
+          
+          finalValue += fvAtMaturity;
+          
+          labels.push('Year ' + year);
+          investedData.push(totalInvested);
+          
+          // Calculate value at each year end
+          let valueAtYear = 0;
+          for (let y = 1; y <= year; y++) {
+            const sipForYear = initialSIP * Math.pow(stepUpFactor, y - 1);
+            const monthsInYear = (year - y) * 12 + 12;
+            const fv = sipForYear * ((Math.pow(1 + monthlyRate, monthsInYear) - 1) / monthlyRate) * (1 + monthlyRate);
+            valueAtYear += fv;
+          }
+          valueData.push(valueAtYear);
+          
+          // Step up for next year
+          currentSIP *= stepUpFactor;
+        }
+        
+        const returns = finalValue - totalInvested;
+        
+        document.getElementById('stepup-invested').textContent = '₹' + totalInvested.toLocaleString('en-IN', {maximumFractionDigits: 0});
+        document.getElementById('stepup-final-sip').textContent = '₹' + currentSIP.toLocaleString('en-IN', {maximumFractionDigits: 0});
+        document.getElementById('stepup-returns').textContent = '₹' + returns.toLocaleString('en-IN', {maximumFractionDigits: 0});
+        document.getElementById('stepup-value').textContent = '₹' + finalValue.toLocaleString('en-IN', {maximumFractionDigits: 0});
+        
+        if (stepupChart) stepupChart.destroy();
+        
+        stepupChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: 'Invested Amount',
+                data: investedData,
+                borderColor: '#64748b',
+                backgroundColor: 'rgba(100, 116, 139, 0.1)',
+                fill: true
+              },
+              {
+                label: 'Total Value',
+                data: valueData,
+                borderColor: '#3b82f6',
+                backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                fill: true
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { position: 'bottom' }
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                ticks: {
+                  callback: function(value) {
+                    return '₹' + (value / 100000).toFixed(1) + 'L';
+                  }
+                }
+              }
+            }
+          }
+        });
+
+        // Enable export buttons
+        document.getElementById('dl-pdf-stepup').disabled = false;
+        document.getElementById('dl-csv-stepup').disabled = false;
+        document.getElementById('dl-xlsx-stepup').disabled = false;
+      }
+
+      // Export functions
+      const stepupData = { labels, investedData, valueData };
+
+      document.getElementById('dl-pdf-stepup').addEventListener('click', function() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        
+        doc.setFontSize(18);
+        doc.text('Step-Up SIP Calculator Report', 14, 20);
+        doc.setFontSize(12);
+        doc.text(`Initial Monthly SIP: ₹${parseFloat(document.getElementById('stepup-initial').value).toLocaleString('en-IN')}`, 14, 30);
+        doc.text(`Annual Step-Up: ${document.getElementById('stepup-rate').value}%`, 14, 38);
+        doc.text(`Expected Return: ${document.getElementById('stepup-return').value}%`, 14, 46);
+        doc.text(`Investment Period: ${document.getElementById('stepup-years').value} years`, 14, 54);
+        
+        const tableData = stepupData.labels.map((year, i) => [
+          year,
+          '₹' + stepupData.investedData[i].toLocaleString('en-IN', {maximumFractionDigits: 0}),
+          '₹' + stepupData.valueData[i].toLocaleString('en-IN', {maximumFractionDigits: 0}),
+          '₹' + (stepupData.valueData[i] - stepupData.investedData[i]).toLocaleString('en-IN', {maximumFractionDigits: 0})
+        ]);
+        
+        doc.autoTable({
+          head: [['Year', 'Invested', 'Value', 'Returns']],
+          body: tableData,
+          startY: 60,
+          theme: 'grid'
+        });
+        
+        doc.save('stepup-sip-report.pdf');
+      });
+
+      document.getElementById('dl-csv-stepup').addEventListener('click', function() {
+        const headers = ['Year', 'Invested', 'Value', 'Returns'];
+        const rows = stepupData.labels.map((year, i) => [
+          year,
+          stepupData.investedData[i],
+          stepupData.valueData[i],
+          stepupData.valueData[i] - stepupData.investedData[i]
+        ]);
+        
+        if (window.BTB && window.BTB.downloadCSV) {
+          window.BTB.downloadCSV('stepup-sip-report.csv', headers, rows);
+        }
+      });
+
+      document.getElementById('dl-xlsx-stepup').addEventListener('click', function() {
+        const headers = ['Year', 'Invested', 'Value', 'Returns'];
+        const rows = stepupData.labels.map((year, i) => [
+          year,
+          stepupData.investedData[i],
+          stepupData.valueData[i],
+          stepupData.valueData[i] - stepupData.investedData[i]
+        ]);
+        
+        if (window.BTB && window.BTB.downloadXLSX) {
+          window.BTB.downloadXLSX('stepup-sip-report.xlsx', 'Step-Up SIP Report', headers, rows);
+        }
+      });
+
+      document.getElementById('calculate-stepup').addEventListener('click', calculateStepUp);
+      calculateStepUp();
+    });
+  </script>
+</body>
+</html>

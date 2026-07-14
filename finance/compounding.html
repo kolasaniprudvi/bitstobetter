@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <title>Compounding Calculator — Power of Compounding — BitsToBetter</title>
+  <meta name="description" content="See exactly how many times (Nx) your money will grow with one-time, recurring, or combined investments with year-by-year chart." />
+  <link rel="canonical" href="https://bitstobetter.com/finance/compounding.html" />
+  <link rel="icon" type="image/png" href="/assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <meta name="theme-color" content="#0F172A" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/assets/site.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+  <script src="/assets/site.js" defer></script>
+</head>
+<body class="antialiased text-foreground">
+  <header id="site-header" data-active="finance"></header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <nav class="text-sm text-muted-foreground mb-6" aria-label="Breadcrumb">
+      <a href="/" class="hover:text-foreground">Home</a> /
+      <a href="/finance/" class="hover:text-foreground">Finance</a> /
+      <span class="text-foreground font-medium">Compounding</span>
+    </nav>
+
+    <h1 class="text-3xl sm:text-4xl font-extrabold">Compounding Calculator</h1>
+    <p class="mt-3 text-lg text-muted-foreground max-w-3xl">See exactly how many times (Nx) your money will grow with one-time, recurring, or combined investments with year-by-year breakdown.</p>
+
+    <div class="grid lg:grid-cols-2 gap-8 mt-10">
+      <div class="calc-panel">
+        <h2 class="text-xl font-bold mb-4">Investment Details</h2>
+        
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-1">One-time Investment (₹)</label>
+            <input type="number" id="comp-lumpsum" class="field-input" value="100000" min="0" step="10000">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Monthly Investment (₹)</label>
+            <input type="number" id="comp-sip" class="field-input" value="10000" min="0" step="1000">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Expected Annual Return (%)</label>
+            <input type="number" id="comp-return" class="field-input" value="12" min="5" max="20" step="0.5">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Investment Period (Years)</label>
+            <input type="number" id="comp-years" class="field-input" value="20" min="1" max="40" step="1">
+          </div>
+          
+          <button id="calculate-comp" class="btn-primary w-full mt-4">Calculate Compounding</button>
+        </div>
+      </div>
+
+      <div class="calc-panel">
+        <h2 class="text-xl font-bold mb-4">Compounding Results</h2>
+        <div id="comp-results" class="space-y-4">
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Total Invested</p>
+            <p class="text-2xl font-bold" id="comp-invested">₹0</p>
+          </div>
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Total Value</p>
+            <p class="text-2xl font-bold text-primary" id="comp-value">₹0</p>
+          </div>
+          <div class="stat-tile bg-success/10 border border-success/20">
+            <p class="text-sm font-medium text-success">Money Multiplier (Nx)</p>
+            <p class="text-3xl font-bold text-success" id="comp-multiplier">0x</p>
+          </div>
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Total Returns</p>
+            <p class="text-xl font-bold" id="comp-returns">₹0</p>
+          </div>
+        </div>
+        <canvas id="comp-chart" class="mt-6"></canvas>
+      </div>
+    </div>
+
+    <article class="article-prose mt-10 max-w-3xl">
+      <h2 class="text-2xl font-bold mb-4">Power of Compounding</h2>
+      <p>Compounding is the process where your investment earns returns, and those returns earn more returns. Over time, this creates exponential growth.</p>
+      
+      <h3 class="text-xl font-bold mt-6 mb-3">The Rule of 72</h3>
+      <p>To estimate how long it takes to double your money, divide 72 by the annual return rate. At 12% return, money doubles in approximately 6 years (72/12).</p>
+    </article>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const ctx = document.getElementById('comp-chart');
+      let compChart = null;
+
+      function calculateCompounding() {
+        const lumpsum = parseFloat(document.getElementById('comp-lumpsum').value);
+        const sip = parseFloat(document.getElementById('comp-sip').value);
+        const annualReturn = parseFloat(document.getElementById('comp-return').value);
+        const years = parseFloat(document.getElementById('comp-years').value);
+        
+        const monthlyRate = annualReturn / 12 / 100;
+        const months = years * 12;
+        
+        // Lumpsum growth
+        const lumpsumFV = lumpsum * Math.pow(1 + annualReturn / 100, years);
+        
+        // SIP growth
+        const sipFV = sip * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate);
+        
+        const totalInvested = lumpsum + (sip * months);
+        const totalValue = lumpsumFV + sipFV;
+        const totalReturns = totalValue - totalInvested;
+        const multiplier = totalInvested > 0 ? (totalValue / totalInvested).toFixed(2) : '0';
+        
+        document.getElementById('comp-invested').textContent = '₹' + totalInvested.toLocaleString('en-IN', {maximumFractionDigits: 0});
+        document.getElementById('comp-value').textContent = '₹' + totalValue.toLocaleString('en-IN', {maximumFractionDigits: 0});
+        document.getElementById('comp-multiplier').textContent = multiplier + 'x';
+        document.getElementById('comp-returns').textContent = '₹' + totalReturns.toLocaleString('en-IN', {maximumFractionDigits: 0});
+        
+        // Chart
+        const labels = [];
+        const investedData = [];
+        const valueData = [];
+        
+        for (let i = 1; i <= years; i++) {
+          labels.push('Year ' + i);
+          const investedAtYear = lumpsum + (sip * i * 12);
+          const lumpsumAtYear = lumpsum * Math.pow(1 + annualReturn / 100, i);
+          const sipAtYear = sip * ((Math.pow(1 + monthlyRate, i * 12) - 1) / monthlyRate) * (1 + monthlyRate);
+          investedData.push(investedAtYear);
+          valueData.push(lumpsumAtYear + sipAtYear);
+        }
+        
+        if (compChart) compChart.destroy();
+        
+        compChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: 'Invested',
+                data: investedData,
+                borderColor: '#64748b',
+                backgroundColor: 'rgba(100, 116, 139, 0.1)',
+                fill: true
+              },
+              {
+                label: 'Value',
+                data: valueData,
+                borderColor: '#3b82f6',
+                backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                fill: true
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { position: 'bottom' }
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                ticks: {
+                  callback: function(value) {
+                    return '₹' + (value / 100000).toFixed(1) + 'L';
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
+
+      document.getElementById('calculate-comp').addEventListener('click', calculateCompounding);
+      calculateCompounding();
+    });
+  </script>
+</body>
+</html>

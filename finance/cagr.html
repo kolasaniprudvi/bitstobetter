@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <title>CAGR Calculator — Compound Annual Growth Rate — BitsToBetter</title>
+  <meta name="description" content="Calculate Compound Annual Growth Rate of any investment. Compare mutual funds, stocks, and businesses on a fair, annualized basis." />
+  <link rel="canonical" href="https://bitstobetter.com/finance/cagr.html" />
+  <link rel="icon" type="image/png" href="/assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <meta name="theme-color" content="#0F172A" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/assets/site.css" />
+  <script src="/assets/site.js" defer></script>
+</head>
+<body class="antialiased text-foreground">
+  <header id="site-header" data-active="finance"></header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <nav class="text-sm text-muted-foreground mb-6" aria-label="Breadcrumb">
+      <a href="/" class="hover:text-foreground">Home</a> /
+      <a href="/finance/" class="hover:text-foreground">Finance</a> /
+      <span class="text-foreground font-medium">CAGR</span>
+    </nav>
+
+    <h1 class="text-3xl sm:text-4xl font-extrabold">CAGR Calculator</h1>
+    <p class="mt-3 text-lg text-muted-foreground max-w-3xl">Calculate Compound Annual Growth Rate to compare investments fairly. CAGR shows the annualized growth rate over a period.</p>
+
+    <div class="grid lg:grid-cols-2 gap-8 mt-10">
+      <div class="calc-panel">
+        <h2 class="text-xl font-bold mb-4">Investment Details</h2>
+        
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-1">Starting Value (₹)</label>
+            <input type="number" id="cagr-start" class="field-input" value="100000" min="0" step="1000">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Ending Value (₹)</label>
+            <input type="number" id="cagr-end" class="field-input" value="250000" min="0" step="1000">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Investment Period (Years)</label>
+            <input type="number" id="cagr-years" class="field-input" value="5" min="1" max="50" step="0.5">
+          </div>
+          
+          <button id="calculate-cagr" class="btn-primary w-full mt-4">Calculate CAGR</button>
+        </div>
+      </div>
+
+      <div class="calc-panel">
+        <h2 class="text-xl font-bold mb-4">Results</h2>
+        <div id="cagr-results" class="space-y-4">
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Total Return</p>
+            <p class="text-2xl font-bold" id="total-return">0%</p>
+          </div>
+          <div class="stat-tile bg-primary/5 border border-primary/20">
+            <p class="text-sm font-medium text-primary">CAGR (Annualized)</p>
+            <p class="text-3xl font-bold text-primary" id="cagr-result">0%</p>
+          </div>
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Absolute Gain/Loss</p>
+            <p class="text-2xl font-bold" id="absolute-gain">₹0</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <article class="article-prose mt-10 max-w-3xl">
+      <h2 class="text-2xl font-bold mb-4">What is CAGR?</h2>
+      <p>Compound Annual Growth Rate (CAGR) is the annual growth rate of an investment over a specified period of time, assuming the profits are reinvested at the end of each period.</p>
+      
+      <h3 class="text-xl font-bold mt-6 mb-3">CAGR Formula</h3>
+      <p class="font-mono text-sm bg-neutral-100 p-3 rounded border border-border">CAGR = [(Ending Value / Starting Value)^(1/n)] - 1</p>
+      <p class="text-sm text-muted-foreground mt-2">Where n = number of years</p>
+      
+      <h3 class="text-xl font-bold mt-6 mb-3">Why CAGR Matters</h3>
+      <p>CAGR smooths out volatility and provides a single annual growth rate, making it easier to compare different investments over different time periods.</p>
+    </article>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function calculateCAGR() {
+        const startValue = parseFloat(document.getElementById('cagr-start').value);
+        const endValue = parseFloat(document.getElementById('cagr-end').value);
+        const years = parseFloat(document.getElementById('cagr-years').value);
+        
+        const totalReturn = ((endValue - startValue) / startValue) * 100;
+        const cagr = (Math.pow(endValue / startValue, 1 / years) - 1) * 100;
+        const absoluteGain = endValue - startValue;
+        
+        document.getElementById('total-return').textContent = totalReturn.toFixed(2) + '%';
+        document.getElementById('cagr-result').textContent = cagr.toFixed(2) + '%';
+        document.getElementById('absolute-gain').textContent = '₹' + absoluteGain.toLocaleString('en-IN');
+      }
+
+      document.getElementById('calculate-cagr').addEventListener('click', calculateCAGR);
+      calculateCAGR();
+    });
+  </script>
+</body>
+</html>

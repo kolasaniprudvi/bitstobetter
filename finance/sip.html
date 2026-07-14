@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <title>SIP Calculator — Systematic Investment Plan — BitsToBetter</title>
+  <meta name="description" content="Calculate SIP returns with daily, weekly, monthly, quarterly, or yearly investments. Plan your mutual fund investments with our free SIP calculator." />
+  <link rel="canonical" href="https://bitstobetter.com/finance/sip.html" />
+  <link rel="icon" type="image/png" href="/assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <meta name="theme-color" content="#0F172A" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/assets/site.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.4/dist/jspdf.plugin.autotable.min.js" defer></script>
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js" defer></script>
+  <script src="/assets/site.js" defer></script>
+  <script src="/assets/calc-page.js" defer></script>
+</head>
+<body class="antialiased text-foreground">
+  <header id="site-header" data-active="finance"></header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <nav class="text-sm text-muted-foreground mb-6" aria-label="Breadcrumb">
+      <a href="/" class="hover:text-foreground">Home</a> /
+      <a href="/finance/" class="hover:text-foreground">Finance</a> /
+      <span class="text-foreground font-medium">SIP</span>
+    </nav>
+
+    <h1 class="text-3xl sm:text-4xl font-extrabold">SIP Calculator</h1>
+    <p class="mt-3 text-lg text-muted-foreground max-w-3xl">Calculate returns on your Systematic Investment Plan with flexible investment frequencies. See how small regular investments can grow over time.</p>
+
+    <div class="grid lg:grid-cols-2 gap-8">
+      <div class="calc-panel">
+        <h2 class="text-xl font-bold mb-4">Investment Details</h2>
+        
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-1">Monthly Investment Amount (₹)</label>
+            <input type="number" id="sip-amount" class="field-input" value="5000" min="500" step="500">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Expected Annual Return (%)</label>
+            <input type="number" id="sip-return" class="field-input" value="12" min="1" max="30" step="0.5">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Investment Period (Years)</label>
+            <input type="number" id="sip-years" class="field-input" value="10" min="1" max="40" step="1">
+          </div>
+          
+          <button id="calculate-sip" class="btn-primary w-full mt-4">Calculate SIP Returns</button>
+          
+          <div class="pt-4">
+            <p class="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">Download Reports</p>
+            <div class="export-bar">
+              <button type="button" id="dl-pdf-sip" class="export-primary" disabled>PDF Report</button>
+              <button type="button" id="dl-csv-sip" class="export-primary" disabled>CSV Report</button>
+              <button type="button" id="dl-xlsx-sip" class="export-primary" disabled>Excel Report</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="calc-panel">
+        <h2 class="text-xl font-bold mb-4">Results</h2>
+        <div id="sip-results" class="space-y-4">
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Invested Amount</p>
+            <p class="text-2xl font-bold" id="invested-amount">₹0</p>
+          </div>
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Estimated Returns</p>
+            <p class="text-2xl font-bold text-success" id="estimated-returns">₹0</p>
+          </div>
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Total Value</p>
+            <p class="text-2xl font-bold text-primary" id="total-value">₹0</p>
+          </div>
+        </div>
+        <canvas id="sip-chart" class="mt-6"></canvas>
+      </div>
+    </div>
+
+    <div class="max-h-96 overflow-y-auto border border-border rounded-lg bg-card p-4" id="report-section">
+      <h3 class="text-lg font-bold mb-4">Year-by-Year SIP Growth Report</h3>
+      <div id="sip-report" class="space-y-2 text-sm">
+        <p class="text-muted-foreground">Calculate to see detailed year-by-year growth</p>
+      </div>
+    </div>
+
+    <article class="article-prose max-w-3xl">
+      <h2 class="text-2xl font-bold mb-4">What is SIP?</h2>
+      <p>Systematic Investment Plan (SIP) is a way to invest in mutual funds by investing a fixed amount regularly. It helps in building wealth over time through the power of compounding and rupee cost averaging.</p>
+      
+      <h3 class="text-xl font-bold mt-6 mb-3">SIP Formula</h3>
+      <p class="font-mono text-sm bg-neutral-100 p-3 rounded border border-border">FV = P × [((1 + r)^n - 1) / r] × (1 + r)</p>
+      <p class="text-sm text-muted-foreground mt-2">Where P = SIP amount, r = expected monthly return, n = number of months</p>
+    </article>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const ctx = document.getElementById('sip-chart');
+      let sipChart = null;
+
+      function calculateSIP() {
+        const P = parseFloat(document.getElementById('sip-amount').value);
+        const annualReturn = parseFloat(document.getElementById('sip-return').value);
+        const years = parseFloat(document.getElementById('sip-years').value);
+        
+        const r = annualReturn / 12 / 100;
+        const n = years * 12;
+        
+        const invested = P * n;
+        const fv = P * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
+        const returns = fv - invested;
+        
+        document.getElementById('invested-amount').textContent = '₹' + invested.toLocaleString('en-IN', {maximumFractionDigits: 0});
+        document.getElementById('estimated-returns').textContent = '₹' + returns.toLocaleString('en-IN', {maximumFractionDigits: 0});
+        document.getElementById('total-value').textContent = '₹' + fv.toLocaleString('en-IN', {maximumFractionDigits: 0});
+        
+        // Update chart
+        const labels = [];
+        const investedData = [];
+        const valueData = [];
+        
+        for (let i = 1; i <= years; i++) {
+          labels.push('Year ' + i);
+          const months = i * 12;
+          investedData.push(P * months);
+          valueData.push(P * ((Math.pow(1 + r, months) - 1) / r) * (1 + r));
+        }
+        
+        if (sipChart) sipChart.destroy();
+        
+        sipChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: 'Invested Amount',
+                data: investedData,
+                borderColor: '#64748b',
+                backgroundColor: 'rgba(100, 116, 139, 0.1)',
+                fill: true
+              },
+              {
+                label: 'Total Value',
+                data: valueData,
+                borderColor: '#3b82f6',
+                backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                fill: true
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { position: 'bottom' }
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                ticks: {
+                  callback: function(value) {
+                    return '₹' + (value / 100000).toFixed(1) + 'L';
+                  }
+                }
+              }
+            }
+          }
+        });
+
+        // Generate report
+        let reportHTML = '<table class="w-full text-sm"><thead><tr class="border-b"><th class="text-left py-2">Year</th><th class="text-right py-2">Invested</th><th class="text-right py-2">Value</th><th class="text-right py-2">Returns</th></tr></thead><tbody>';
+        for (let i = 0; i < labels.length; i++) {
+          const returns = valueData[i] - investedData[i];
+          reportHTML += `<tr class="border-b"><td class="py-2">${labels[i]}</td><td class="text-right">₹${investedData[i].toLocaleString('en-IN', {maximumFractionDigits: 0})}</td><td class="text-right">₹${valueData[i].toLocaleString('en-IN', {maximumFractionDigits: 0})}</td><td class="text-right text-success">₹${returns.toLocaleString('en-IN', {maximumFractionDigits: 0})}</td></tr>`;
+        }
+        reportHTML += '</tbody></table>';
+        document.getElementById('sip-report').innerHTML = reportHTML;
+
+        // Enable export buttons
+        document.getElementById('dl-pdf-sip').disabled = false;
+        document.getElementById('dl-csv-sip').disabled = false;
+        document.getElementById('dl-xlsx-sip').disabled = false;
+      }
+
+      // Export functions
+      const sipData = { labels, investedData, valueData };
+
+      document.getElementById('dl-pdf-sip').addEventListener('click', function() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        
+        doc.setFontSize(18);
+        doc.text('SIP Calculator Report', 14, 20);
+        doc.setFontSize(12);
+        doc.text(`Monthly Investment: ₹${parseFloat(document.getElementById('sip-amount').value).toLocaleString('en-IN')}`, 14, 30);
+        doc.text(`Expected Return: ${document.getElementById('sip-return').value}%`, 14, 38);
+        doc.text(`Investment Period: ${document.getElementById('sip-years').value} years`, 14, 46);
+        
+        const tableData = sipData.labels.map((year, i) => [
+          year,
+          '₹' + sipData.investedData[i].toLocaleString('en-IN', {maximumFractionDigits: 0}),
+          '₹' + sipData.valueData[i].toLocaleString('en-IN', {maximumFractionDigits: 0}),
+          '₹' + (sipData.valueData[i] - sipData.investedData[i]).toLocaleString('en-IN', {maximumFractionDigits: 0})
+        ]);
+        
+        doc.autoTable({
+          head: [['Year', 'Invested', 'Value', 'Returns']],
+          body: tableData,
+          startY: 55,
+          theme: 'grid'
+        });
+        
+        doc.save('sip-report.pdf');
+      });
+
+      document.getElementById('dl-csv-sip').addEventListener('click', function() {
+        const headers = ['Year', 'Invested', 'Value', 'Returns'];
+        const rows = sipData.labels.map((year, i) => [
+          year,
+          sipData.investedData[i],
+          sipData.valueData[i],
+          sipData.valueData[i] - sipData.investedData[i]
+        ]);
+        
+        if (window.BTB && window.BTB.downloadCSV) {
+          window.BTB.downloadCSV('sip-report.csv', headers, rows);
+        }
+      });
+
+      document.getElementById('dl-xlsx-sip').addEventListener('click', function() {
+        const headers = ['Year', 'Invested', 'Value', 'Returns'];
+        const rows = sipData.labels.map((year, i) => [
+          year,
+          sipData.investedData[i],
+          sipData.valueData[i],
+          sipData.valueData[i] - sipData.investedData[i]
+        ]);
+        
+        if (window.BTB && window.BTB.downloadXLSX) {
+          window.BTB.downloadXLSX('sip-report.xlsx', 'SIP Report', headers, rows);
+        }
+      });
+
+      document.getElementById('calculate-sip').addEventListener('click', calculateSIP);
+      calculateSIP();
+    });
+  </script>
+</body>
+</html>

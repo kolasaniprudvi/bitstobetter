@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <title>Old vs New Regime Calculator — Tax Comparison — BitsToBetter</title>
+  <meta name="description" content="Compare tax savings between old and new regimes. Find out which regime is better for you based on your income and deductions." />
+  <link rel="canonical" href="https://bitstobetter.com/finance/old-vs-new.html" />
+  <link rel="icon" type="image/png" href="/assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <meta name="theme-color" content="#0F172A" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/assets/site.css" />
+  <script src="/assets/site.js" defer></script>
+</head>
+<body class="antialiased text-foreground">
+  <header id="site-header" data-active="finance"></header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <nav class="text-sm text-muted-foreground mb-6" aria-label="Breadcrumb">
+      <a href="/" class="hover:text-foreground">Home</a> /
+      <a href="/finance/" class="hover:text-foreground">Finance</a> /
+      <span class="text-foreground font-medium">Old vs New Regime</span>
+    </nav>
+
+    <h1 class="text-3xl sm:text-4xl font-extrabold">Old vs New Tax Regime Calculator</h1>
+    <p class="mt-3 text-lg text-muted-foreground max-w-3xl">Compare tax savings between old and new regimes. Find out which regime is better for you based on your income and deductions.</p>
+
+    <div class="grid lg:grid-cols-2 gap-8 mt-10">
+      <div class="calc-panel">
+        <h2 class="text-xl font-bold mb-4">Income & Deductions</h2>
+        
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-1">Annual Income (₹)</label>
+            <input type="number" id="compare-income" class="field-input" value="1500000" min="250000" step="10000">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">80C Deductions (₹)</label>
+            <input type="number" id="compare-80c" class="field-input" value="150000" min="0" max="150000" step="5000">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">80D Health Insurance (₹)</label>
+            <input type="number" id="compare-80d" class="field-input" value="25000" min="0" max="100000" step="1000">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">HRA Exemption (₹)</label>
+            <input type="number" id="compare-hra" class="field-input" value="0" min="0" step="1000">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">NPS 80CCD(1B) (₹)</label>
+            <input type="number" id="compare-nps" class="field-input" value="50000" min="0" max="50000" step="1000">
+          </div>
+          
+          <button id="calculate-compare" class="btn-primary w-full mt-4">Compare Regimes</button>
+        </div>
+      </div>
+
+      <div class="calc-panel">
+        <h2 class="text-xl font-bold mb-4">Tax Comparison</h2>
+        <div id="compare-results" class="space-y-4">
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Old Regime Tax</p>
+            <p class="text-2xl font-bold" id="old-tax">₹0</p>
+          </div>
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">New Regime Tax</p>
+            <p class="text-2xl font-bold" id="new-tax">₹0</p>
+          </div>
+          <div class="stat-tile bg-primary/5 border border-primary/20">
+            <p class="text-sm font-medium text-primary">Recommended Regime</p>
+            <p class="text-2xl font-bold text-primary" id="recommended">-</p>
+          </div>
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Tax Savings</p>
+            <p class="text-xl font-bold text-success" id="savings">₹0</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <article class="article-prose mt-10 max-w-3xl">
+      <h2 class="text-2xl font-bold mb-4">Old vs New Regime</h2>
+      <p>The new tax regime offers lower tax rates but removes most deductions. The old regime allows deductions but has higher tax rates. Choose based on your deduction profile.</p>
+      
+      <h3 class="text-xl font-bold mt-6 mb-3">When to Choose Old Regime</h3>
+      <ul>
+        <li>High 80C deductions (home loan, PPF, ELSS)</li>
+        <li>Significant HRA exemption</li>
+        <li>High medical insurance (80D)</li>
+        <li>Other deductions (80G, 80E, 80EEA)</li>
+      </ul>
+    </article>
+
+    <div class="mt-16 max-h-96 overflow-y-auto border border-border rounded-lg bg-card p-4" id="report-section">
+      <h3 class="text-lg font-bold mb-4">Detailed Tax Comparison Report</h3>
+      <div id="detailed-report" class="space-y-2 text-sm">
+        <p class="text-muted-foreground">Calculate to see detailed comparison</p>
+      </div>
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function calculateCompare() {
+        const income = parseFloat(document.getElementById('compare-income').value);
+        const deduction80C = parseFloat(document.getElementById('compare-80c').value);
+        const deduction80D = parseFloat(document.getElementById('compare-80d').value);
+        const hra = parseFloat(document.getElementById('compare-hra').value);
+        const nps = parseFloat(document.getElementById('compare-nps').value);
+        
+        // Old regime calculation
+        const oldStdDeduction = 50000;
+        const oldTaxable = Math.max(0, income - oldStdDeduction - deduction80C - deduction80D - hra - nps);
+        
+        let oldTax = 0;
+        if (oldTaxable > 1500000) {
+          oldTax += (oldTaxable - 1500000) * 0.30;
+          oldTax += (500000) * 0.20;
+          oldTax += (500000) * 0.10;
+        } else if (oldTaxable > 1000000) {
+          oldTax += (oldTaxable - 1000000) * 0.20;
+          oldTax += (500000) * 0.10;
+        } else if (oldTaxable > 500000) {
+          oldTax += (oldTaxable - 500000) * 0.10;
+        }
+        
+        if (oldTaxable <= 500000) oldTax = 0;
+        const oldCess = oldTax * 0.04;
+        const oldTotalTax = oldTax + oldCess;
+        
+        // New regime calculation
+        const newStdDeduction = 75000;
+        const newTaxable = Math.max(0, income - newStdDeduction - nps);
+        
+        let newTax = 0;
+        if (newTaxable > 2400000) {
+          newTax += (newTaxable - 2400000) * 0.30;
+          newTax += (400000) * 0.25;
+          newTax += (400000) * 0.20;
+          newTax += (400000) * 0.15;
+          newTax += (400000) * 0.10;
+          newTax += (400000) * 0.05;
+        } else if (newTaxable > 2000000) {
+          newTax += (newTaxable - 2000000) * 0.25;
+          newTax += (400000) * 0.20;
+          newTax += (400000) * 0.15;
+          newTax += (400000) * 0.10;
+          newTax += (400000) * 0.05;
+        } else if (newTaxable > 1600000) {
+          newTax += (newTaxable - 1600000) * 0.20;
+          newTax += (400000) * 0.15;
+          newTax += (400000) * 0.10;
+          newTax += (400000) * 0.05;
+        } else if (newTaxable > 1200000) {
+          newTax += (newTaxable - 1200000) * 0.15;
+          newTax += (400000) * 0.10;
+          newTax += (400000) * 0.05;
+        } else if (newTaxable > 800000) {
+          newTax += (newTaxable - 800000) * 0.10;
+          newTax += (400000) * 0.05;
+        } else if (newTaxable > 400000) {
+          newTax += (newTaxable - 400000) * 0.05;
+        }
+        
+        if (newTaxable <= 700000) newTax = 0;
+        const newCess = newTax * 0.04;
+        const newTotalTax = newTax + newCess;
+        
+        const savings = Math.abs(oldTotalTax - newTotalTax);
+        const recommended = oldTotalTax < newTotalTax ? 'Old Regime' : 'New Regime';
+        
+        document.getElementById('old-tax').textContent = '₹' + oldTotalTax.toLocaleString('en-IN', {maximumFractionDigits: 0});
+        document.getElementById('new-tax').textContent = '₹' + newTotalTax.toLocaleString('en-IN', {maximumFractionDigits: 0});
+        document.getElementById('recommended').textContent = recommended;
+        document.getElementById('savings').textContent = '₹' + savings.toLocaleString('en-IN', {maximumFractionDigits: 0});
+      }
+
+      document.getElementById('calculate-compare').addEventListener('click', calculateCompare);
+      calculateCompare();
+    });
+  </script>
+</body>
+</html>

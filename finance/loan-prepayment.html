@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <title>Loan Pre-payment Calculator — Reduce EMI or Tenure — BitsToBetter</title>
+  <meta name="description" content="Calculate interest savings with loan pre-payment. See how much you save with lump sum payments or extra EMI top-ups." />
+  <link rel="canonical" href="https://bitstobetter.com/finance/loan-prepayment.html" />
+  <link rel="icon" type="image/png" href="/assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <meta name="theme-color" content="#0F172A" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/assets/site.css" />
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.4/dist/jspdf.plugin.autotable.min.js" defer></script>
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js" defer></script>
+  <script src="/assets/site.js" defer></script>
+</head>
+<body class="antialiased text-foreground">
+  <header id="site-header" data-active="finance"></header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <nav class="text-sm text-muted-foreground mb-6" aria-label="Breadcrumb">
+      <a href="/" class="hover:text-foreground">Home</a> /
+      <a href="/finance/" class="hover:text-foreground">Finance</a> /
+      <span class="text-foreground font-medium">Loan Pre-payment</span>
+    </nav>
+
+    <h1 class="text-3xl sm:text-4xl font-extrabold">Loan Pre-payment Calculator</h1>
+    <p class="mt-3 text-lg text-muted-foreground max-w-3xl">Calculate how much interest and EMIs you save with pre-payment. Choose between reducing tenure or EMI amount.</p>
+
+    <div class="grid lg:grid-cols-2 gap-8">
+      <div class="calc-panel">
+        <h2 class="text-xl font-bold mb-4">Loan Details</h2>
+        
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-1">Loan Amount (₹)</label>
+            <input type="number" id="prepay-loan-amount" class="field-input" value="5000000" min="100000" step="50000">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Interest Rate (%)</label>
+            <input type="number" id="prepay-rate" class="field-input" value="8.5" min="5" max="15" step="0.1">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Tenure (Years)</label>
+            <input type="number" id="prepay-tenure" class="field-input" value="20" min="1" max="30" step="1">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Pre-payment Amount (₹)</label>
+            <input type="number" id="prepay-amount" class="field-input" value="500000" min="0" step="10000">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Pre-payment After (Years)</label>
+            <input type="number" id="prepay-after" class="field-input" value="3" min="0" max="30" step="1">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Pre-payment Option</label>
+            <select id="prepay-option" class="field-select">
+              <option value="tenure">Reduce Tenure</option>
+              <option value="emi">Reduce EMI</option>
+            </select>
+          </div>
+          
+          <button id="calculate-prepay" class="btn-primary w-full mt-4">Calculate Savings</button>
+          
+          <div class="pt-4">
+            <p class="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">Download Reports</p>
+            <div class="export-bar">
+              <button type="button" id="dl-pdf-prepay" class="export-primary" disabled>PDF Report</button>
+              <button type="button" id="dl-csv-prepay" class="export-primary" disabled>CSV Report</button>
+              <button type="button" id="dl-xlsx-prepay" class="export-primary" disabled>Excel Report</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="calc-panel">
+        <h2 class="text-xl font-bold mb-4">Pre-payment Savings</h2>
+        <div id="prepay-results" class="space-y-4">
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Original EMI</p>
+            <p class="text-xl font-bold" id="original-emi">₹0</p>
+          </div>
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Original Total Interest</p>
+            <p class="text-xl font-bold" id="original-interest">₹0</p>
+          </div>
+          <div class="stat-tile bg-success/10 border border-success/20">
+            <p class="text-sm font-medium text-success">Interest Saved</p>
+            <p class="text-2xl font-bold text-success" id="interest-saved">₹0</p>
+          </div>
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">New Tenure/EMI</p>
+            <p class="text-xl font-bold text-primary" id="new-tenure-emi">₹0</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <article class="article-prose max-w-3xl">
+      <h2 class="text-2xl font-bold mb-4">Loan Pre-payment Benefits</h2>
+      <p>Pre-paying your loan reduces the outstanding principal, which reduces the interest component. You can choose to either reduce your EMI amount or shorten the loan tenure.</p>
+      
+      <h3 class="text-xl font-bold mt-6 mb-3">Reduce Tenure vs Reduce EMI</h3>
+      <ul>
+        <li><strong>Reduce Tenure:</strong> Higher interest savings, loan closes earlier</li>
+        <li><strong>Reduce EMI:</strong> Lower monthly burden, more cash flow flexibility</li>
+      </ul>
+    </article>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function calculatePrepay() {
+        const loanAmount = parseFloat(document.getElementById('prepay-loan-amount').value);
+        const rate = parseFloat(document.getElementById('prepay-rate').value);
+        const tenure = parseFloat(document.getElementById('prepay-tenure').value);
+        const prepayAmount = parseFloat(document.getElementById('prepay-amount').value);
+        const prepayAfter = parseFloat(document.getElementById('prepay-after').value);
+        const option = document.getElementById('prepay-option').value;
+        
+        const monthlyRate = rate / 12 / 100;
+        const totalMonths = tenure * 12;
+        
+        // Original EMI
+        const originalEMI = loanAmount * monthlyRate * Math.pow(1 + monthlyRate, totalMonths) / (Math.pow(1 + monthlyRate, totalMonths) - 1);
+        const originalTotalPayment = originalEMI * totalMonths;
+        const originalInterest = originalTotalPayment - loanAmount;
+        
+        // Calculate outstanding balance at prepayment time
+        const prepayMonth = prepayAfter * 12;
+        let outstandingBalance = loanAmount * Math.pow(1 + monthlyRate, prepayMonth) - originalEMI * (Math.pow(1 + monthlyRate, prepayMonth) - 1) / monthlyRate;
+        
+        // After prepayment
+        const newPrincipal = outstandingBalance - prepayAmount;
+        let newTenure = totalMonths - prepayMonth;
+        let newEMI = originalEMI;
+        
+        if (option === 'tenure') {
+          // Keep EMI same, calculate new tenure
+          if (newPrincipal > 0) {
+            newTenure = Math.log(1 + (monthlyRate * newPrincipal) / originalEMI) / Math.log(1 + monthlyRate);
+          }
+        } else {
+          // Keep tenure same, calculate new EMI
+          newEMI = newPrincipal * monthlyRate * Math.pow(1 + monthlyRate, newTenure) / (Math.pow(1 + monthlyRate, newTenure) - 1);
+        }
+        
+        const newTotalPayment = (originalEMI * prepayMonth) + (newEMI * newTenure);
+        const newInterest = newTotalPayment - loanAmount;
+        const interestSaved = originalInterest - newInterest;
+        
+        document.getElementById('original-emi').textContent = '₹' + originalEMI.toLocaleString('en-IN', {maximumFractionDigits: 0});
+        document.getElementById('original-interest').textContent = '₹' + originalInterest.toLocaleString('en-IN', {maximumFractionDigits: 0});
+        document.getElementById('interest-saved').textContent = '₹' + interestSaved.toLocaleString('en-IN', {maximumFractionDigits: 0});
+        
+        if (option === 'tenure') {
+          document.getElementById('new-tenure-emi').textContent = (newTenure / 12).toFixed(1) + ' years';
+        } else {
+          document.getElementById('new-tenure-emi').textContent = '₹' + newEMI.toLocaleString('en-IN', {maximumFractionDigits: 0});
+        }
+
+        // Enable export buttons
+        document.getElementById('dl-pdf-prepay').disabled = false;
+        document.getElementById('dl-csv-prepay').disabled = false;
+        document.getElementById('dl-xlsx-prepay').disabled = false;
+      }
+
+      // Export functions
+      const prepayData = { loanAmount, rate, tenure, prepayAmount, prepayAfter, option, originalEMI, originalInterest, interestSaved, newTenure, newEMI };
+
+      document.getElementById('dl-pdf-prepay').addEventListener('click', function() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        
+        doc.setFontSize(18);
+        doc.text('Loan Pre-payment Calculator Report', 14, 20);
+        doc.setFontSize(12);
+        doc.text(`Loan Amount: ₹${loanAmount.toLocaleString('en-IN')}`, 14, 30);
+        doc.text(`Interest Rate: ${rate}%`, 14, 38);
+        doc.text(`Tenure: ${tenure} years`, 14, 46);
+        doc.text(`Pre-payment Amount: ₹${prepayAmount.toLocaleString('en-IN')}`, 14, 54);
+        doc.text(`Pre-payment After: ${prepayAfter} years`, 14, 62);
+        doc.text(`Option: ${option === 'tenure' ? 'Reduce Tenure' : 'Reduce EMI'}`, 14, 70);
+        
+        const tableData = [
+          ['Original EMI', '₹' + originalEMI.toLocaleString('en-IN', {maximumFractionDigits: 0})],
+          ['Original Total Interest', '₹' + originalInterest.toLocaleString('en-IN', {maximumFractionDigits: 0})],
+          ['Interest Saved', '₹' + interestSaved.toLocaleString('en-IN', {maximumFractionDigits: 0})],
+          ['New ' + (option === 'tenure' ? 'Tenure' : 'EMI'), option === 'tenure' ? (newTenure / 12).toFixed(1) + ' years' : '₹' + newEMI.toLocaleString('en-IN', {maximumFractionDigits: 0})]
+        ];
+        
+        doc.autoTable({
+          head: [['Parameter', 'Value']],
+          body: tableData,
+          startY: 80,
+          theme: 'grid'
+        });
+        
+        doc.save('loan-prepayment-report.pdf');
+      });
+
+      document.getElementById('dl-csv-prepay').addEventListener('click', function() {
+        const headers = ['Parameter', 'Value'];
+        const rows = [
+          ['Original EMI', originalEMI],
+          ['Original Total Interest', originalInterest],
+          ['Interest Saved', interestSaved],
+          ['New ' + (option === 'tenure' ? 'Tenure' : 'EMI'), option === 'tenure' ? newTenure / 12 : newEMI]
+        ];
+        
+        if (window.BTB && window.BTB.downloadCSV) {
+          window.BTB.downloadCSV('loan-prepayment-report.csv', headers, rows);
+        }
+      });
+
+      document.getElementById('dl-xlsx-prepay').addEventListener('click', function() {
+        const headers = ['Parameter', 'Value'];
+        const rows = [
+          ['Original EMI', originalEMI],
+          ['Original Total Interest', originalInterest],
+          ['Interest Saved', interestSaved],
+          ['New ' + (option === 'tenure' ? 'Tenure' : 'EMI'), option === 'tenure' ? newTenure / 12 : newEMI]
+        ];
+        
+        if (window.BTB && window.BTB.downloadXLSX) {
+          window.BTB.downloadXLSX('loan-prepayment-report.xlsx', 'Loan Pre-payment Report', headers, rows);
+        }
+      });
+
+      document.getElementById('calculate-prepay').addEventListener('click', calculatePrepay);
+      calculatePrepay();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <title>GST Calculator — Goods & Services Tax — BitsToBetter</title>
+  <meta name="description" content="Add or remove GST at 5/12/18/28%. CGST + SGST split for intrastate or IGST for interstate. Free GST calculator for shopkeepers, freelancers, and accountants." />
+  <link rel="canonical" href="https://bitstobetter.com/finance/gst.html" />
+  <link rel="icon" type="image/png" href="/assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <meta name="theme-color" content="#0F172A" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/assets/site.css" />
+  <script src="/assets/site.js" defer></script>
+</head>
+<body class="antialiased text-foreground">
+  <header id="site-header" data-active="finance"></header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <nav class="text-sm text-muted-foreground mb-6" aria-label="Breadcrumb">
+      <a href="/" class="hover:text-foreground">Home</a> /
+      <a href="/finance/" class="hover:text-foreground">Finance</a> /
+      <span class="text-foreground font-medium">GST</span>
+    </nav>
+
+    <h1 class="text-3xl sm:text-4xl font-extrabold">GST Calculator</h1>
+    <p class="mt-3 text-lg text-muted-foreground max-w-3xl">Calculate GST inclusive and exclusive amounts. Supports all GST slabs (5%, 12%, 18%, 28%) with CGST/SGST and IGST breakdown.</p>
+
+    <div class="grid lg:grid-cols-2 gap-8 mt-10">
+      <div class="calc-panel">
+        <h2 class="text-xl font-bold mb-4">GST Calculation</h2>
+        
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-1">Amount (₹)</label>
+            <input type="number" id="gst-amount" class="field-input" value="1000" min="0" step="0.01">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">GST Rate (%)</label>
+            <select id="gst-rate" class="field-select">
+              <option value="5">5%</option>
+              <option value="12">12%</option>
+              <option value="18" selected>18%</option>
+              <option value="28">28%</option>
+            </select>
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Calculation Type</label>
+            <select id="gst-type" class="field-select">
+              <option value="exclusive">Add GST (Exclusive)</option>
+              <option value="inclusive">Remove GST (Inclusive)</option>
+            </select>
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Transaction Type</label>
+            <select id="gst-transaction" class="field-select">
+              <option value="intrastate">Intrastate (CGST + SGST)</option>
+              <option value="interstate">Interstate (IGST)</option>
+            </select>
+          </div>
+          
+          <button id="calculate-gst" class="btn-primary w-full mt-4">Calculate GST</button>
+        </div>
+      </div>
+
+      <div class="calc-panel">
+        <h2 class="text-xl font-bold mb-4">Results</h2>
+        <div id="gst-results" class="space-y-4">
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Net Amount</p>
+            <p class="text-2xl font-bold" id="net-amount">₹0</p>
+          </div>
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">GST Amount</p>
+            <p class="text-2xl font-bold text-primary" id="gst-amount-result">₹0</p>
+          </div>
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Total Amount</p>
+            <p class="text-2xl font-bold text-success" id="total-amount">₹0</p>
+          </div>
+          <div id="gst-breakdown" class="mt-4 p-4 bg-muted rounded-lg">
+            <p class="text-sm font-medium mb-2">Tax Breakdown</p>
+            <p class="text-sm" id="cgst-sgst">CGST: ₹0 | SGST: ₹0</p>
+            <p class="text-sm" id="igst">IGST: ₹0</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <article class="article-prose mt-10 max-w-3xl">
+      <h2 class="text-2xl font-bold mb-4">GST Calculation Explained</h2>
+      <p>GST (Goods and Services Tax) is a single indirect tax on the supply of goods and services. GST is divided into CGST (Central GST), SGST (State GST), and IGST (Integrated GST) for interstate transactions.</p>
+      
+      <h3 class="text-xl font-bold mt-6 mb-3">GST Slabs in India</h3>
+      <ul>
+        <li><strong>5%</strong> - Essential goods, household items</li>
+        <li><strong>12%</strong> - Processed food, restaurants</li>
+        <li><strong>18%</strong> - Most goods and services</li>
+        <li><strong>28%</strong> - Luxury items, automobiles</li>
+      </ul>
+    </article>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function calculateGST() {
+        const amount = parseFloat(document.getElementById('gst-amount').value);
+        const rate = parseFloat(document.getElementById('gst-rate').value);
+        const type = document.getElementById('gst-type').value;
+        const transaction = document.getElementById('gst-transaction').value;
+        
+        let netAmount, gstAmount, totalAmount;
+        
+        if (type === 'exclusive') {
+          netAmount = amount;
+          gstAmount = (amount * rate) / 100;
+          totalAmount = amount + gstAmount;
+        } else {
+          totalAmount = amount;
+          netAmount = amount / (1 + rate / 100);
+          gstAmount = totalAmount - netAmount;
+        }
+        
+        document.getElementById('net-amount').textContent = '₹' + netAmount.toFixed(2);
+        document.getElementById('gst-amount-result').textContent = '₹' + gstAmount.toFixed(2);
+        document.getElementById('total-amount').textContent = '₹' + totalAmount.toFixed(2);
+        
+        if (transaction === 'intrastate') {
+          const cgst = gstAmount / 2;
+          const sgst = gstAmount / 2;
+          document.getElementById('cgst-sgst').textContent = 'CGST: ₹' + cgst.toFixed(2) + ' | SGST: ₹' + sgst.toFixed(2);
+          document.getElementById('igst').textContent = 'IGST: Not applicable';
+        } else {
+          document.getElementById('cgst-sgst').textContent = 'CGST: Not applicable | SGST: Not applicable';
+          document.getElementById('igst').textContent = 'IGST: ₹' + gstAmount.toFixed(2);
+        }
+      }
+
+      document.getElementById('calculate-gst').addEventListener('click', calculateGST);
+      calculateGST();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <title>NSC Calculator — National Savings Certificate — BitsToBetter</title>
+  <meta name="description" content="National Savings Certificate VIII Issue maturity calculator. 5-year, government-backed, 7.7% compounded yearly with Section 80C benefits." />
+  <link rel="canonical" href="https://bitstobetter.com/finance/nsc.html" />
+  <link rel="icon" type="image/png" href="/assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <meta name="theme-color" content="#0F172A" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/assets/site.css" />
+  <script src="/assets/site.js" defer></script>
+</head>
+<body class="antialiased text-foreground">
+  <header id="site-header" data-active="finance"></header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <nav class="text-sm text-muted-foreground mb-6" aria-label="Breadcrumb">
+      <a href="/" class="hover:text-foreground">Home</a> /
+      <a href="/finance/" class="hover:text-foreground">Finance</a> /
+      <span class="text-foreground font-medium">NSC</span>
+    </nav>
+
+    <h1 class="text-3xl sm:text-4xl font-extrabold">NSC Calculator</h1>
+    <p class="mt-3 text-lg text-muted-foreground max-w-3xl">Calculate maturity value of National Savings Certificate VIII Issue. 5-year tenure with 7.7% interest compounded yearly and Section 80C tax benefits.</p>
+
+    <div class="grid lg:grid-cols-2 gap-8 mt-10">
+      <div class="calc-panel">
+        <h2 class="text-xl font-bold mb-4">NSC Investment</h2>
+        
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-1">Investment Amount (₹)</label>
+            <input type="number" id="nsc-amount" class="field-input" value="100000" min="1000" step="1000">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Interest Rate (%)</label>
+            <input type="number" id="nsc-rate" class="field-input" value="7.7" min="5" max="10" step="0.1" readonly>
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Tenure (Years)</label>
+            <input type="number" id="nsc-years" class="field-input" value="5" min="5" max="5" step="1" readonly>
+          </div>
+          
+          <button id="calculate-nsc" class="btn-primary w-full mt-4">Calculate NSC</button>
+        </div>
+      </div>
+
+      <div class="calc-panel">
+        <h2 class="text-xl font-bold mb-4">NSC Maturity Details</h2>
+        <div id="nsc-results" class="space-y-4">
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Investment Amount</p>
+            <p class="text-2xl font-bold" id="nsc-investment">₹0</p>
+          </div>
+          <div class="stat-tile">
+            <p class="text-sm text-muted-foreground">Total Interest Earned</p>
+            <p class="text-2xl font-bold text-success" id="nsc-interest">₹0</p>
+          </div>
+          <div class="stat-tile bg-primary/5 border border-primary/20">
+            <p class="text-sm font-medium text-primary">Maturity Value</p>
+            <p class="text-3xl font-bold text-primary" id="nsc-maturity">₹0</p>
+          </div>
+          <div class="stat-tile bg-success/10 border border-success/20">
+            <p class="text-sm font-medium text-success">Section 80C Tax Benefit</p>
+            <p class="text-xl font-bold text-success" id="nsc-tax-benefit">₹0</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <article class="article-prose mt-10 max-w-3xl">
+      <h2 class="text-2xl font-bold mb-4">National Savings Certificate (NSC)</h2>
+      <p>NSC is a government-backed savings instrument that offers guaranteed returns. The interest is compounded annually and reinvested, giving you compound growth.</p>
+      
+      <h3 class="text-xl font-bold mt-6 mb-3">NSC Features</h3>
+      <ul>
+        <li><strong>Tenure:</strong> 5 years (fixed)</li>
+        <li><strong>Interest Rate:</strong> 7.7% (compounded yearly)</li>
+        <li><strong>Tax Benefit:</strong> Section 80C deduction up to ₹1.5 lakh</li>
+        <li><strong>Risk:</strong> Sovereign guarantee (zero risk)</li>
+      </ul>
+    </article>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function calculateNSC() {
+        const amount = parseFloat(document.getElementById('nsc-amount').value);
+        const rate = parseFloat(document.getElementById('nsc-rate').value);
+        const years = parseFloat(document.getElementById('nsc-years').value);
+        
+        // NSC compounds yearly: FV = P(1+r)^n
+        const maturityValue = amount * Math.pow(1 + rate / 100, years);
+        const totalInterest = maturityValue - amount;
+        
+        document.getElementById('nsc-investment').textContent = '₹' + amount.toLocaleString('en-IN');
+        document.getElementById('nsc-interest').textContent = '₹' + totalInterest.toLocaleString('en-IN', {maximumFractionDigits: 0});
+        document.getElementById('nsc-maturity').textContent = '₹' + maturityValue.toLocaleString('en-IN', {maximumFractionDigits: 0});
+        document.getElementById('nsc-tax-benefit').textContent = '₹' + Math.min(amount, 150000).toLocaleString('en-IN');
+      }
+
+      document.getElementById('calculate-nsc').addEventListener('click', calculateNSC);
+      calculateNSC();
+    });
+  </script>
+</body>
+</html>
