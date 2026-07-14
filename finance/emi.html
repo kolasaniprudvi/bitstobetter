@@ -77,6 +77,7 @@
   <header id="site-header" data-active="finance"></header>
 
   <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
+
     <!-- Breadcrumb -->
     <nav class="text-sm text-slate-500 mb-8" aria-label="Breadcrumb">
       <a href="/" class="hover:text-slate-900 transition-colors">Home</a> /
@@ -96,60 +97,10 @@
       </p>
     </div>
 
-    <!-- Chapter 1: The Math -->
-    <section class="mb-16">
-      <div class="flex items-center gap-3 mb-6">
-        <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-white font-bold text-xl shadow-md">1</span>
-        <h2 class="text-3xl font-bold text-slate-900 m-0">The Mechanics of EMI</h2>
-      </div>
-      
-      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-        <div class="p-6 sm:p-8">
-          <p class="text-lg text-slate-700 mb-6">
-            Equated Monthly Instalment (EMI) lending converts a large principal into a level periodic cash outflow while interest is computed on the outstanding reducing balance. The closed-form EMI formula is:
-          </p>
-          
-          <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 mb-8 text-center shadow-inner">
-            <span class="font-mono text-xl sm:text-2xl font-bold text-slate-800">EMI = P × r × (1 + r)<sup>n</sup> / [(1 + r)<sup>n</sup> − 1]</span>
-          </div>
-
-          <div class="grid md:grid-cols-2 gap-8 mb-8">
-            <div>
-              <h3 class="text-lg font-bold text-slate-900 mb-3 border-b border-slate-200 pb-2">Variables Explained</h3>
-              <ul class="space-y-3">
-                <li class="flex items-start">
-                  <span class="text-indigo-500 mr-2 mt-0.5">●</span>
-                  <span class="text-slate-700"><strong>P:</strong> Principal Loan Amount.</span>
-                </li>
-                <li class="flex items-start">
-                  <span class="text-indigo-500 mr-2 mt-0.5">●</span>
-                  <span class="text-slate-700"><strong>r:</strong> Monthly Interest Rate (Annual Rate ÷ 12 ÷ 100).</span>
-                </li>
-                <li class="flex items-start">
-                  <span class="text-indigo-500 mr-2 mt-0.5">●</span>
-                  <span class="text-slate-700"><strong>n:</strong> Loan Tenure in Months.</span>
-                </li>
-              </ul>
-            </div>
-            
-            <div class="bg-amber-50 rounded-xl p-5 border border-amber-100">
-              <h3 class="text-lg font-bold text-amber-900 mb-2 flex items-center gap-2">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                The Interest Trap
-              </h3>
-              <p class="text-amber-800 text-sm">
-                Early instalments are heavily skewed towards interest. Your principal reduces very slowly at the start of a long-term loan (like a 20-year mortgage). This is why <strong>prepayments early in the schedule</strong> destroy significantly more interest cost than prepayments made later.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- The Calculator Tool -->
     <section class="mb-16">
       <div class="flex items-center gap-3 mb-6">
-        <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-white font-bold text-xl shadow-md">2</span>
+        <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-white font-bold text-xl shadow-md">1</span>
         <h2 class="text-3xl font-bold text-slate-900 m-0">The Interactive Amortization Engine</h2>
       </div>
 
@@ -233,18 +184,18 @@
           </form>
 
           <div class="lg:col-span-3 space-y-6">
-            <div id="summary" class="grid sm:grid-cols-3 gap-4" aria-live="polite">
+            <div id="summary" class="grid md:grid-cols-3 gap-4" aria-live="polite">
               <div class="bg-indigo-50 border border-indigo-100 p-4 rounded-xl">
                 <p class="text-xs uppercase tracking-wider text-indigo-800 font-bold">Monthly EMI</p>
-                <p id="out-emi" class="mt-1 text-2xl font-bold text-indigo-900">—</p>
+                <p id="out-emi" class="mt-1 text-[clamp(1.125rem,2.5vw,1.5rem)] font-bold text-indigo-900 break-words" title="">—</p>
               </div>
               <div class="bg-rose-50 border border-rose-100 p-4 rounded-xl">
                 <p class="text-xs uppercase tracking-wider text-rose-800 font-bold">Total interest</p>
-                <p id="out-interest" class="mt-1 text-2xl font-bold text-rose-900">—</p>
+                <p id="out-interest" class="mt-1 text-[clamp(1.125rem,2.5vw,1.5rem)] font-bold text-rose-900 break-words" title="">—</p>
               </div>
               <div class="bg-slate-100 border border-slate-200 p-4 rounded-xl">
                 <p class="text-xs uppercase tracking-wider text-slate-600 font-bold">Total (+ fee)</p>
-                <p id="out-total" class="mt-1 text-2xl font-bold text-slate-900">—</p>
+                <p id="out-total" class="mt-1 text-[clamp(1.125rem,2.5vw,1.5rem)] font-bold text-slate-900 break-words" title="">—</p>
               </div>
             </div>
             
@@ -280,6 +231,56 @@
               </thead>
               <tbody id="amort-body" class="bg-white divide-y divide-slate-100"></tbody>
             </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chapter 2: The Math -->
+    <section class="mb-16">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-white font-bold text-xl shadow-md">2</span>
+        <h2 class="text-3xl font-bold text-slate-900 m-0">The Mechanics of EMI</h2>
+      </div>
+      
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="p-6 sm:p-8">
+          <p class="text-lg text-slate-700 mb-6">
+            Equated Monthly Instalment (EMI) lending converts a large principal into a level periodic cash outflow while interest is computed on the outstanding reducing balance. The closed-form EMI formula is:
+          </p>
+          
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 mb-8 text-center shadow-inner">
+            <span class="font-mono text-xl sm:text-2xl font-bold text-slate-800">EMI = P × r × (1 + r)<sup>n</sup> / [(1 + r)<sup>n</sup> − 1]</span>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-8 mb-8">
+            <div>
+              <h3 class="text-lg font-bold text-slate-900 mb-3 border-b border-slate-200 pb-2">Variables Explained</h3>
+              <ul class="space-y-3">
+                <li class="flex items-start">
+                  <span class="text-indigo-500 mr-2 mt-0.5">●</span>
+                  <span class="text-slate-700"><strong>P:</strong> Principal Loan Amount.</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-indigo-500 mr-2 mt-0.5">●</span>
+                  <span class="text-slate-700"><strong>r:</strong> Monthly Interest Rate (Annual Rate ÷ 12 ÷ 100).</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-indigo-500 mr-2 mt-0.5">●</span>
+                  <span class="text-slate-700"><strong>n:</strong> Loan Tenure in Months.</span>
+                </li>
+              </ul>
+            </div>
+            
+            <div class="bg-amber-50 rounded-xl p-5 border border-amber-100">
+              <h3 class="text-lg font-bold text-amber-900 mb-2 flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                The Interest Trap
+              </h3>
+              <p class="text-amber-800 text-sm">
+                Early instalments are heavily skewed towards interest. Your principal reduces very slowly at the start of a long-term loan (like a 20-year mortgage). This is why <strong>prepayments early in the schedule</strong> destroy significantly more interest cost than prepayments made later.
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -324,7 +325,7 @@
         </div>
       </div>
     </section>
-  
+
     <!-- FAQ Section -->
     <section class="mb-16 mt-16 max-w-4xl border-t border-slate-200 pt-12">
       <h2 class="text-3xl font-bold text-slate-900 mb-8">Frequently Asked Questions</h2>
@@ -347,34 +348,7 @@
         
       </div>
     </section>
-    
-    <!-- Related Calculators Silo -->
-    <section class="mb-8 mt-12 max-w-6xl border-t border-slate-200 pt-12">
-      <h2 class="text-2xl font-bold text-slate-900 mb-6">Related Tools</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-    
-        <a href="/finance/amortization.html" class="block bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl p-4 transition-colors group">
-          <h3 class="text-slate-900 font-semibold text-sm group-hover:text-indigo-600 transition-colors">Amortization Calculator</h3>
-          <p class="text-slate-500 text-xs mt-1">Open calculator &rarr;</p>
-        </a>
-        
-        <a href="/finance/auto-loan.html" class="block bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl p-4 transition-colors group">
-          <h3 class="text-slate-900 font-semibold text-sm group-hover:text-indigo-600 transition-colors">Auto Loan Calculator</h3>
-          <p class="text-slate-500 text-xs mt-1">Open calculator &rarr;</p>
-        </a>
-        
-        <a href="/finance/cagr.html" class="block bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl p-4 transition-colors group">
-          <h3 class="text-slate-900 font-semibold text-sm group-hover:text-indigo-600 transition-colors">CAGR Calculator</h3>
-          <p class="text-slate-500 text-xs mt-1">Open calculator &rarr;</p>
-        </a>
-        
-        <a href="/finance/compound-interest.html" class="block bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl p-4 transition-colors group">
-          <h3 class="text-slate-900 font-semibold text-sm group-hover:text-indigo-600 transition-colors">Compound Interest Calculator</h3>
-          <p class="text-slate-500 text-xs mt-1">Open calculator &rarr;</p>
-        </a>
-        
-      </div>
-    </section>
+
     </main>
 
   <footer id="site-footer"></footer>
@@ -603,8 +577,11 @@
         };
 
         document.getElementById('out-emi').textContent = money(result.emi);
+        document.getElementById('out-emi').title = money(result.emi);
         document.getElementById('out-interest').textContent = money(result.totalInterest);
+        document.getElementById('out-interest').title = money(result.totalInterest);
         document.getElementById('out-total').textContent = money(totalPayment);
+        document.getElementById('out-total').title = money(totalPayment);
         renderChart(P, result.totalInterest);
         renderTable();
         setExportEnabled(true);

@@ -71,6 +71,7 @@
   <header id="site-header" data-active="health"></header>
   
   <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
+
     <!-- Breadcrumb -->
     <nav class="text-sm text-slate-500 mb-8" aria-label="Breadcrumb">
       <a href="/" class="hover:text-slate-900 transition-colors">Home</a> /
@@ -88,14 +89,23 @@
       <p class="text-xl text-slate-600 max-w-3xl leading-relaxed">
         Calculate your BMI instantly while understanding its scientific limitations. Learn why distinguishing between <strong>Lean Muscle Mass</strong> and <strong>Adipose Tissue (Fat)</strong> is critical for true health diagnostics.
       </p>
-
-        <div id="calc-root"></div>
     </div>
 
-    <!-- Chapter 1: The Math -->
+    <!-- Chapter 1: The Tool -->
     <section class="mb-16">
       <div class="flex items-center gap-3 mb-6">
         <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-white font-bold text-xl shadow-md">1</span>
+        <h2 class="text-3xl font-bold text-slate-900 m-0">Interactive BMI Engine</h2>
+      </div>
+      <div id="calc-root"></div>
+    </section>
+
+
+
+    <!-- Chapter 2: The Math -->
+    <section class="mb-16">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-white font-bold text-xl shadow-md">2</span>
         <h2 class="text-3xl font-bold text-slate-900 m-0">The Mechanics of BMI</h2>
       </div>
       
@@ -146,18 +156,6 @@
       </div>
     </section>
 
-    <!-- The Calculator Tool -->
-    <section class="mb-16">
-      <div class="flex items-center gap-3 mb-6">
-        <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-white font-bold text-xl shadow-md">2</span>
-        <h2 class="text-3xl font-bold text-slate-900 m-0">Diagnostic Calculator</h2>
-      </div>
-
-      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8">
-        <!-- The JS engine mounts the calculator into this calc-root div -->
-      </div>
-    </section>
-
     <!-- Chapter 3: Strategy -->
     <section class="mb-16">
       <div class="flex items-center gap-3 mb-6">
@@ -202,9 +200,7 @@
           </div>
         </div>
       </div>
-    </section>
-  
-    <!-- FAQ Section -->
+    </section><!-- FAQ Section -->
     <section class="mb-16 mt-16 max-w-4xl border-t border-slate-200 pt-12">
       <h2 class="text-3xl font-bold text-slate-900 mb-8">Frequently Asked Questions</h2>
       <div class="space-y-6">
@@ -226,8 +222,10 @@
         
       </div>
     </section>
+
     
-    <!-- Related Calculators Silo -->
+
+<!-- Related Calculators Silo -->
     <section class="mb-8 mt-12 max-w-6xl border-t border-slate-200 pt-12">
       <h2 class="text-2xl font-bold text-slate-900 mb-6">Related Tools</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -254,6 +252,7 @@
         
       </div>
     </section>
+
     </main>
   
   <footer id="site-footer"></footer>

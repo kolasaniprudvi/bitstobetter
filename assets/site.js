@@ -82,55 +82,49 @@
   function financeMenu() {
     return categoryDD('Financial', 'finance', [
       {
-        heading: 'Loans & payments',
+        heading: 'Loans & EMI',
         links: [
-          ['/finance/mortgage.html', 'Mortgage Calculator'],
-          ['/finance/loan.html', 'Loan Calculator'],
-          ['/finance/auto-loan.html', 'Auto Loan Calculator'],
-          ['/finance/payment.html', 'Payment Calculator'],
-          ['/finance/amortization.html', 'Amortization Calculator'],
+          ['/finance/loan.html', 'Universal Loan Calculator'],
           ['/finance/emi.html', 'EMI Calculator'],
           ['/finance/loan-prepayment.html', 'Loan Pre-payment'],
-          ['/finance/home-loan-eligibility.html', 'Home Loan Eligibility']
+          ['/finance/amortization.html', 'Amortization Calculator']
         ]
       },
       {
-        heading: 'Interest & investing',
+        heading: 'Investments & Returns',
         links: [
-          ['/finance/interest.html', 'Interest Calculator'],
-          ['/finance/interest-rate.html', 'Interest Rate Calculator'],
-          ['/finance/inflation.html', 'Inflation Calculator'],
-          ['/finance/fire.html', 'FIRE Engine'],
+          ['/finance/lumpsum.html', 'Lumpsum Calculator'],
           ['/finance/sip.html', 'SIP Calculator'],
           ['/finance/step-up-sip.html', 'Step-Up SIP'],
-          ['/finance/lumpsum.html', 'Lumpsum Calculator'],
           ['/finance/swp.html', 'SWP Calculator'],
+          ['/finance/xirr.html', 'Mutual Fund XIRR'],
           ['/finance/cagr.html', 'CAGR Calculator'],
-          ['/finance/compounding.html', 'Compounding Calculator'],
-          ['/finance/goal-sip.html', 'Goal SIP']
+          ['/finance/compound-interest.html', 'Compound Interest'],
+          ['/finance/fd.html', 'FD Calculator'],
+          ['/finance/rd.html', 'RD Calculator'],
+          ['/finance/inflation.html', 'Inflation Calculator']
         ]
       },
       {
-        heading: 'Tax & income',
+        heading: 'Tax & Income',
         links: [
           ['/finance/income-tax.html', 'Income Tax Calculator'],
           ['/finance/salary.html', 'Salary Calculator'],
-          ['/finance/gst.html', 'GST Calculator'],
-          ['/finance/hra.html', 'HRA Exemption'],
           ['/finance/gratuity.html', 'Gratuity Calculator'],
-          ['/finance/new-regime.html', 'New Tax Regime'],
-          ['/finance/old-vs-new.html', 'Old vs New Regime']
+          ['/finance/gst.html', 'GST Calculator'],
+          ['/finance/hra.html', 'HRA Exemption']
         ]
       },
       {
-        heading: 'Govt schemes',
+        heading: 'Govt Schemes & Retirement',
         links: [
+          ['/finance/ssy.html', 'SSY Calculator'],
+          ['/finance/scss.html', 'SCSS Calculator'],
+          ['/finance/pomis.html', 'POMIS Calculator'],
           ['/finance/ppf.html', 'PPF Calculator'],
-          ['/finance/fd.html', 'FD Calculator'],
-          ['/finance/rd.html', 'RD Calculator'],
-          ['/finance/nps.html', 'NPS Calculator'],
           ['/finance/epf.html', 'EPF Calculator'],
-          ['/finance/nsc.html', 'NSC Calculator'],
+          ['/finance/nps.html', 'NPS Calculator'],
+          ['/finance/fire.html', 'FIRE Engine']
         ]
       }
     ], ['/finance/', 'All financial tools →']);
@@ -139,21 +133,17 @@
   function healthMenu() {
     return categoryDD('Fitness & Health', 'health', [
       {
-        heading: 'Body metrics',
+        heading: 'Body Metrics',
         links: [
+          ['/health/tdee.html', 'TDEE Calculator'],
           ['/health/bmi.html', 'BMI Calculator'],
           ['/health/body-fat.html', 'Body Fat Calculator'],
-          ['/health/bmr.html', 'BMR Calculator'],
-          ['/health/ideal-weight.html', 'Ideal Weight Calculator'],
           ['/health/calorie.html', 'Calorie Calculator']
         ]
       },
       {
-        heading: 'Activity & pregnancy',
+        heading: 'Pregnancy',
         links: [
-          ['/health/pace.html', 'Pace Calculator'],
-          ['/health/pregnancy.html', 'Pregnancy Calculator'],
-          ['/health/pregnancy-conception.html', 'Pregnancy Conception'],
           ['/health/due-date.html', 'Due Date Calculator'],
         ]
       }
@@ -285,45 +275,31 @@
       '<div class="flex flex-col p-4 gap-1">' +
       '<a href="/" class="nav-link py-2">Home</a>' +
       block('Financial Calculators', [
-        ['/finance/mortgage.html', 'Mortgage'],
-        ['/finance/loan.html', 'Loan'],
-        ['/finance/auto-loan.html', 'Auto Loan'],
-        ['/finance/interest.html', 'Interest'],
-        ['/finance/payment.html', 'Payment'],
+        ['/finance/loan.html', 'Universal Loan'],
         ['/finance/amortization.html', 'Amortization'],
-        ['/finance/inflation.html', 'Inflation'],
         ['/finance/income-tax.html', 'Income Tax'],
         ['/finance/salary.html', 'Salary'],
-        ['/finance/interest-rate.html', 'Interest Rate'],
         ['/finance/emi.html', 'EMI'],
         ['/finance/fire.html', 'FIRE'],
         ['/finance/sip.html', 'SIP'],
         ['/finance/step-up-sip.html', 'Step-Up SIP'],
         ['/finance/lumpsum.html', 'Lumpsum'],
         ['/finance/swp.html', 'SWP'],
+        ['/finance/xirr.html', 'Mutual Fund XIRR'],
         ['/finance/cagr.html', 'CAGR'],
-        ['/finance/compounding.html', 'Compounding'],
-        ['/finance/goal-sip.html', 'Goal SIP'],
+        ['/finance/compound-interest.html', 'Compound Interest'],
         ['/finance/gst.html', 'GST'],
         ['/finance/hra.html', 'HRA Exemption'],
-        ['/finance/gratuity.html', 'Gratuity'],
-        ['/finance/new-regime.html', 'New Tax Regime'],
-        ['/finance/old-vs-new.html', 'Old vs New Regime'],
         ['/finance/loan-prepayment.html', 'Loan Pre-payment'],
-        ['/finance/home-loan-eligibility.html', 'Home Loan Eligibility'],
         ['/finance/nps.html', 'NPS'],
         ['/finance/epf.html', 'EPF'],
-        ['/finance/nsc.html', 'NSC']
+        ['/finance/ppf.html', 'PPF']
       ]) +
       block('Fitness & Health', [
+        ['/health/tdee.html', 'TDEE'],
         ['/health/bmi.html', 'BMI'],
         ['/health/calorie.html', 'Calorie'],
         ['/health/body-fat.html', 'Body Fat'],
-        ['/health/bmr.html', 'BMR'],
-        ['/health/ideal-weight.html', 'Ideal Weight'],
-        ['/health/pace.html', 'Pace'],
-        ['/health/pregnancy.html', 'Pregnancy'],
-        ['/health/pregnancy-conception.html', 'Conception'],
         ['/health/due-date.html', 'Due Date']
       ]) +
       block('Math', [

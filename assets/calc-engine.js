@@ -226,6 +226,96 @@
         };
       }
     },
+    ssy: {
+      title: 'SSY Calculator',
+      category: 'finance',
+      blurb: 'Calculate Sukanya Samriddhi Yojana maturity over 21 years.',
+      fields: [
+        { id: 'deposit', label: 'Yearly Deposit (Max ₹1.5L)', type: 'number', value: 100000, max: 150000 },
+        { id: 'rate', label: 'Interest Rate (% p.a.)', type: 'number', value: 8.2, step: 0.1 }
+      ],
+      compute: (v) => {
+        const P = num(v.deposit);
+        const r = num(v.rate);
+        let amount = 0;
+        let totalInvested = 0;
+        const rows = [];
+        
+        for (let i = 1; i <= 21; i++) {
+          const depositThisYear = i <= 15 ? P : 0;
+          const startBalance = amount;
+          totalInvested += depositThisYear;
+          const interest = (startBalance + depositThisYear) * (r / 100);
+          amount = startBalance + depositThisYear + interest;
+          rows.push([i, fmt(depositThisYear, 2), fmt(interest, 2), fmt(amount, 2)]);
+        }
+        
+        const totalInterest = amount - totalInvested;
+        return {
+          summary: [
+            ['Total Investment', fmt(totalInvested, 2)],
+            ['Total Interest', fmt(totalInterest, 2)],
+            ['Maturity Amount (21 Years)', fmt(amount, 2)]
+          ],
+          headers: ['Year', 'Deposit', 'Interest', 'Closing Balance'],
+          rows: rows
+        };
+      }
+    },
+    scss: {
+      title: 'SCSS Calculator',
+      category: 'finance',
+      blurb: 'Senior Citizen Savings Scheme returns (Quarterly Payout).',
+      fields: [
+        { id: 'deposit', label: 'Deposit Amount (Max ₹30L)', type: 'number', value: 1500000 },
+        { id: 'rate', label: 'Interest Rate (% p.a.)', type: 'number', value: 8.2, step: 0.1 },
+        { id: 'years', label: 'Tenure (Years)', type: 'number', value: 5 }
+      ],
+      compute: (v) => {
+        const P = num(v.deposit);
+        const r = num(v.rate);
+        const t = num(v.years);
+        
+        const quarterlyInterest = P * (r / 100) / 4;
+        const totalInterest = quarterlyInterest * (t * 4);
+        
+        return {
+          summary: [
+            ['Total Investment', fmt(P, 2)],
+            ['Quarterly Payout', fmt(quarterlyInterest, 2)],
+            ['Total Interest Earned', fmt(totalInterest, 2)],
+            ['Maturity Amount', fmt(P, 2)]
+          ]
+        };
+      }
+    },
+    pomis: {
+      title: 'POMIS Calculator',
+      category: 'finance',
+      blurb: 'Post Office Monthly Income Scheme returns.',
+      fields: [
+        { id: 'deposit', label: 'Deposit Amount (Max ₹9L/15L)', type: 'number', value: 900000 },
+        { id: 'rate', label: 'Interest Rate (% p.a.)', type: 'number', value: 7.4, step: 0.1 },
+        { id: 'years', label: 'Tenure (Years)', type: 'number', value: 5 }
+      ],
+      compute: (v) => {
+        const P = num(v.deposit);
+        const r = num(v.rate);
+        const t = num(v.years);
+        
+        const monthlyInterest = P * (r / 100) / 12;
+        const totalInterest = monthlyInterest * (t * 12);
+        
+        return {
+          summary: [
+            ['Total Investment', fmt(P, 2)],
+            ['Monthly Payout', fmt(monthlyInterest, 2)],
+            ['Total Interest Earned', fmt(totalInterest, 2)],
+            ['Maturity Amount', fmt(P, 2)]
+          ]
+        };
+      }
+    },
     interest: {
       title: 'Interest Calculator',
       category: 'finance',
@@ -633,7 +723,101 @@
       }
     },
 
+    /*  Finance - Additional  */
+    'delay-cost': {
+      title: 'SIP Delay Cost Calculator',
+      category: 'finance',
+      blurb: 'Calculate the enormous wealth lost by delaying your SIP.',
+      fields: [
+        { id: 'sip', label: 'Monthly SIP Amount', type: 'number', value: 10000 },
+        { id: 'rate', label: 'Expected Return (% p.a.)', type: 'number', value: 12 },
+        { id: 'years', label: 'Total Investment Tenure (Years)', type: 'number', value: 20 },
+        { id: 'delay', label: 'Delay in starting SIP (Years)', type: 'number', value: 5 }
+      ],
+      compute: (v) => {
+        const p = num(v.sip);
+        const r = num(v.rate) / 100 / 12;
+        const totalYears = num(v.years);
+        const delayYears = num(v.delay);
+        
+        const nTotal = totalYears * 12;
+        const nDelayed = Math.max(0, (totalYears - delayYears) * 12);
+        
+        let fvTotal = 0;
+        let fvDelayed = 0;
+        
+        if (r === 0) {
+          fvTotal = p * nTotal;
+          fvDelayed = p * nDelayed;
+        } else {
+          fvTotal = p * ((Math.pow(1 + r, nTotal) - 1) / r) * (1 + r);
+          fvDelayed = p * ((Math.pow(1 + r, nDelayed) - 1) / r) * (1 + r);
+        }
+        
+        const wealthLost = fvTotal - fvDelayed;
+        const totalInvestedTotal = p * nTotal;
+        const totalInvestedDelayed = p * nDelayed;
+        const lessInvested = totalInvestedTotal - totalInvestedDelayed;
+        
+        return {
+          summary: [
+            ['Corpus if started today', fmt(fvTotal, 0)],
+            ['Corpus if delayed', fmt(fvDelayed, 0)],
+            ['Total Wealth Lost', fmt(wealthLost, 0)],
+            ['Difference in Investment', fmt(lessInvested, 0) + ' saved, but ' + fmt(wealthLost, 0) + ' lost!']
+          ]
+        };
+      }
+    },
+
     /* ——— Health ——— */
+    tdee: {
+        title: 'TDEE Calculator',
+        category: 'health',
+        blurb: 'Total Daily Energy Expenditure based on Mifflin-St Jeor.',
+        fields: [
+          {
+            id: 'sex',
+            label: 'Sex',
+            type: 'select',
+            options: [
+              ['male', 'Male'],
+              ['female', 'Female']
+            ]
+          },
+          { id: 'age', label: 'Age', type: 'number', value: 30 },
+          { id: 'kg', label: 'Weight (kg)', type: 'number', value: 70 },
+          { id: 'cm', label: 'Height (cm)', type: 'number', value: 170 },
+          {
+            id: 'act',
+            label: 'Activity',
+            type: 'select',
+            options: [
+              ['1.2', 'Sedentary'],
+              ['1.375', 'Light'],
+              ['1.55', 'Moderate'],
+              ['1.725', 'Active'],
+              ['1.9', 'Very active']
+            ]
+          }
+        ],
+        compute: (v) => {
+          const w = num(v.kg);
+          const h = num(v.cm);
+          const a = num(v.age);
+          const bmr = v.sex === 'male' ? 10 * w + 6.25 * h - 5 * a + 5 : 10 * w + 6.25 * h - 5 * a - 161;
+          const tdee = bmr * num(v.act);
+          return {
+            summary: [
+              ['BMR (kcal/day)', fmt(bmr, 0)],
+              ['Maintenance calories (TDEE)', fmt(tdee, 0)],
+              ['Mild cut (-15%)', fmt(tdee * 0.85, 0)],
+              ['Aggressive cut (-25%)', fmt(tdee * 0.75, 0)],
+              ['Bulk (+10%)', fmt(tdee * 1.10, 0)]
+            ]
+          };
+        }
+      },
     bmi: {
       title: 'BMI Calculator',
       category: 'health',
@@ -1339,10 +1523,12 @@
       ['salary', 'Salary Calculator'],
       ['interest-rate', 'Interest Rate Calculator'],
       ['sales-tax', 'Sales Tax Calculator'],
+      ['delay-cost', 'SIP Delay Cost Calculator'],
       ['emi', 'EMI Calculator (advanced)'],
       ['fire', 'FIRE Engine (advanced)']
     ],
     health: [
+      ['tdee', 'TDEE Calculator'],
       ['bmi', 'BMI Calculator'],
       ['calorie', 'Calorie Calculator'],
       ['body-fat', 'Body Fat Calculator'],

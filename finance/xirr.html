@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0F172A" />
+  <title>Mutual Fund XIRR Calculator — BitsToBetter</title>
+  <meta name="description" content="Calculate Extended Internal Rate of Return (XIRR) for irregular mutual fund SIPs, lump sums, and withdrawals." />
+  <meta property="og:title" content="XIRR Calculator — BitsToBetter" />
+  <meta property="og:description" content="Calculate XIRR for your investments." />
+  <meta property="og:url" content="https://bitstobetter.com/finance/xirr.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://bitstobetter.com/assets/logo.png" />
+  <link rel="canonical" href="https://bitstobetter.com/finance/xirr.html" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/assets/site.css" />
+</head>
+<body class="font-sans antialiased">
+  <header id="site-header"></header>
+  <main class="container-hub max-w-6xl py-10">
+    <nav class="text-sm text-muted-foreground mb-6" aria-label="Breadcrumb">
+      <a href="/" class="hover:text-primary">Home</a> /
+      <a href="/finance/" class="hover:text-primary">Financial Calculators</a> /
+      <span class="text-foreground font-medium">XIRR Calculator</span>
+    </nav>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-xs font-bold uppercase tracking-wider mb-4">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        Educational Framework
+      </div>
+<h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-2">Mutual Fund XIRR Calculator</h1>
+    <p class="text-muted-foreground text-lg mb-8 max-w-3xl">Calculate the Extended Internal Rate of Return (XIRR) for irregular cash flows.</p>
+
+    <div class="grid lg:grid-cols-5 gap-8">
+
+    <!-- Chapter 1: The Math -->
+    <section class="mb-16 mt-16 max-w-4xl border-t border-slate-200 pt-12">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-white font-bold text-xl shadow-md">1</span>
+        <h2 class="text-3xl font-bold text-slate-900 m-0">The Mechanics Behind Mutual Fund XIRR Calculator</h2>
+      </div>
+      
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="p-6 sm:p-8">
+          <p class="text-lg text-slate-700 mb-6">The Extended Internal Rate of Return (XIRR) uses numerical methods (like Newton-Raphson) to solve for the discount rate that makes the Net Present Value (NPV) of all irregular cash flows exactly zero.</p>
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 mb-8 text-center shadow-inner">
+            <span class="font-mono text-xl sm:text-2xl font-bold text-slate-800">0 = ∑ [Cash Flow / (1 + XIRR)^((Date - StartDate)/365)]</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chapter 2: Strategy -->
+    <section class="mb-16 max-w-4xl">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-white font-bold text-xl shadow-md">2</span>
+        <h2 class="text-3xl font-bold text-slate-900 m-0">Strategic Execution</h2>
+      </div>
+      
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="p-6 sm:p-8">
+          <p class="text-lg text-slate-700 mb-6">XIRR is the only mathematically accurate way to measure the performance of a Mutual Fund portfolio with irregular SIPs, lumpsums, and withdrawals.</p>
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-lg font-bold text-slate-900 mb-3 border-b border-slate-200 pb-2">Key Parameters</h3>
+              <ul class="space-y-3">
+                <li class="flex items-start">
+                  <span class="text-indigo-500 mr-2 mt-0.5">●</span>
+                  <span class="text-slate-700"><strong>Benchmarking:</strong> Always compare your portfolio XIRR against a benchmark index (like Nifty 50) to see if your active stock picking is actually adding value.</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-indigo-500 mr-2 mt-0.5">●</span>
+                  <span class="text-slate-700"><strong>Tax Drag:</strong> Calculate post-tax XIRR by inputting your tax payments as negative cash flows to understand your true wealth generation.</span>
+                </li>
+              </ul>
+            </div>
+            
+            <div class="bg-indigo-50 border-l-4 border-indigo-600 p-5 rounded-r-xl">
+              <h3 class="text-lg font-bold text-indigo-900 mt-0 mb-3 flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                Myth vs. Fact
+              </h3>
+              <p class="text-sm font-bold text-rose-600 uppercase tracking-wider mb-1">The Myth</p>
+              <p class="text-slate-700 text-sm m-0 mb-3">"Absolute return (Profit / Investment) is a good way to measure Mutual Fund performance."</p>
+              
+              <p class="text-sm font-bold text-emerald-600 uppercase tracking-wider mb-1">The Fact</p>
+              <p class="text-slate-700 text-sm m-0">Absolute return ignores time. A 50% absolute return over 10 years is terrible (4.1% XIRR), but 50% over 2 years is incredible (22.4% XIRR).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Input Panel -->
+      <div class="lg:col-span-3 calc-panel space-y-4 no-print">
+        <h2 class="text-lg font-bold">Cash Flows</h2>
+        <p class="text-sm text-slate-500 mb-4">Enter negative values for investments, and positive values for withdrawals or final current value.</p>
+        
+        <div id="cf-rows" class="space-y-3">
+          <!-- Row 1 -->
+          <div class="flex items-center gap-3">
+            <input type="date" class="field-input w-40 cf-date" required>
+            <input type="number" class="field-input flex-1 cf-amount" placeholder="Amount (e.g. -5000)" required>
+            <button type="button" class="btn-remove text-red-500 font-bold px-3 py-2 opacity-50 cursor-not-allowed" disabled>×</button>
+          </div>
+          <!-- Row 2 -->
+          <div class="flex items-center gap-3">
+            <input type="date" class="field-input w-40 cf-date" required>
+            <input type="number" class="field-input flex-1 cf-amount" placeholder="Amount (e.g. 6000)" required>
+            <button type="button" class="btn-remove text-red-500 hover:text-red-700 font-bold px-3 py-2">×</button>
+          </div>
+        </div>
+
+        <button type="button" id="btn-add" class="mt-4 text-sm font-semibold text-indigo-600 hover:text-indigo-800 flex items-center gap-1">
+          + Add Cash Flow
+        </button>
+        
+        <hr class="my-4 border-slate-200">
+        <button type="button" id="btn-calc" class="btn-primary w-full">Calculate XIRR</button>
+      </div>
+
+      <!-- Result Panel -->
+      <div class="lg:col-span-2 space-y-4">
+        <div id="calc-summary" class="calc-panel bg-indigo-50 border border-indigo-100">
+          <h2 class="font-bold text-lg mb-3 text-indigo-900">Result</h2>
+          <div class="flex flex-col gap-2">
+            <p class="text-slate-600 text-sm">Your Extended Internal Rate of Return (XIRR) is:</p>
+            <p id="xirr-result" class="text-4xl font-extrabold text-indigo-700">0.00%</p>
+            <p id="xirr-error" class="text-red-500 text-sm font-medium hidden">Error calculating XIRR. Ensure you have at least one negative and one positive cash flow.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+      
+    <!-- Content Section -->
+    <section class="mb-16 mt-16 max-w-4xl border-t border-slate-200 pt-12">
+      <h2 class="text-3xl font-bold text-slate-900 mb-6">Why use XIRR over CAGR?</h2>
+      <p class="text-lg text-slate-700 leading-relaxed mb-4">
+        Unlike CAGR (Compound Annual Growth Rate) which assumes a single initial investment growing over time, <strong>XIRR (Extended Internal Rate of Return)</strong> accounts for multiple investments and withdrawals happening at irregular intervals.
+      </p>
+      <p class="text-lg text-slate-700 leading-relaxed mb-4">
+        This makes it the only accurate way to calculate the true annualized return of a Mutual Fund SIP, stock portfolio, or any investment journey where you continuously add or remove funds over time.
+      </p>
+    </section>
+
+
+  </main>
+  
+  <footer id="site-footer"></footer>
+  <script src="/assets/site.js?v=7" defer></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Set default dates
+      const today = new Date().toISOString().slice(0, 10);
+      document.querySelectorAll('.cf-date').forEach((el, i) => {
+        if(i === 0) {
+            let d = new Date();
+            d.setFullYear(d.getFullYear() - 1);
+            el.value = d.toISOString().slice(0, 10);
+        } else {
+            el.value = today;
+        }
+      });
+
+      const cfRows = document.getElementById('cf-rows');
+      const btnAdd = document.getElementById('btn-add');
+      const btnCalc = document.getElementById('btn-calc');
+      const xirrResult = document.getElementById('xirr-result');
+      const xirrError = document.getElementById('xirr-error');
+
+      // Add row
+      btnAdd.addEventListener('click', () => {
+        const div = document.createElement('div');
+        div.className = 'flex items-center gap-3';
+        div.innerHTML = `
+          <input type="date" class="field-input w-40 cf-date" value="${today}" required>
+          <input type="number" class="field-input flex-1 cf-amount" placeholder="Amount" required>
+          <button type="button" class="btn-remove text-red-500 hover:text-red-700 font-bold px-3 py-2">×</button>
+        `;
+        cfRows.appendChild(div);
+      });
+
+      // Remove row
+      cfRows.addEventListener('click', (e) => {
+        if (e.target.classList.contains('btn-remove') && !e.target.disabled) {
+          e.target.closest('div').remove();
+        }
+      });
+
+      // XIRR logic
+      function calculateXIRR(cashflows, guess = 0.1) {
+        if (!cashflows || cashflows.length < 2) return null;
+        const sorted = [...cashflows].sort((a, b) => a.date - b.date);
+        const d0 = sorted[0].date.getTime();
+        
+        const hasPos = sorted.some(c => c.amount > 0);
+        const hasNeg = sorted.some(c => c.amount < 0);
+        if (!hasPos || !hasNeg) return null;
+        
+        const xnpv = (rate) => {
+          return sorted.reduce((sum, c) => {
+            const days = (c.date.getTime() - d0) / (1000 * 3600 * 24);
+            return sum + c.amount / Math.pow(1 + rate, days / 365);
+          }, 0);
+        };
+        
+        const xnpv_prime = (rate) => {
+          return sorted.reduce((sum, c) => {
+            const days = (c.date.getTime() - d0) / (1000 * 3600 * 24);
+            if (days === 0) return sum;
+            return sum - (days / 365) * c.amount / Math.pow(1 + rate, days / 365 + 1);
+          }, 0);
+        };
+
+        let rate = guess;
+        let iteration = 0;
+        let err = 1e9;
+        
+        while (iteration < 100 && Math.abs(err) > 1e-6) {
+          const f = xnpv(rate);
+          const df = xnpv_prime(rate);
+          if (Math.abs(df) < 1e-10) break;
+          const nextRate = rate - f / df;
+          err = nextRate - rate;
+          rate = nextRate;
+          iteration++;
+          
+          if (rate <= -1) {
+            rate = guess / 10;
+            guess = guess / 10;
+          }
+        }
+        return rate * 100;
+      }
+
+      btnCalc.addEventListener('click', () => {
+        const rows = cfRows.querySelectorAll('.flex');
+        const cashflows = [];
+        let valid = true;
+
+        rows.forEach(row => {
+          const dStr = row.querySelector('.cf-date').value;
+          const amtStr = row.querySelector('.cf-amount').value;
+          if (!dStr || !amtStr) {
+            valid = false;
+            return;
+          }
+          cashflows.push({
+            date: new Date(dStr),
+            amount: parseFloat(amtStr)
+          });
+        });
+
+        if (!valid) {
+          alert('Please fill out all dates and amounts.');
+          return;
+        }
+
+        const res = calculateXIRR(cashflows);
+        if (res === null || isNaN(res) || !isFinite(res)) {
+          xirrResult.classList.add('hidden');
+          xirrError.classList.remove('hidden');
+        } else {
+          xirrError.classList.add('hidden');
+          xirrResult.classList.remove('hidden');
+          xirrResult.textContent = res.toFixed(2) + '%';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -71,7 +71,11 @@
       <span class="text-foreground font-medium">Goal SIP</span>
     </nav>
 
-    <h1 class="text-3xl sm:text-4xl font-extrabold">Goal SIP: Free Investment & Loan Planning Tool</h1>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-xs font-bold uppercase tracking-wider mb-4">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        Educational Framework
+      </div>
+<h1 class="text-3xl sm:text-4xl font-extrabold">Goal SIP: Free Investment & Loan Planning Tool</h1>
     <p class="mt-3 text-lg text-muted-foreground max-w-3xl">Reverse SIP solver: tell us your target corpus and time horizon — we tell you the exact monthly SIP needed to reach your financial goal.</p>
 
     <div class="grid lg:grid-cols-2 gap-8">
@@ -249,7 +253,65 @@
         <p class="text-amber-900 dark:text-amber-100">Goal SIP calculations are estimates based on assumed returns. Actual returns vary based on market conditions. Inflation can significantly impact future purchasing power. Consult a SEBI-registered investment advisor for personalized goal-based financial planning.</p>
       </div>
     </article>
-  
+
+    <!-- Chapter 1: The Math -->
+    <section class="mb-16 mt-16 max-w-4xl border-t border-slate-200 pt-12">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-white font-bold text-xl shadow-md">1</span>
+        <h2 class="text-3xl font-bold text-slate-900 m-0">The Mechanics Behind Goal SIP: Free Investment & Loan Planning Tool</h2>
+      </div>
+      
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="p-6 sm:p-8">
+          <p class="text-lg text-slate-700 mb-6">Goal-based SIP math reverse-engineers the standard future value formula. It takes your target corpus, expected inflation, and time horizon to solve for the exact monthly contribution required.</p>
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 mb-8 text-center shadow-inner">
+            <span class="font-mono text-xl sm:text-2xl font-bold text-slate-800">PMT = (FV × r) / [(1 + r)^n - 1]</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chapter 2: Strategy -->
+    <section class="mb-16 max-w-4xl">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-white font-bold text-xl shadow-md">2</span>
+        <h2 class="text-3xl font-bold text-slate-900 m-0">Strategic Execution</h2>
+      </div>
+      
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="p-6 sm:p-8">
+          <p class="text-lg text-slate-700 mb-6">Effective goal planning requires dynamic adjustments. Your target corpus must be a moving target that accounts for real-world inflation.</p>
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-lg font-bold text-slate-900 mb-3 border-b border-slate-200 pb-2">Key Parameters</h3>
+              <ul class="space-y-3">
+                <li class="flex items-start">
+                  <span class="text-indigo-500 mr-2 mt-0.5">●</span>
+                  <span class="text-slate-700"><strong>Inflation Indexing:</strong> A goal that costs $100k today will cost significantly more in 15 years. Always set your target using the inflated future value.</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-indigo-500 mr-2 mt-0.5">●</span>
+                  <span class="text-slate-700"><strong>Step-Up Strategy:</strong> If the required SIP is too high today, plan a Step-Up SIP where you increase your contribution annually as your income grows.</span>
+                </li>
+              </ul>
+            </div>
+            
+            <div class="bg-indigo-50 border-l-4 border-indigo-600 p-5 rounded-r-xl">
+              <h3 class="text-lg font-bold text-indigo-900 mt-0 mb-3 flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                Myth vs. Fact
+              </h3>
+              <p class="text-sm font-bold text-rose-600 uppercase tracking-wider mb-1">The Myth</p>
+              <p class="text-slate-700 text-sm m-0 mb-3">"Once I calculate my Goal SIP, I just set it and forget it for 10 years."</p>
+              
+              <p class="text-sm font-bold text-emerald-600 uppercase tracking-wider mb-1">The Fact</p>
+              <p class="text-slate-700 text-sm m-0">You must review and adjust the SIP annually to account for changes in actual market returns and updated inflation projections.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- FAQ Section -->
     <section class="mb-16 mt-16 max-w-4xl border-t border-slate-200 pt-12">
       <h2 class="text-3xl font-bold text-slate-900 mb-8">Frequently Asked Questions</h2>
@@ -272,34 +334,7 @@
         
       </div>
     </section>
-    
-    <!-- Related Calculators Silo -->
-    <section class="mb-8 mt-12 max-w-6xl border-t border-slate-200 pt-12">
-      <h2 class="text-2xl font-bold text-slate-900 mb-6">Related Tools</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-    
-        <a href="/finance/amortization.html" class="block bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl p-4 transition-colors group">
-          <h3 class="text-slate-900 font-semibold text-sm group-hover:text-indigo-600 transition-colors">Amortization Calculator</h3>
-          <p class="text-slate-500 text-xs mt-1">Open calculator &rarr;</p>
-        </a>
-        
-        <a href="/finance/auto-loan.html" class="block bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl p-4 transition-colors group">
-          <h3 class="text-slate-900 font-semibold text-sm group-hover:text-indigo-600 transition-colors">Auto Loan Calculator</h3>
-          <p class="text-slate-500 text-xs mt-1">Open calculator &rarr;</p>
-        </a>
-        
-        <a href="/finance/cagr.html" class="block bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl p-4 transition-colors group">
-          <h3 class="text-slate-900 font-semibold text-sm group-hover:text-indigo-600 transition-colors">CAGR Calculator</h3>
-          <p class="text-slate-500 text-xs mt-1">Open calculator &rarr;</p>
-        </a>
-        
-        <a href="/finance/compound-interest.html" class="block bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl p-4 transition-colors group">
-          <h3 class="text-slate-900 font-semibold text-sm group-hover:text-indigo-600 transition-colors">Compound Interest Calculator</h3>
-          <p class="text-slate-500 text-xs mt-1">Open calculator &rarr;</p>
-        </a>
-        
-      </div>
-    </section>
+
     </main>
 
   <footer id="site-footer"></footer>
