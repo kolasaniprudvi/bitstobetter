@@ -5,8 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#0F172A" />
   <title>Pace Calculator — BitsToBetter</title>
-  <meta name="description" content="Pace Calculator on BitsToBetter. Free, private, 100% browser-based." />
-  <link rel="canonical" href="https://bitstobetter.com/health/pace.html" />
+  <meta name="description" content="The computations driving Pace Calculator rely on standardized algorithms to provide accurate projections. By inputting your specific variables, the..." />
+  <meta property="og:title" content="Pace Calculator — BitsToBetter" />
+  <meta property="og:description" content="The computations driving Pace Calculator rely on standardized algorithms to provide accurate projections. By inputting your specific variables, the..." />
+  <meta property="og:url" content="https://bitstobetter.com/health/pace.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://bitstobetter.com/assets/logo.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Pace Calculator — BitsToBetter" />
+  <meta name="twitter:description" content="The computations driving Pace Calculator rely on standardized algorithms to provide accurate projections. By inputting your specific variables, the..." />
+  <meta name="twitter:image" content="https://bitstobetter.com/assets/logo.png" />
+    <link rel="canonical" href="https://bitstobetter.com/health/pace.html" />
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,6 +24,39 @@
   <link rel="stylesheet" href="/assets/site.css" />
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"SoftwareApplication","name":"BitsToBetter Pace Calculator","applicationCategory":"HealthApplication","operatingSystem":"Web Browser","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"url":"https://bitstobetter.com/health/pace.html"}
+  </script>
+
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Can I use the Pace Calculator for medical diagnosis?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, the Pace Calculator is strictly for educational and screening purposes. Always consult a healthcare professional or doctor for medical advice and diagnosis."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How often should I use the Pace Calculator to track progress?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For most health metrics, checking weekly or bi-weekly provides a much more accurate trend line than daily checking, which can fluctuate due to hydration and sleep."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the Pace Calculator account for body composition?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Standard formulas rely on baseline metrics. If you are a highly trained athlete or have atypical body composition, you should rely on clinical measurements rather than standard calculator outputs."
+      }
+    }
+  ]
+}
   </script>
 </head>
 <body class="font-sans antialiased" data-calc="pace">
@@ -25,7 +67,7 @@
       <a href="/health/" class="hover:text-primary">Fitness & Health</a> /
       <span class="text-foreground font-medium">Pace Calculator</span>
     </nav>
-    <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-2">Pace Calculator</h1>
+    <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-2">Pace Calculator: Free Health & Wellness Metric Tool</h1>
     <p class="text-muted-foreground text-lg mb-8 max-w-3xl">Running pace from distance and time.</p>
 
     <div id="calc-root"></div>
@@ -90,9 +132,60 @@
       </div>
     </section>
     
-  </main>
+  
+    <!-- FAQ Section -->
+    <section class="mb-16 mt-16 max-w-4xl border-t border-slate-200 pt-12">
+      <h2 class="text-3xl font-bold text-slate-900 mb-8">Frequently Asked Questions</h2>
+      <div class="space-y-6">
+    
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+          <h3 class="text-lg font-bold text-slate-900 mb-2">Can I use the Pace Calculator for medical diagnosis?</h3>
+          <p class="text-slate-700 m-0 leading-relaxed">No, the Pace Calculator is strictly for educational and screening purposes. Always consult a healthcare professional or doctor for medical advice and diagnosis.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+          <h3 class="text-lg font-bold text-slate-900 mb-2">How often should I use the Pace Calculator to track progress?</h3>
+          <p class="text-slate-700 m-0 leading-relaxed">For most health metrics, checking weekly or bi-weekly provides a much more accurate trend line than daily checking, which can fluctuate due to hydration and sleep.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+          <h3 class="text-lg font-bold text-slate-900 mb-2">Does the Pace Calculator account for body composition?</h3>
+          <p class="text-slate-700 m-0 leading-relaxed">Standard formulas rely on baseline metrics. If you are a highly trained athlete or have atypical body composition, you should rely on clinical measurements rather than standard calculator outputs.</p>
+        </div>
+        
+      </div>
+    </section>
+    
+    <!-- Related Calculators Silo -->
+    <section class="mb-8 mt-12 max-w-6xl border-t border-slate-200 pt-12">
+      <h2 class="text-2xl font-bold text-slate-900 mb-6">Related Tools</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    
+        <a href="/health/bmi.html" class="block bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl p-4 transition-colors group">
+          <h3 class="text-slate-900 font-semibold text-sm group-hover:text-indigo-600 transition-colors">BMI & Body Fat Hub</h3>
+          <p class="text-slate-500 text-xs mt-1">Open calculator &rarr;</p>
+        </a>
+        
+        <a href="/health/bmr.html" class="block bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl p-4 transition-colors group">
+          <h3 class="text-slate-900 font-semibold text-sm group-hover:text-indigo-600 transition-colors">BMR Calculator</h3>
+          <p class="text-slate-500 text-xs mt-1">Open calculator &rarr;</p>
+        </a>
+        
+        <a href="/health/body-fat.html" class="block bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl p-4 transition-colors group">
+          <h3 class="text-slate-900 font-semibold text-sm group-hover:text-indigo-600 transition-colors">Body Fat Calculator</h3>
+          <p class="text-slate-500 text-xs mt-1">Open calculator &rarr;</p>
+        </a>
+        
+        <a href="/health/calisthenics-gym-guide.html" class="block bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl p-4 transition-colors group">
+          <h3 class="text-slate-900 font-semibold text-sm group-hover:text-indigo-600 transition-colors">Calisthenics & Gym Posture Guide</h3>
+          <p class="text-slate-500 text-xs mt-1">Open calculator &rarr;</p>
+        </a>
+        
+      </div>
+    </section>
+    </main>
   <footer id="site-footer"></footer>
-  <script src="/assets/site.js" defer></script>
+  <script src="/assets/site.js?v=7" defer></script>
   <script src="/assets/calc-engine.js" defer></script>
   <script src="/assets/calc-page.js" defer></script>
 </body>
