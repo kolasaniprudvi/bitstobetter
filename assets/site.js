@@ -13,7 +13,7 @@
   function brand() {
     return (
       '<a href="/" class="brand-link flex items-center gap-2">' +
-      '<img src="/assets/favicon.svg" class="brand-logo w-8 h-8 rounded-lg" alt="BitsToBetter Logo">' +
+      '<img src="/assets/favicon.png" class="brand-logo w-8 h-8 rounded-lg" alt="BitsToBetter Logo">' +
       '<span class="font-extrabold text-xl tracking-tight" style="color: #0f172a;">BitsToBetter</span>' +
       '</a>'
     );
@@ -510,7 +510,7 @@
     root.innerHTML =
       '<div class="container-hub">' +
       '<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">' +
-      '<div><a href="/" class="brand-link mb-3 inline-flex"><img src="/assets/favicon.svg" alt="" width="32" height="32" class="brand-logo" /><span>BitsToBetter</span></a>' +
+      '<div><a href="/" class="brand-link mb-3 inline-flex"><img src="/assets/favicon.png" alt="" width="32" height="32" class="brand-logo" /><span>BitsToBetter</span></a>' +
       '<p class="mt-2 text-sm">Free calculators for finance, health, math, and everyday utilities. 100% browser-based.</p></div>' +
       '<div><h3 class="font-semibold text-foreground mb-3">Categories</h3><ul class="space-y-2">' +
       '<li><a href="/finance/">Financial</a></li><li><a href="/health/">Fitness &amp; Health</a></li>' +
