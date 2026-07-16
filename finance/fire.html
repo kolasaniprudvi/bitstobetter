@@ -594,7 +594,7 @@
         const ET = E0 * Math.pow(1 + inflation / 100, T);
         const corpus = ET / (swr / 100);
         const monthlyPmt = pmtAnnuityDue(PV, corpus, annualReturn, T);
-        const pvGrown = PV * Math.pow(1 + annualReturn / 100, T);
+        const pvGrown = PV * Math.pow(1 + annualReturn / 100 / 12, Math.round(T * 12));
         const gap = Math.max(0, corpus - pvGrown);
         const monthly = buildMonthly(PV, monthlyPmt, annualReturn, T);
         const yearly = buildYearly(monthly);
